@@ -34,8 +34,7 @@ public abstract class Contact {
         this.name = name;
         this.phones = phones;
     }
-    
-    
+
     public String getName() {
         return name;
     }
@@ -99,6 +98,8 @@ public abstract class Contact {
     public void setPhoto(String Photo) {
         this.Photo = Photo;
     }
+    
+    
     
     
     

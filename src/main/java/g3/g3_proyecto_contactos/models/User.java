@@ -14,7 +14,34 @@ import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 public class User {
     private String username;
     private String password;
-    private ArrayList<Contact> contactos;
+    private static ArrayList<Contact> contacts;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public static ArrayList<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(ArrayList<Contact> contactos) {
+        this.contacts = contactos;
+    }
+    private void loadContacts (){
+        //lee el archivo de contactos y los carga en contacts
+    }
     
     
 }
