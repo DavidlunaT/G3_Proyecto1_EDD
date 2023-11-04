@@ -4,8 +4,6 @@
  */
 package g3.g3_proyecto_contactos.controllers;
 
-import g3.g3_proyecto_contactos.App;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -13,9 +11,9 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author David
+ * @author oweny
  */
-public class ContactVisualizationController implements Initializable {
+public class RegisterContactController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -23,10 +21,9 @@ public class ContactVisualizationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-
-    public void switchToRegisterContact()throws IOException{
-        App.setRoot("registerContact");
-    }
+    }    
     
+    public void guardar(){
+        
+    }
 }
