@@ -4,11 +4,13 @@
  */
 package g3.g3_proyecto_contactos.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author oweny
  */
-public class Address {
+public class Address implements Serializable {
 
     public String Street;
     public String secondaryStreet;
@@ -17,7 +19,7 @@ public class Address {
     public String label;
     public String country;
 
-    public Address(String Street, String secondaryStreet, String postalCode, String city, String label, String country) {
+    public Address(String Street, String secondaryStreet, String postalCode, String city, String country, String label ) {
         this.Street = Street;
         this.secondaryStreet = secondaryStreet;
         this.postalCode = postalCode;

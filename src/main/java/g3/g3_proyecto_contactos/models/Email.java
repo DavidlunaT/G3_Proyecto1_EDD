@@ -4,11 +4,13 @@
  */
 package g3.g3_proyecto_contactos.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author oweny
  */
-public class Email {
+public class Email implements Serializable {
     public String emailAddress;
     public String label;
 

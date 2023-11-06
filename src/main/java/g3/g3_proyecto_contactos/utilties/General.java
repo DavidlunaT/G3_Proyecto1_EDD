@@ -4,8 +4,10 @@
  */
 package g3.g3_proyecto_contactos.utilties;
 
+import g3.g3_proyecto_contactos.App;
 import g3.g3_proyecto_contactos.models.Contact;
 import g3.g3_proyecto_contactos.dataStructures.ArrayList;
+import g3.g3_proyecto_contactos.interfaces.List;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,12 +23,12 @@ public class General {
     
     
     
-    public static ArrayList load(ArrayList<Contact> contacts) {
-        
+    public static List load() {
+        List<Contact> contacts = new ArrayList<>();
        //leer la lista de contactos del archivo serializado
-        try (ObjectInputStream oi = new ObjectInputStream(new FileInputStream("ruta"))) {
+        try (ObjectInputStream oi = new ObjectInputStream(new FileInputStream(App.path + "files/contacts.ser"))) {
             contacts = (ArrayList<Contact>) oi.readObject();            
-            
+            return contacts;
         } catch (FileNotFoundException ex) {
             System.out.println("archivo no existe");
         } catch (IOException ex) {
@@ -37,8 +39,8 @@ public class General {
         return contacts;
     }
     
-    public static void save(Contact c, ArrayList<Contact> contacts){
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("archivo"))){
+    public static void save(Contact c, List<Contact> contacts){
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(App.path + "files/contacts.ser"))){
             contacts.addLast(c);
             out.writeObject(contacts);
         }catch(FileNotFoundException e1){

@@ -6,6 +6,8 @@ package g3.g3_proyecto_contactos.models;
 
 
 import g3.g3_proyecto_contactos.dataStructures.ArrayList;
+import g3.g3_proyecto_contactos.interfaces.List;
+import g3.g3_proyecto_contactos.utilties.General;
 
 /**
  *
@@ -14,7 +16,7 @@ import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 public class User {
     private String username;
     private String password;
-    private static ArrayList<Contact> contacts;
+    private static List<Contact> contacts;
 
     public String getUsername() {
         return username;
@@ -32,16 +34,13 @@ public class User {
         this.password = password;
     }
 
-    public static ArrayList<Contact> getContacts() {
+    public static List<Contact> getContacts() {
         return contacts;
     }
 
-    public void setContacts(ArrayList<Contact> contactos) {
-        this.contacts = contactos;
-    }
-    private void loadContacts (){
-        //lee el archivo de contactos y los carga en contacts
-    }
+    /*public  void loadContacts (){
+        contacts = General.load(contacts);
+        */
     
     
 }

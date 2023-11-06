@@ -5,6 +5,7 @@
 package g3.g3_proyecto_contactos.models;
 
 import g3.g3_proyecto_contactos.interfaces.List;
+import java.io.Serializable;
 
 
 
@@ -13,7 +14,7 @@ import g3.g3_proyecto_contactos.interfaces.List;
  *
  * @author oweny
  */
-public class Person extends Contact{ 
+public class Person extends Contact implements Serializable{ 
     
     public String firstName1;
     public String firstName2;

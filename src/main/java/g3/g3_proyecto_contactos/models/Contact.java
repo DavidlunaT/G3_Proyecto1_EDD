@@ -6,6 +6,7 @@ package g3.g3_proyecto_contactos.models;
 
 
 import g3.g3_proyecto_contactos.interfaces.List;
+import java.io.Serializable;
 
 
 
@@ -15,7 +16,7 @@ import g3.g3_proyecto_contactos.interfaces.List;
  *
  * @author oweny
  */
-public abstract class Contact {
+public abstract class Contact implements Serializable{
     
     protected String name;
     protected String urlProfilePic;

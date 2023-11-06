@@ -3,12 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package g3.g3_proyecto_contactos.models;
+import java.io.Serializable;
 import java.time.LocalDate;
 /**
  *
  * @author oweny
  */
-public class SpecialDate {
+public class SpecialDate implements Serializable{
 
     public LocalDate date;
     public String label;

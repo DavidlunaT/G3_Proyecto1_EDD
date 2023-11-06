@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" onMouseClicked="#switchToRegisterContact" prefHeight="554.0" prefWidth="270.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.ContactVisualizationController">
+<AnchorPane id="AnchorPane" fx:id="root" onMouseClicked="#switchToRegisterPerson" prefHeight="554.0" prefWidth="270.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.ContactVisualizationController">
    <children>
       <GridPane layoutY="3.0" prefHeight="554.0" prefWidth="270.0">
         <columnConstraints>
@@ -23,7 +23,7 @@
          <children>
             <VBox alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
                <children>
-                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#switchToRegisterContact" text="+">
+                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#switchToRegisterPerson" text="+">
                      <VBox.margin>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </VBox.margin>
@@ -38,7 +38,7 @@
             </VBox>
             <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label text="Label" />
+                  <Label fx:id="listaDe" text="Label" />
                </children>
                <GridPane.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

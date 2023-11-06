@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="286.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="g3.g3_proyecto_contactos.controllers.RegisterContactController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="286.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.RegisterContactController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="680.0" prefWidth="270.0">
          <children>
@@ -29,11 +29,11 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="131.0" prefWidth="170.0">
                            <children>
-                              <TextField focusTraversable="false" prefHeight="25.0" prefWidth="140.0" promptText="Name" />
-                              <TextField promptText="Second Name" />
-                              <TextField promptText="Last Name" />
-                              <TextField prefHeight="25.0" prefWidth="140.0" promptText="Second Last Name" />
-                              <TextField promptText="Nickname" />
+                              <TextField fx:id="txtName" focusTraversable="false" prefHeight="25.0" prefWidth="140.0" promptText="Name" />
+                              <TextField fx:id="txtSecondName" promptText="Second Name" />
+                              <TextField fx:id="txtLastName" promptText="Last Name" />
+                              <TextField fx:id="txtSecondLastName" prefHeight="25.0" prefWidth="140.0" promptText="Second Last Name" />
+                              <TextField fx:id="txtNickname" promptText="Nickname" />
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -46,30 +46,30 @@
             <FlowPane layoutX="10.0" layoutY="211.0" prefHeight="70.0" prefWidth="250.0">
                <children>
                   <Button mnemonicParsing="false" text="-" />
-                  <ComboBox prefHeight="25.0" prefWidth="85.0" />
-                  <TextField prefHeight="25.0" prefWidth="143.0" promptText="Phone Number" />
+                  <ComboBox fx:id="cmbPhones" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="txtPhoneNumber" prefHeight="25.0" prefWidth="143.0" promptText="Phone Number" />
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="250.0" text="+ Add Phone Number" />
                </children>
             </FlowPane>
             <FlowPane layoutX="10.0" layoutY="308.0" prefHeight="70.0" prefWidth="250.0">
                <children>
                   <Button mnemonicParsing="false" text="-" />
-                  <ComboBox prefHeight="25.0" prefWidth="85.0" />
-                  <TextField prefHeight="25.0" prefWidth="143.0" promptText="Email" />
+                  <ComboBox fx:id="cmbEmails" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="txtEmail" prefHeight="25.0" prefWidth="143.0" promptText="Email" />
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="250.0" text="+ Add Email" />
                </children>
             </FlowPane>
             <FlowPane layoutX="10.0" layoutY="400.0" prefHeight="70.0" prefWidth="250.0">
                <children>
                   <Button mnemonicParsing="false" text="-" />
-                  <ComboBox prefHeight="25.0" prefWidth="85.0" />
+                  <ComboBox fx:id="cmbAddress" prefHeight="25.0" prefWidth="85.0" />
                   <VBox prefHeight="129.0" prefWidth="144.0">
                      <children>
-                        <TextField focusTraversable="false" prefHeight="25.0" prefWidth="140.0" promptText="Street" />
-                        <TextField promptText="Secondary Steet" />
-                        <TextField promptText="C. P." />
-                        <TextField prefHeight="25.0" prefWidth="140.0" promptText="City" />
-                        <TextField promptText="Country" />
+                        <TextField fx:id="txtStreet" focusTraversable="false" prefHeight="25.0" prefWidth="140.0" promptText="Street" />
+                        <TextField fx:id="txtSecondaryStreet" promptText="Secondary Steet" />
+                        <TextField fx:id="txtCodePostal" promptText="C. P." />
+                        <TextField fx:id="txtCity" prefHeight="25.0" prefWidth="140.0" promptText="City" />
+                        <TextField fx:id="txtCountry" promptText="Country" />
                      </children>
                   </VBox>
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="250.0" text="+ Add Address" />
@@ -78,8 +78,8 @@
             <FlowPane layoutX="10.0" layoutY="599.0" prefHeight="70.0" prefWidth="250.0">
                <children>
                   <Button mnemonicParsing="false" text="-" />
-                  <ComboBox prefHeight="25.0" prefWidth="85.0" />
-                  <TextField prefHeight="25.0" prefWidth="143.0" promptText="Date" />
+                  <ComboBox fx:id="cmbDates" prefHeight="25.0" prefWidth="85.0" />
+                  <TextField fx:id="txtDate" prefHeight="25.0" prefWidth="143.0" promptText="Date" />
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="250.0" text="+ Add Special Date" />
                </children>
             </FlowPane>

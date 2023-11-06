@@ -4,11 +4,13 @@
  */
 package g3.g3_proyecto_contactos.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author oweny
  */
-public class Phone {
+public class Phone implements Serializable{
     public String number;
     public String label;
 

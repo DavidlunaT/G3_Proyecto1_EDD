@@ -5,6 +5,7 @@
 package g3.g3_proyecto_contactos.models;
 
 import g3.g3_proyecto_contactos.interfaces.List;
+import java.io.Serializable;
 
 
 
@@ -12,7 +13,7 @@ import g3.g3_proyecto_contactos.interfaces.List;
  *
  * @author oweny
  */
-public class Company extends Contact{
+public class Company extends Contact implements Serializable{
     
     public String department;
     public String website;
