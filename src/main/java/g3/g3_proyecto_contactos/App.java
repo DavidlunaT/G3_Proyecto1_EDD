@@ -12,12 +12,14 @@ import java.io.IOException;
  * JavaFX App
  */
 public class App extends Application {
-
+    // The logic for starting the application goes here
+    
     private static Scene scene;
     public static String path = "src/main/resources/g3/g3_proyecto_contactos/";
 
     @Override
     public void start(Stage stage) throws IOException {
+        stage.setTitle("Contactly App");
         scene = new Scene(loadFXML("contactVisualization"), 640, 480);
         stage.setScene(scene);
         stage.show();
