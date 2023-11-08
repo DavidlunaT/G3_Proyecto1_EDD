@@ -20,8 +20,9 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("Contactly App");
-        scene = new Scene(loadFXML("contactVisualization"), 640, 480);
+        scene = new Scene(loadFXML("FrontPageApp"), 480, 740);
         stage.setScene(scene);
+        scene.getStylesheets().add("/Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/resources/g3/g3_proyecto_contactos/styles/frontpageapp.css");
         stage.show();
     }
 
