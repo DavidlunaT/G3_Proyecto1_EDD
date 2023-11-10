@@ -20,7 +20,6 @@ public class Company extends Contact implements Serializable{
 
     public Company(String name, List<Phone> phones) {
         super(name, phones);
-        this.department = department;
     }
 
     public Company(List<Phone> phones) {
@@ -106,7 +105,5 @@ public class Company extends Contact implements Serializable{
     public void setPhoto(String Photo) {
         this.Photo = Photo;
     }
-
-
 
 }

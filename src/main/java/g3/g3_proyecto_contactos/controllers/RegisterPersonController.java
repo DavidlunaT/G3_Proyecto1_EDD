@@ -21,6 +21,9 @@ import g3.g3_proyecto_contactos.utilties.General;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -119,15 +122,29 @@ public class RegisterPersonController implements Initializable {
     public void switchToContactVisualization()throws IOException{
         App.setRoot("contactVisualization");
     }
+    @FXML
+    public void switchToRegisterCompany()throws IOException{
+        App.setRoot("registerCompany");
+    }
     
     @FXML
     public void savePerson(){
-        phones.addLast(new Phone(txtPhoneNumber.getText(),String.valueOf(cmbTphone.getValue())));
-        System.out.println(phones);
-        emails.addLast(new Email(txtEmail.getText(),String.valueOf(cmbTemail.getValue())));
-        System.out.println(emails);
-        addresses.addLast(new Address(txtStreet.getText(),txtSecondaryStreet.getText(),txtCodePostal.getText(),txtCity.getText(),txtCountry.getText(),txtLabelAddress.getText()));
-        specialDates.addLast(new SpecialDate(dpSpecialDate.getValue(),String.valueOf(cmbTdate.getValue())));
+        addPhoneNumber();
+        addEmail();
+        addAddress();
+        addSpecialDate();
+        
+        if(txtNickname.getText().equals("")){
+            txtNickname.setText(txtName.getText());    
+        }
+        
+        
+        //phones.addLast(new Phone(txtPhoneNumber.getText(),String.valueOf(cmbTphone.getValue())));
+        //System.out.println(phones);
+        //emails.addLast(new Email(txtEmail.getText(),String.valueOf(cmbTemail.getValue())));
+        //System.out.println(emails);
+        //addresses.addLast(new Address(txtStreet.getText(),txtSecondaryStreet.getText(),txtCodePostal.getText(),txtCity.getText(),txtCountry.getText(),txtLabelAddress.getText()));
+        //specialDates.addLast(new SpecialDate(dpSpecialDate.getValue(),String.valueOf(cmbTdate.getValue())));
         
         if(isRegisteredCorrectly()){
             Person p = new Person(txtNickname.getText(),phones);
@@ -137,7 +154,10 @@ public class RegisterPersonController implements Initializable {
             p.setAddresses(addresses);
             p.setSpecialDates(specialDates);
             p.setImages(images);
-            
+            p.setFirstName1(txtName.getText());
+            p.setFirstName2( txtSecondName.getText());
+            p.setLastName1(txtLastName.getText());
+            p.setLastName2( txtSecondLastName.getText());
             p.setUrlProfilePic(images.get(0));
             
             General.save(p, ContactVisualizationController.contacts);
@@ -160,15 +180,28 @@ public class RegisterPersonController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar Imágenes");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg", "*.gif")
+                new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg","*.jpeg", "*.gif")
         );
         
         //showOpenMultipleDialogo retorna una List de la API de java, aqui camuflo el "casting" con un for-each
-        for (File file : fileChooser.showOpenMultipleDialog(null)) { 
-            System.out.println("Archivo seleccionado: " + file.getAbsolutePath()); //path local maybe hay que cambiar esto
-            images.addLast(file.getAbsolutePath());     
-        }
 
+            for (File file : fileChooser.showOpenMultipleDialog(null)) { 
+                System.out.println("Archivo seleccionado: " + file.getAbsolutePath()); //path local maybe hay que cambiar esto
+                try {
+                    Path sourcePath = file.toPath();
+                    Path targetPath = Path.of("src","main","resources","g3","g3_proyecto_contactos", "photos", file.getName());
+
+                    // Crea la carpeta 'photos' si no existe
+                    Files.createDirectories(targetPath.getParent());
+
+                    // Copia el archivo al nuevo destino
+                    Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+                    System.out.println("Archivo copiado a: " + targetPath.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
     }
     
     public boolean isRegisteredCorrectly(){
@@ -181,7 +214,6 @@ public class RegisterPersonController implements Initializable {
             phones.addLast(new Phone(txtPhoneNumber.getText(),String.valueOf(cmbTphone.getValue())));
             cmbTphone.setValue(null);
             txtPhoneNumber.clear();
-            System.out.println(phones);
         }
     }
     

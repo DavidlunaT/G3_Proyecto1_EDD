@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="286.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.RegisterContactController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="286.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.RegisterCompanyController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="680.0" prefWidth="270.0">
          <children>
@@ -30,10 +30,6 @@
                         <VBox alignment="CENTER" prefHeight="131.0" prefWidth="170.0">
                            <children>
                               <TextField fx:id="txtName" focusTraversable="false" prefHeight="25.0" prefWidth="140.0" promptText="Name" />
-                              <TextField fx:id="txtSecondName" promptText="Second Name" />
-                              <TextField fx:id="txtLastName" promptText="Last Name" />
-                              <TextField fx:id="txtSecondLastName" prefHeight="25.0" prefWidth="140.0" promptText="Second Last Name" />
-                              <TextField fx:id="txtNickname" promptText="Nickname" />
                            </children>
                            <opaqueInsets>
                               <Insets />

@@ -12,6 +12,7 @@ g3\g3_proyecto_contactos\enums\Type_email.class
 g3\g3_proyecto_contactos\App.class
 g3\g3_proyecto_contactos\models\Phone.class
 g3\g3_proyecto_contactos\models\Contact.class
+g3\g3_proyecto_contactos\controllers\RegisterCompanyController.class
 g3\g3_proyecto_contactos\models\Relation.class
 g3\g3_proyecto_contactos\dataStructures\ArrayList$1.class
 g3\g3_proyecto_contactos\models\Person.class
