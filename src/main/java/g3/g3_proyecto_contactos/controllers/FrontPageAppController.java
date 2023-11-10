@@ -23,4 +23,8 @@ public class FrontPageAppController implements Initializable {
         // TODO
     }    
     
+   
+    public void changeToList(){
+    }
+    
 }
