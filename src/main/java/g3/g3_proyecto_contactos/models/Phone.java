@@ -36,5 +36,12 @@ public class Phone implements Serializable{
     public String getNumber() {
         return number;
     }
+
+    @Override
+    public String toString() {
+        return "Phone{" + "number=" + number + ", label=" + label + '}';
+    }
+    
+    
  
 }

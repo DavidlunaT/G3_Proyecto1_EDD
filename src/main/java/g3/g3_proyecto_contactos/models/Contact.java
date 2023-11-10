@@ -99,6 +99,11 @@ public abstract class Contact implements Serializable{
     public void setPhoto(String Photo) {
         this.Photo = Photo;
     }
+
+    @Override
+    public String toString() {
+        return "Contact{" + "name=" + name + ", urlProfilePic=" + urlProfilePic + ", images=" + images + ", phones=" + phones + ", addresses=" + addresses + ", emails=" + emails + ", specialDates=" + specialDates + ", Photo=" + Photo + '}';
+    }
     
     
     

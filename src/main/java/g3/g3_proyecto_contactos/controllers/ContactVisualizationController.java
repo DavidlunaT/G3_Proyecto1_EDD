@@ -49,10 +49,8 @@ public class ContactVisualizationController implements Initializable {
         for(int i = 0; i <contacts.size();i++){
             HBox actual = new HBox();
             //actual.getChildren().add(new ImageView (new Image(App.path + "images/"+ contacts.get(i).getPhoto())));
-            actual.getChildren().add(new Label ("a"));
             
             actual.getChildren().add(new Label (contacts.get(i).getName()));
-            actual.getChildren().add(new Label ("b"));
             contactListView.getChildren().add(actual);
         }
         

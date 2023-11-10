@@ -34,6 +34,12 @@ public class SpecialDate implements Serializable{
     public void setLabel(String label) {
         this.label = label;
     }
+
+    @Override
+    public String toString() {
+        return "SpecialDate{" + "date=" + date + ", label=" + label + '}';
+    }
+    
     
     
 }

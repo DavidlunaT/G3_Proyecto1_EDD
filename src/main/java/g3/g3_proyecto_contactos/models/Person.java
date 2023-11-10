@@ -121,6 +121,10 @@ public class Person extends Contact implements Serializable{
         this.Photo = Photo;
     }
 
+    
+    
+    
+
 
 
     
