@@ -2,9 +2,11 @@
  * Empty Stylesheet file.
  */
 
-rootFrontPage {
-
-    -fx-background-image:  url('/Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/resources/g3/g3_proyecto_contactos/images/FrontPage/BackGround.jpg');
-
+.root{
+    -fx-background-image: url("BackGround.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-attachment: fixed;
+    -fx-background-size: cover;
 
 }
