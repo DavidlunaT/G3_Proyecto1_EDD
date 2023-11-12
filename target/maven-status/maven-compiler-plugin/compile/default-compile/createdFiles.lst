@@ -1,6 +1,7 @@
 g3\g3_proyecto_contactos\models\SpecialDate.class
 g3\g3_proyecto_contactos\models\User.class
 g3\g3_proyecto_contactos\utilties\General.class
+g3\g3_proyecto_contactos\controllers\FrontPageAppController.class
 g3\g3_proyecto_contactos\enums\Type_date.class
 module-info.class
 g3\g3_proyecto_contactos\enums\Type_phone.class

@@ -51,7 +51,7 @@ public class ContactVisualizationController implements Initializable {
             //actual.getChildren().add(new ImageView (new Image(App.path + "images/"+ contacts.get(i).getPhoto())));
             
             actual.getChildren().add(new Label (contacts.get(i).getName()));
-            contactListView.getChildren().add(actual);
+            //contactListView.getChildren().add(actual);
         }
         
         
