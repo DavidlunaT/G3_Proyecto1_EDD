@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootFrontPage" prefHeight="740.0" prefWidth="480.0" styleClass="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.FrontPageAppController">
+<AnchorPane id="AnchorPane" fx:id="rootFrontPage" prefHeight="740.0" prefWidth="480.0" styleClass="root" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.FrontPageAppController">
     <stylesheets>
         <URL value="@/g3/g3_proyecto_contactos/styles/frontpageapp.css" />
     </stylesheets>

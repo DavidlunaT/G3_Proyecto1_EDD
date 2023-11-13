@@ -12,11 +12,16 @@ import g3.g3_proyecto_contactos.utilties.General;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 
 /**
@@ -25,7 +30,10 @@ import javafx.scene.layout.*;
  * @author David
  */
 public class ContactVisualizationController implements Initializable {
-
+    
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
     
     public VBox contactListView;
     protected static List<Contact> contacts;
@@ -35,15 +43,17 @@ public class ContactVisualizationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+       
         loadContactsList();
         loadContactsView();
         
     }
-
-    public void switchToRegisterPerson()throws IOException{
-        App.setRoot("registerPerson");
+    
+    @FXML
+    public void switchToRegisterPerson(ActionEvent e)throws IOException{
+        App.setRoot("registerPerson");   
     }
+    
     @FXML
     public void loadContactsView(){
         for(int i = 0; i <contacts.size();i++){
@@ -53,9 +63,7 @@ public class ContactVisualizationController implements Initializable {
             actual.getChildren().add(new Label (contacts.get(i).getName()));
             //contactListView.getChildren().add(actual);
         }
-        
-        
-        
+
     }
     public void loadContactsList(){
         contacts = General.load();

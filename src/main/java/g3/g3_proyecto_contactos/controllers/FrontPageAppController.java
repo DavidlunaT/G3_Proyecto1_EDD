@@ -36,13 +36,17 @@ public class FrontPageAppController implements Initializable {
     }    
     
    
-    public void changeToList(ActionEvent e) throws IOException{
+    /*public void changeToList(ActionEvent e) throws IOException{
         root = App.loadFXML("contactVisualization");
         stage = (Stage)(((Node)e.getSource()).getScene().getWindow());
         scene = new Scene(root,480, 740);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();    
+    }*/
+    
+    public void changeToList() throws IOException{
+        App.setRoot("ContactVisualization");
     }
     
 }

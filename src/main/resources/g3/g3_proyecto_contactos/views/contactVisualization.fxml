@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="740.0" prefWidth="480.0" style="-fx-background-color: #FBF8F2;" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="g3.g3_proyecto_contactos.controllers.ContactVisualizationController">
+<AnchorPane id="AnchorPane" prefHeight="740.0" prefWidth="480.0" style="-fx-background-color: #FBF8F2;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.ContactVisualizationController">
    <children>
       <VBox fx:id="listDisplay" layoutY="55.0" prefHeight="625.0" prefWidth="481.0" />
       <HBox fx:id="labelNameroot" alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="481.0">
@@ -37,7 +36,7 @@
                   <Font size="48.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="57.0" prefWidth="61.0" styleClass="addingContact" stylesheets="@../styles/contactvisualization.css">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#switchToRegisterPerson" prefHeight="57.0" prefWidth="61.0" styleClass="addingContact" stylesheets="@../styles/contactvisualization.css">
                <padding>
                   <Insets top="20.0" />
                </padding>

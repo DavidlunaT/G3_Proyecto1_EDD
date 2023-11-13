@@ -23,7 +23,7 @@
                   <AnchorPane prefHeight="131.0" prefWidth="100.0">
                      <children>
                         <ImageView fx:id="imgMain" fitHeight="44.0" fitWidth="54.0" layoutX="13.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="btnChange" layoutX="14.0" layoutY="85.0" mnemonicParsing="false" text="P or C" />
+                        <Button fx:id="btnChange" layoutX="14.0" layoutY="85.0" mnemonicParsing="false" onAction="#switchToRegisterCompany" text="P or C" />
                         <Button fx:id="btnAddImages" layoutX="12.0" layoutY="14.0" mnemonicParsing="false" onAction="#addImages" prefHeight="46.0" prefWidth="52.0" text="Add Images" />
                      </children>
                   </AnchorPane>

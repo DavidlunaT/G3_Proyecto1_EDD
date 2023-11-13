@@ -11,8 +11,6 @@ import g3.g3_proyecto_contactos.enums.Type_email;
 import g3.g3_proyecto_contactos.enums.Type_phone;
 import g3.g3_proyecto_contactos.interfaces.List;
 import g3.g3_proyecto_contactos.models.Address;
-import g3.g3_proyecto_contactos.models.Company;
-import g3.g3_proyecto_contactos.models.Contact;
 import g3.g3_proyecto_contactos.models.Email;
 import g3.g3_proyecto_contactos.models.Person;
 import g3.g3_proyecto_contactos.models.Phone;
@@ -122,6 +120,7 @@ public class RegisterPersonController implements Initializable {
     public void switchToContactVisualization()throws IOException{
         App.setRoot("contactVisualization");
     }
+    
     @FXML
     public void switchToRegisterCompany()throws IOException{
         App.setRoot("registerCompany");
@@ -149,7 +148,7 @@ public class RegisterPersonController implements Initializable {
         if(isRegisteredCorrectly()){
             Person p = new Person(txtNickname.getText(),phones);
            
-            p.setPhones(phones);
+            //p.setPhones(phones);
             p.setEmails(emails);
             p.setAddresses(addresses);
             p.setSpecialDates(specialDates);
@@ -263,4 +262,5 @@ public class RegisterPersonController implements Initializable {
         cmbTdate.setValue(td[0]);
 
     }
+    
 }
