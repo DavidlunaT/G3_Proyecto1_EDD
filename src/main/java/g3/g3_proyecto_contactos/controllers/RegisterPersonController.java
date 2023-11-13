@@ -197,6 +197,8 @@ public class RegisterPersonController implements Initializable {
                     Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
 
                     System.out.println("Archivo copiado a: " + targetPath.toString());
+                    
+                    images.addLast(targetPath.toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
