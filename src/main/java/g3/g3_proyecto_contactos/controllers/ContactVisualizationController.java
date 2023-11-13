@@ -48,9 +48,9 @@ public class ContactVisualizationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //loadContactsList();
+        loadContactsList();
         System.out.println(contacts);
-        //loadContactsView();
+        loadContactsView();
     }
     
     @FXML

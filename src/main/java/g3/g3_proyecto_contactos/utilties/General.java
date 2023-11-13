@@ -5,6 +5,7 @@ import g3.g3_proyecto_contactos.models.Contact;
 import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 import g3.g3_proyecto_contactos.interfaces.List;
 import g3.g3_proyecto_contactos.models.Address;
+import g3.g3_proyecto_contactos.models.Company;
 import g3.g3_proyecto_contactos.models.Email;
 import g3.g3_proyecto_contactos.models.Person;
 import g3.g3_proyecto_contactos.models.Phone;
@@ -82,6 +83,72 @@ public class General {
                 p.setSpecialDates(lSpecialDates);
                 
                 contacts.addLast(p); 
+            }
+        }
+       catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return contacts;
+    }
+    
+    public static List<Contact> loadCompanies() {
+        List<Contact> contacts = new ArrayList<>();
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(App.path + "files/companies.txt"))) {
+            String linea;
+            while((linea = br.readLine()) != null) {
+                String[] campos = linea.split("|");
+              
+                String[] images = campos[3].split("_");
+                ArrayList<String> lImages = new ArrayList<>();
+                for(String img: images){
+                    lImages.addLast(img);
+                }
+                
+                String[] phones = campos[4].split("_");
+                ArrayList<Phone> lPhones = new ArrayList<>();
+                for(String phone: phones){
+                    String[] dataphone = phone.split(":");
+                    Phone p = new Phone(dataphone[0],dataphone[1]);
+                    lPhones.addLast(p);
+                }
+                
+                String[] emails = campos[5].split("_");
+                ArrayList<Email> lEmails = new ArrayList<>();
+                for(String email: emails){
+                    String[] dataemail = email.split(":");
+                    Email e = new Email(dataemail[0],dataemail[1]);
+                    lEmails.addLast(e);
+                }
+                
+                String[] addresses = campos[6].split("_");
+                ArrayList<Address> lAddresses = new ArrayList<>();
+                for(String address: addresses){
+                    String[] dataAddress = address.split(":");
+                    Address a = new Address(dataAddress[0],dataAddress[1],dataAddress[3],dataAddress[4],dataAddress[5],dataAddress[6]);
+                    lAddresses.addLast(a);
+                }
+                
+                String[] specialDates = campos[7].split("_");
+                ArrayList<SpecialDate> lSpecialDates = new ArrayList<>();
+                for(String date: specialDates){
+                    String[] dataSp = date.split(":");
+                    SpecialDate sp = new SpecialDate(dataSp[0],dataSp[1]);
+                    lSpecialDates.addLast(sp);
+                }
+                
+                Company c = new Company(campos[0],lPhones);
+                c.setDepartment(campos[1]);
+                c.setWebsite(campos[2]);
+                c.setImages(lImages);
+                c.setPhones(lPhones);
+                c.setEmails(lEmails);
+                c.setAddresses(lAddresses);
+                c.setSpecialDates(lSpecialDates);
+                
+                contacts.addLast(c); 
             }
         }
        catch (FileNotFoundException ex) {

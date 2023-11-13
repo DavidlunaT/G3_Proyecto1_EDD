@@ -131,33 +131,41 @@ public class RegisterCompanyController implements Initializable {
         addAddress();
         addSpecialDate();
 
-        //phones.addLast(new Phone(txtPhoneNumber.getText(),String.valueOf(cmbTphone.getValue())));
-        //System.out.println(phones);
-        //emails.addLast(new Email(txtEmail.getText(),String.valueOf(cmbTemail.getValue())));
-        //System.out.println(emails);
-        //addresses.addLast(new Address(txtStreet.getText(),txtSecondaryStreet.getText(),txtCodePostal.getText(),txtCity.getText(),txtCountry.getText(),txtLabelAddress.getText()));
-        //specialDates.addLast(new SpecialDate(dpSpecialDate.getValue(),String.valueOf(cmbTdate.getValue())));
-        
-        if(isRegisteredCorrectly()){
-            Company c = new Company(txtName.getText(),phones);
-           
-            //c.setPhones(phones);
-            c.setEmails(emails);
-            c.setAddresses(addresses);
-            c.setSpecialDates(specialDates);
-            c.setImages(images);
-            c.setDepartment(txtDepartment.getText());
-            c.setWebsite( txtWebsite.getText());
-           
-            c.setPhoto(images.get(0));
+        if (isRegisteredCorrectly()) {
+
+            String name = txtName.getText();
+            String department = txtDepartment.getText();
+            String website = txtWebsite.getText();
+            String photo = images.get(0);
+            String phones = "";
+            String emails = "";
+            String addresses = "";
+            String specialDates = "";
+            String images = "";
             
-            //General.save(c, ContactVisualizationController.contacts);
-            System.out.println(ContactVisualizationController.contacts);
+            for(Phone np: this.phones){
+                phones += (np+"_");
+            }
+            for(Email e: this.emails){
+                emails += (e+"_");
+            }
+            for(Address a: this.addresses){
+                emails += (a+"_");
+            }
+            for(SpecialDate sd: this.specialDates){
+                emails += (sd+"_");
+            }
+            for(String img: this.images){
+                images += (img+"_");
+            }
             
-            try{
+            String line = name+"|"+department+"|"+website+"|"+photo+"|"+images+"|"+phones+"|"+emails+"|"+addresses+"|"+specialDates;
+            General.save(line,App.path + "files/companies.txt");
+            
+            
+            try {
                 switchToContactVisualization();
-                }
-            catch(IOException ex){
+            } catch (IOException ex) {
                 System.out.println(ex);
                 System.out.println("error");
             }
