@@ -23,11 +23,12 @@ public class General {
     
     
     
-    public static List load() {
+    public static List<Contact> load() {
         List<Contact> contacts = new ArrayList<>();
        //leer la lista de contactos del archivo serializado
         try (ObjectInputStream oi = new ObjectInputStream(new FileInputStream(App.path + "files/contacts.ser"))) {
-            contacts = (ArrayList<Contact>) oi.readObject();            
+            System.out.println("encontro el archivo");
+            contacts = (ArrayList<Contact>) oi.readObject();
             return contacts;
         } catch (FileNotFoundException ex) {
             System.out.println("archivo no existe");

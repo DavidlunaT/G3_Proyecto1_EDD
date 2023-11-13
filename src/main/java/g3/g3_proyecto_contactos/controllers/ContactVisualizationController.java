@@ -43,10 +43,9 @@ public class ContactVisualizationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
         loadContactsList();
+        System.out.println(contacts);
         loadContactsView();
-        
     }
     
     @FXML
@@ -58,7 +57,7 @@ public class ContactVisualizationController implements Initializable {
     public void loadContactsView(){
         for(int i = 0; i <contacts.size();i++){
             HBox actual = new HBox();
-            //actual.getChildren().add(new ImageView (new Image(App.path + "images/"+ contacts.get(i).getPhoto())));
+            //actual.getChildren().add(new ImageView (new Image(App.path + "images/"+ contacts.get(i).getUrlProfilePic())));
             
             actual.getChildren().add(new Label (contacts.get(i).getName()));
             //contactListView.getChildren().add(actual);
