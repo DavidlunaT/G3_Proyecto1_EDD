@@ -12,11 +12,11 @@ import g3.g3_proyecto_contactos.dataStructures.ArrayList;
  * @author David
  */
 public class User {
-    private String username;
+    private static String username;
     private String password;
     private static ArrayList<Contact> contacts;
 
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 

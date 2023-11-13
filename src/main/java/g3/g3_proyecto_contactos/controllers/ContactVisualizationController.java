@@ -27,7 +27,9 @@ public class ContactVisualizationController implements Initializable {
 
     
     public VBox contactListView;
+    public Label listaDe;
     private List<Contact> contacts;
+    
     
     /**
      * Initializes the controller class.
@@ -44,20 +46,20 @@ public class ContactVisualizationController implements Initializable {
     public void switchToRegisterContact()throws IOException{
         App.setRoot("registerContact");
     }
-    @FXML
+    
     public void loadContactsView(){
         for(int i = 0; i <contacts.size();i++){
             HBox actual = new HBox();
-            actual.getChildren().add(new ImageView (new Image(App.path + "images/"+ contacts.get(i).getPhoto())));
-            actual.getChildren().add(new Label ("a"));
-            
-            actual.getChildren().add(new Label (contacts.get(i).getName()));
-            actual.getChildren().add(new Label ("b"));
+            actual.getChildren().add(new ImageView (new Image(App.path + "images/"+ contacts.get(i).getPhoto())));         
+            actual.getChildren().add(new Label (contacts.get(i).getName()));            
             contactListView.getChildren().add(actual);
         }
         
         
         
+    }
+    public void loadNombre(){
+        listaDe.setText(User.getUsername());
     }
     public void loadContactsList(){
         contacts = User.getContacts();
