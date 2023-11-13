@@ -62,6 +62,16 @@ public class ContactVisualizationController implements Initializable {
             
             actual.getChildren().add(new Label (contacts.get(i).getName()));
             //contactListView.getChildren().add(actual);
+            //Nuevo Codigo por sustituir-------------------------------------------------------------------------------------
+            /*
+            for(int i = 0; i<7,i++){
+            CustomCircularIterator<Contact> contacts = new CustomCircularIterator<>();
+            Contact aContact= contacts.next();
+            actual.getChildren().add(new ImageView (new Image(App.path + "images/"+ aContact.getPhoto())));
+            actual.getChildren().add(new Label (aContact.getName()));
+            contactListView.getChildren().add(actual);
+            }
+            */
         }
 
     }
