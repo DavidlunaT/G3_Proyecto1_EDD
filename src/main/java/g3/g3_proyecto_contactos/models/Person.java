@@ -112,12 +112,6 @@ public class Person extends Contact implements Serializable{
     public void setPhoto(String Photo) {
         this.Photo = Photo;
     }
-
     
-    
-    
-
-
-
     
 }

@@ -39,7 +39,7 @@ public class Phone implements Serializable{
 
     @Override
     public String toString() {
-        return "Phone{" + "number=" + number + ", label=" + label + '}';
+        return label + ":" + number;
     }
     
     

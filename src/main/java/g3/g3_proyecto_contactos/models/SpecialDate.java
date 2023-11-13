@@ -4,26 +4,25 @@
  */
 package g3.g3_proyecto_contactos.models;
 import java.io.Serializable;
-import java.time.LocalDate;
 /**
  *
  * @author oweny
  */
 public class SpecialDate implements Serializable{
 
-    public LocalDate date;
+    public String date;
     public String label;
     
-    public SpecialDate(LocalDate date, String label) {
+    public SpecialDate(String date, String label) {
         this.date = date;
         this.label = label;
     }  
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -37,7 +36,7 @@ public class SpecialDate implements Serializable{
 
     @Override
     public String toString() {
-        return "SpecialDate{" + "date=" + date + ", label=" + label + '}';
+        return label + ":" + date;
     }
     
     

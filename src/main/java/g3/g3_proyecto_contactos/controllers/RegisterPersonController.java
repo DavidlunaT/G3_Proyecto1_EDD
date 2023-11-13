@@ -91,146 +91,148 @@ public class RegisterPersonController implements Initializable {
     private Button btnAddImages;
     @FXML
     private ImageView imgMain;
-    
-    
+
     List<Phone> phones;
     List<Email> emails;
     List<Address> addresses;
     List<SpecialDate> specialDates;
     List<String> images;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         fillComboBoxes();
-        
+
         phones = new ArrayList<>();
         emails = new ArrayList<>();
         addresses = new ArrayList<>();
         specialDates = new ArrayList<>();
         images = new ArrayList<>();
-        
-        
-        
+
     }
-    
+
     @FXML
-    public void switchToContactVisualization()throws IOException{
+    public void switchToContactVisualization() throws IOException {
         App.setRoot("contactVisualization");
     }
-    
+
     @FXML
-    public void switchToRegisterCompany()throws IOException{
+    public void switchToRegisterCompany() throws IOException {
         App.setRoot("registerCompany");
     }
-    
+
     @FXML
-    public void savePerson(){
+    public void savePerson() {
         addPhoneNumber();
         addEmail();
         addAddress();
         addSpecialDate();
-        
-        if(txtNickname.getText().equals("")){
-            txtNickname.setText(txtName.getText());    
+
+        if (txtNickname.getText().equals("")) {
+            txtNickname.setText(txtName.getText());
         }
-        
-        
-        //phones.addLast(new Phone(txtPhoneNumber.getText(),String.valueOf(cmbTphone.getValue())));
-        //System.out.println(phones);
-        //emails.addLast(new Email(txtEmail.getText(),String.valueOf(cmbTemail.getValue())));
-        //System.out.println(emails);
-        //addresses.addLast(new Address(txtStreet.getText(),txtSecondaryStreet.getText(),txtCodePostal.getText(),txtCity.getText(),txtCountry.getText(),txtLabelAddress.getText()));
-        //specialDates.addLast(new SpecialDate(dpSpecialDate.getValue(),String.valueOf(cmbTdate.getValue())));
-        
-        if(isRegisteredCorrectly()){
-            Person p = new Person(txtNickname.getText(),phones);
-           
-            //p.setPhones(phones);
-            p.setEmails(emails);
-            p.setAddresses(addresses);
-            p.setSpecialDates(specialDates);
-            p.setImages(images);
-            p.setFirstName1(txtName.getText());
-            p.setFirstName2( txtSecondName.getText());
-            p.setLastName1(txtLastName.getText());
-            p.setLastName2( txtSecondLastName.getText());
-            p.setPhoto(images.get(0));
+
+        if (isRegisteredCorrectly()) {
+
+            String name = txtName.getText();
+            String secondName = txtSecondName.getText();
+            String lastName = txtLastName.getText();
+            String secondLastName = txtSecondLastName.getText();
+            String nickname = txtNickname.getText();
+            String photo = images.get(0);
+            String phones = "";
+            String emails = "";
+            String addresses = "";
+            String specialDates = "";
+            String images = "";
             
-            General.save(p, ContactVisualizationController.contacts);
-            System.out.println(ContactVisualizationController.contacts);
+            for(Phone np: this.phones){
+                phones += (np+"_");
+            }
+            for(Email e: this.emails){
+                emails += (e+"_");
+            }
+            for(Address a: this.addresses){
+                emails += (a+"_");
+            }
+            for(SpecialDate sd: this.specialDates){
+                emails += (sd+"_");
+            }
+            for(String img: this.images){
+                images += (img+"_");
+            }
             
-            try{
+            String line = name+"|"+secondName+"|"+lastName+"|"+secondLastName+"|"+nickname+"|"+photo+"|"+images+"|"+phones+"|"+emails+"|"+addresses+"|"+specialDates;
+            General.save(line,App.path + "files/people.txt");
+            
+            
+            try {
                 switchToContactVisualization();
-                }
-            catch(IOException ex){
+            } catch (IOException ex) {
                 System.out.println(ex);
                 System.out.println("error");
             }
         }
     }
-    
 
-    
     @FXML
     private void addImages() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar Imágenes");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg","*.jpeg", "*.gif")
+                new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg", "*.jpeg", "*.gif")
         );
-        
+
         //showOpenMultipleDialogo retorna una List de la API de java, aqui camuflo el "casting" con un for-each
+        for (File file : fileChooser.showOpenMultipleDialog(null)) {
+            System.out.println("Archivo seleccionado: " + file.getAbsolutePath()); //path local maybe hay que cambiar esto
+            try {
+                Path sourcePath = file.toPath();
+                Path targetPath = Path.of(App.path, "photos", file.getName());
 
-            for (File file : fileChooser.showOpenMultipleDialog(null)) { 
-                System.out.println("Archivo seleccionado: " + file.getAbsolutePath()); //path local maybe hay que cambiar esto
-                try {
-                    Path sourcePath = file.toPath();
-                    Path targetPath = Path.of(App.path, "photos", file.getName());
+                // Crea la carpeta 'photos' si no existe
+                Files.createDirectories(targetPath.getParent());
 
-                    // Crea la carpeta 'photos' si no existe
-                    Files.createDirectories(targetPath.getParent());
+                // Copia el archivo al nuevo destino
+                Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
 
-                    // Copia el archivo al nuevo destino
-                    Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Archivo copiado a: " + targetPath.toString());
 
-                    System.out.println("Archivo copiado a: " + targetPath.toString());
-                    
-                    images.addLast(targetPath.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                images.addLast(file.getName());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
     }
-    
-    public boolean isRegisteredCorrectly(){
+
+    public boolean isRegisteredCorrectly() {
         return txtNickname.getText() != null && !phones.isEmpty();
     }
-    
+
     @FXML
-    public void addPhoneNumber(){
-        if(cmbTphone.getValue() != null && txtPhoneNumber.getText()!= null){
-            phones.addLast(new Phone(txtPhoneNumber.getText(),String.valueOf(cmbTphone.getValue())));
+    public void addPhoneNumber() {
+        if (cmbTphone.getValue() != null && txtPhoneNumber.getText() != null) {
+            phones.addLast(new Phone(txtPhoneNumber.getText(), String.valueOf(cmbTphone.getValue())));
             cmbTphone.setValue(null);
             txtPhoneNumber.clear();
         }
     }
-    
+
     @FXML
-    public void addEmail(){
-        if(cmbTemail.getValue() != null && txtEmail.getText()!= null){
-            emails.addLast(new Email(txtEmail.getText(),String.valueOf(cmbTemail.getValue())));
+    public void addEmail() {
+        if (cmbTemail.getValue() != null && txtEmail.getText() != null) {
+            emails.addLast(new Email(txtEmail.getText(), String.valueOf(cmbTemail.getValue())));
             cmbTemail.setValue(null);
             txtEmail.clear();
         }
     }
-    
+
     @FXML
-    public void addAddress(){
-        if(txtLabelAddress.getText() != null && txtStreet.getText()!= null){
-            addresses.addLast(new Address(txtStreet.getText(),txtSecondaryStreet.getText(),txtCodePostal.getText(),txtCity.getText(),txtCountry.getText(),txtLabelAddress.getText()));
+    public void addAddress() {
+        if (txtLabelAddress.getText() != null && txtStreet.getText() != null) {
+            addresses.addLast(new Address(txtStreet.getText(), txtSecondaryStreet.getText(), txtCodePostal.getText(), txtCity.getText(), txtCountry.getText(), txtLabelAddress.getText()));
             txtLabelAddress.clear();
             txtStreet.clear();
             txtSecondaryStreet.clear();
@@ -238,31 +240,30 @@ public class RegisterPersonController implements Initializable {
             txtCity.clear();
             txtCountry.clear();
         }
-        
+
     }
-    
+
     @FXML
-    public void addSpecialDate(){
-        if(cmbTdate.getValue() != null && dpSpecialDate.getValue()!= null){
-            specialDates.addLast(new SpecialDate(dpSpecialDate.getValue(),String.valueOf(cmbTdate.getValue())));
+    public void addSpecialDate() {
+        if (cmbTdate.getValue() != null && dpSpecialDate.getValue() != null) {
+            specialDates.addLast(new SpecialDate(dpSpecialDate.getValue().toString(), String.valueOf(cmbTdate.getValue())));
             cmbTdate.setValue(null);
         }
     }
-    
-    
-    public void fillComboBoxes(){
+
+    public void fillComboBoxes() {
         Type_phone[] tp = Type_phone.values();
         cmbTphone.getItems().addAll(tp);
         cmbTphone.setValue(tp[0]);
-        
+
         Type_email[] te = Type_email.values();
         cmbTemail.getItems().addAll(te);
         cmbTemail.setValue(te[0]);
-        
+
         Type_date[] td = Type_date.values();
         cmbTdate.getItems().addAll(td);
         cmbTdate.setValue(td[0]);
 
     }
-    
+
 }

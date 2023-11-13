@@ -151,7 +151,7 @@ public class RegisterCompanyController implements Initializable {
            
             c.setPhoto(images.get(0));
             
-            General.save(c, ContactVisualizationController.contacts);
+            //General.save(c, ContactVisualizationController.contacts);
             System.out.println(ContactVisualizationController.contacts);
             
             try{
@@ -235,7 +235,7 @@ public class RegisterCompanyController implements Initializable {
     @FXML
     public void addSpecialDate(){
         if(cmbTdate.getValue() != null && dpSpecialDate.getValue()!= null){
-            specialDates.addLast(new SpecialDate(dpSpecialDate.getValue(),String.valueOf(cmbTdate.getValue())));
+            specialDates.addLast(new SpecialDate(dpSpecialDate.getValue().toString(),String.valueOf(cmbTdate.getValue())));
             cmbTdate.setValue(null);
         }
     }

@@ -89,10 +89,4 @@ public abstract class Contact implements Serializable {
         this.Photo = Photo;
     }
 
-    @Override
-    public String toString() {
-        return "Contact{" + "name=" + name + ", images=" + images + ", phones=" + phones + ", addresses=" + addresses + ", emails=" + emails + ", specialDates=" + specialDates + ", Photo=" + Photo + '}';
-    }
-    
-    
 }
