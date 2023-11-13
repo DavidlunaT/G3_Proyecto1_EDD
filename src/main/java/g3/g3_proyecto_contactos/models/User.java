@@ -14,7 +14,5 @@ import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 public class User {
     private String username;
     private String password;
-    private ArrayList<Contact> contactos;
-    
-    
+    private ArrayList<Contact> contactos;  
 }
