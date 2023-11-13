@@ -22,6 +22,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import java.util.Set;
+import java.util.HashSet;
 
 
 /**
@@ -64,9 +66,14 @@ public class ContactVisualizationController implements Initializable {
             //contactListView.getChildren().add(actual);
             //Nuevo Codigo por sustituir-------------------------------------------------------------------------------------
             /*
-            for(int i = 0; i<7,i++){
+            Set<Contact> miSet = new HashSet<>();
             CustomCircularIterator<Contact> contacts = new CustomCircularIterator<>();
-            Contact aContact= contacts.next();
+            
+            for(int i = 0; i<7,i++){            
+            miSet.add(contacts.next());         
+            }
+            
+            for(Contact aContact: miSet){
             actual.getChildren().add(new ImageView (new Image(App.path + "images/"+ aContact.getPhoto())));
             actual.getChildren().add(new Label (aContact.getName()));
             contactListView.getChildren().add(actual);
