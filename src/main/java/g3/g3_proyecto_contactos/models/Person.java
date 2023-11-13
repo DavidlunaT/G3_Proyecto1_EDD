@@ -65,14 +65,6 @@ public class Person extends Contact implements Serializable{
         this.name = name;
     }
 
-    public String getUrlProfilePic() {
-        return urlProfilePic;
-    }
-
-    public void setUrlProfilePic(String urlProfilePic) {
-        this.urlProfilePic = urlProfilePic;
-    }
-
     public List<String> getImages() {
         return images;
     }

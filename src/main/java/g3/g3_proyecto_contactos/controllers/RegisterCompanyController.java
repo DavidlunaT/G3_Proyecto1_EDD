@@ -149,7 +149,7 @@ public class RegisterCompanyController implements Initializable {
             c.setDepartment(txtDepartment.getText());
             c.setWebsite( txtWebsite.getText());
            
-            c.setUrlProfilePic(images.get(0));
+            c.setPhoto(images.get(0));
             
             General.save(c, ContactVisualizationController.contacts);
             System.out.println(ContactVisualizationController.contacts);
@@ -180,7 +180,7 @@ public class RegisterCompanyController implements Initializable {
                 System.out.println("Archivo seleccionado: " + file.getAbsolutePath()); //path local maybe hay que cambiar esto
                 try {
                     Path sourcePath = file.toPath();
-                    Path targetPath = Path.of("src","main","resources","g3","g3_proyecto_contactos", "photos", file.getName());
+                    Path targetPath = Path.of(App.path, "photos", file.getName());
 
                     // Crea la carpeta 'photos' si no existe
                     Files.createDirectories(targetPath.getParent());

@@ -8,9 +8,11 @@ import g3.g3_proyecto_contactos.App;
 import g3.g3_proyecto_contactos.models.Contact;
 import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 import g3.g3_proyecto_contactos.interfaces.List;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -25,18 +27,16 @@ public class General {
     
     public static List<Contact> load() {
         List<Contact> contacts = new ArrayList<>();
-       //leer la lista de contactos del archivo serializado
-        try (ObjectInputStream oi = new ObjectInputStream(new FileInputStream(App.path + "files/contacts.ser"))) {
-            System.out.println("encontro el archivo");
-            contacts = (ArrayList<Contact>) oi.readObject();
-            return contacts;
-        } catch (FileNotFoundException ex) {
-            System.out.println("archivo no existe");
-        } catch (IOException ex) {
-            System.out.println("error io:"+ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            System.out.println("error class:"+ex.getMessage());
-        } 
+        String nombreArchivo = "contacts.txt";
+        try(BufferedReader br = new BufferedReader (new FileReader (nombreArchivo))){
+            String linea;
+            while((linea = br.readLine())!= null){
+                
+            }
+            
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
         return contacts;
     }
     
