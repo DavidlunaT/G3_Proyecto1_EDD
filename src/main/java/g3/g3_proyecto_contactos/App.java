@@ -12,22 +12,25 @@ import java.io.IOException;
  * JavaFX App
  */
 public class App extends Application {
-
+    // The logic for starting the application goes here
+    
     private static Scene scene;
     public static String path = "src/main/resources/g3/g3_proyecto_contactos/";
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("contactVisualization"), 640, 480);
+        stage.setTitle("Contactly App");
+        scene = new Scene(loadFXML("FrontPageApp"), 480, 740);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
+    public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
