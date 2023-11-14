@@ -30,7 +30,9 @@ public class General {
         try (BufferedReader br = new BufferedReader(new FileReader(App.path + "files/people.txt"))) {
             String linea;
             while((linea = br.readLine()) != null) {
-                String[] campos = linea.split("|");
+                System.out.println(linea);
+                String[] campos = linea.split("/");
+                System.out.println(campos[0]);
               
                 String[] images = campos[6].split("_");
                 ArrayList<String> lImages = new ArrayList<>();
@@ -58,7 +60,7 @@ public class General {
                 ArrayList<Address> lAddresses = new ArrayList<>();
                 for(String address: addresses){
                     String[] dataAddress = address.split(":");
-                    Address a = new Address(dataAddress[0],dataAddress[1],dataAddress[3],dataAddress[4],dataAddress[5],dataAddress[6]);
+                    Address a = new Address(dataAddress[0],dataAddress[1],dataAddress[2],dataAddress[3],dataAddress[4],dataAddress[5]);
                     lAddresses.addLast(a);
                 }
                 
@@ -99,7 +101,7 @@ public class General {
         try (BufferedReader br = new BufferedReader(new FileReader(App.path + "files/companies.txt"))) {
             String linea;
             while((linea = br.readLine()) != null) {
-                String[] campos = linea.split("|");
+                String[] campos = linea.split("/");
               
                 String[] images = campos[3].split("_");
                 ArrayList<String> lImages = new ArrayList<>();
@@ -127,7 +129,7 @@ public class General {
                 ArrayList<Address> lAddresses = new ArrayList<>();
                 for(String address: addresses){
                     String[] dataAddress = address.split(":");
-                    Address a = new Address(dataAddress[0],dataAddress[1],dataAddress[3],dataAddress[4],dataAddress[5],dataAddress[6]);
+                    Address a = new Address(dataAddress[0],dataAddress[1],dataAddress[2],dataAddress[3],dataAddress[4],dataAddress[5]);
                     lAddresses.addLast(a);
                 }
                 

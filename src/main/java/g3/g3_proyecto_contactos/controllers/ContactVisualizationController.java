@@ -77,7 +77,7 @@ public class ContactVisualizationController implements Initializable {
             
             for(Contact aContact: miSet){
             HBox actual = new HBox();
-            //actual.getChildren().add(new ImageView (new Image(aContact.getUrlProfilePic())));
+            actual.getChildren().add(new ImageView (new Image(App.path + "images/"+ aContact.getPhoto())));
             //App.path + "images/"+ aContact.getPhoto()
                 System.out.println(App.path + "images/"+ aContact.getPhoto());
             actual.getChildren().add(new Label (aContact.getName()));
