@@ -33,7 +33,7 @@ public class General {
                 System.out.println(linea);
                 String[] campos = linea.split("/");
                 System.out.println(campos[0]);
-              
+                System.out.println(campos[6]);
                 String[] images = campos[6].split("_");
                 ArrayList<String> lImages = new ArrayList<>();
                 for(String img: images){
@@ -41,10 +41,12 @@ public class General {
                 }
                 
                 String[] phones = campos[7].split("_");
+                System.out.println(phones[0]);
                 ArrayList<Phone> lPhones = new ArrayList<>();
                 for(String phone: phones){
                     String[] dataphone = phone.split(":");
-                    Phone p = new Phone(dataphone[0],dataphone[1]);
+                    System.out.println(dataphone[0]);
+                    Phone p = new Phone(dataphone[1],dataphone[0]);
                     lPhones.addLast(p);
                 }
                 
@@ -52,7 +54,7 @@ public class General {
                 ArrayList<Email> lEmails = new ArrayList<>();
                 for(String email: emails){
                     String[] dataemail = email.split(":");
-                    Email e = new Email(dataemail[0],dataemail[1]);
+                    Email e = new Email(dataemail[1],dataemail[0]);
                     lEmails.addLast(e);
                 }
                 
@@ -60,7 +62,7 @@ public class General {
                 ArrayList<Address> lAddresses = new ArrayList<>();
                 for(String address: addresses){
                     String[] dataAddress = address.split(":");
-                    Address a = new Address(dataAddress[0],dataAddress[1],dataAddress[2],dataAddress[3],dataAddress[4],dataAddress[5]);
+                    Address a = new Address(dataAddress[1],dataAddress[2],dataAddress[3],dataAddress[4],dataAddress[5],dataAddress[0]);
                     lAddresses.addLast(a);
                 }
                 
@@ -68,23 +70,23 @@ public class General {
                 ArrayList<SpecialDate> lSpecialDates = new ArrayList<>();
                 for(String date: specialDates){
                     String[] dataSp = date.split(":");
-                    SpecialDate sp = new SpecialDate(dataSp[0],dataSp[1]);
+                    SpecialDate sp = new SpecialDate(dataSp[1],dataSp[0]);
                     lSpecialDates.addLast(sp);
                 }
                 
-                Person p = new Person(campos[4],lPhones);
-                p.setFirstName1(campos[0]);
-                p.setFirstName2(campos[1]);
-                p.setLastName1(campos[2]);
-                p.setLastName2(campos[3]);
-                p.setPhoto(campos[5]);
-                p.setImages(lImages);
-                p.setPhones(lPhones);
-                p.setEmails(lEmails);
-                p.setAddresses(lAddresses);
-                p.setSpecialDates(lSpecialDates);
+                Person pe = new Person(campos[4],lPhones);
+                pe.setFirstName1(campos[0]);
+                pe.setFirstName2(campos[1]);
+                pe.setLastName1(campos[2]);
+                pe.setLastName2(campos[3]);
+                pe.setPhoto(campos[5]);
+                pe.setImages(lImages);
+                pe.setPhones(lPhones);
+                pe.setEmails(lEmails);
+                pe.setAddresses(lAddresses);
+                pe.setSpecialDates(lSpecialDates);
                 
-                contacts.addLast(p); 
+                contacts.addLast(pe); 
             }
         }
        catch (FileNotFoundException ex) {
@@ -92,6 +94,7 @@ public class General {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        System.out.println(contacts);
         return contacts;
     }
     
