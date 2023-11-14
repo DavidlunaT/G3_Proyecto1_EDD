@@ -42,6 +42,14 @@ public class ContactVisualizationController implements Initializable {
     public VBox listDisplay;
     
     public static List<Contact> contacts;
+    @FXML
+    private HBox labelNameroot;
+    @FXML
+    private HBox addContactRoot;
+    @FXML
+    private Button btnPreview;
+    @FXML
+    private Button loadContactsView;
     
     /**
      * Initializes the controller class.
@@ -58,7 +66,6 @@ public class ContactVisualizationController implements Initializable {
         App.setRoot("registerPerson");   
     }
     
-    @FXML
     public void loadContactsView(){
         //for(int i = 0; i <contacts.size();i++){
             
@@ -77,12 +84,11 @@ public class ContactVisualizationController implements Initializable {
             
             for(Contact aContact: miSet){
             HBox actual = new HBox();
-            actual.getChildren().add(new ImageView (new Image(App.path + "images/"+ aContact.getPhoto())));
-            //App.path + "images/"+ aContact.getPhoto()
-                System.out.println("a Contact.getPhoto"+aContact.getPhoto());
-                System.out.println(App.path + "images/"+ aContact.getPhoto());
+
+            //actual.getChildren().add(new ImageView (new Image(App.path + "photos/"+ aContact.getPhoto())));
+
             actual.getChildren().add(new Label (aContact.getName()));
-            
+            System.out.println(App.path + "photos/"+ aContact.getPhoto());
             listDisplay.getChildren().add(actual);
             }
             
@@ -104,9 +110,9 @@ public class ContactVisualizationController implements Initializable {
             
             for(Contact aContact: miSet){
             HBox actual = new HBox();
-            //actual.getChildren().add(new ImageView (new Image(aContact.getUrlProfilePic())));
+            actual.getChildren().add(new ImageView (new Image(App.path + "photo/"+ aContact.getPhoto())));
             //App.path + "images/"+ aContact.getPhoto()
-                System.out.println(App.path + "images/"+ aContact.getPhoto());
+            System.out.println(App.path + "photos/"+ aContact.getPhoto());
             actual.getChildren().add(new Label (aContact.getName()));
             
             listDisplay.getChildren().add(actual);
