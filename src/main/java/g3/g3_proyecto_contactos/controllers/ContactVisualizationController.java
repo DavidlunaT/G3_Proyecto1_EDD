@@ -51,6 +51,8 @@ public class ContactVisualizationController implements Initializable {
     @FXML
     private Button loadContactsView;
     
+    private CustomCircularIterator<Contact> contactss;
+    
     /**
      * Initializes the controller class.
      */
@@ -75,8 +77,7 @@ public class ContactVisualizationController implements Initializable {
             //contactListView.getChildren().add(actual);
             
             listDisplay.getChildren().clear();
-            Set<Contact> miSet = new HashSet<>();
-            CustomCircularIterator<Contact> contactss = new CustomCircularIterator<>(this.contacts);
+            Set<Contact> miSet = new HashSet<>();           
             
             for(int e = 0; e<7 ;e++){            
             miSet.add(contactss.next());         
@@ -98,21 +99,22 @@ public class ContactVisualizationController implements Initializable {
     public void loadContactsList(){
         contacts = General.loadPeople();
         System.out.println(contacts);
+        contactss = new CustomCircularIterator<>(this.contacts);
     }
     public void btnPreview(){
         Set<Contact> miSet = new HashSet<>();
         listDisplay.getChildren().clear();
-            CustomCircularIterator<Contact> contacts = new CustomCircularIterator<>(this.contacts);
+            
             
             for(int e = 0; e<7 ;e++){            
-            miSet.add(contacts.previous());         
+            miSet.add(contactss.previous());         
             }
             
             for(Contact aContact: miSet){
             HBox actual = new HBox();
-            actual.getChildren().add(new ImageView (new Image(App.path + "photo/"+ aContact.getPhoto())));
+            //actual.getChildren().add(new ImageView (new Image(App.path + "photo/"+ aContact.getPhoto())));
             //App.path + "images/"+ aContact.getPhoto()
-            System.out.println(App.path + "photos/"+ aContact.getPhoto());
+            //System.out.println(App.path + "photos/"+ aContact.getPhoto());
             actual.getChildren().add(new Label (aContact.getName()));
             
             listDisplay.getChildren().add(actual);
