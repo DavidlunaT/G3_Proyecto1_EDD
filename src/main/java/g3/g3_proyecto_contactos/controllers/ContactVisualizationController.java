@@ -34,6 +34,7 @@ import java.util.HashSet;
  */
 public class ContactVisualizationController implements Initializable {
     
+
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -52,6 +53,8 @@ public class ContactVisualizationController implements Initializable {
     private Button loadContactsView;
     
     private CustomCircularIterator<Contact> contactss;
+
+    
     
     /**
      * Initializes the controller class.
@@ -61,6 +64,7 @@ public class ContactVisualizationController implements Initializable {
         loadContactsList();
         System.out.println(contacts);
         loadContactsView();
+
     }
     
     @FXML

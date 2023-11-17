@@ -14,11 +14,11 @@ import g3.g3_proyecto_contactos.utilties.General;
  * @author David
  */
 public class User {
-    private String username;
+    private static String username;
     private String password;
     private static List<Contact> contacts;
 
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 
