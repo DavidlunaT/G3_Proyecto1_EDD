@@ -150,16 +150,16 @@ public class RegisterCompanyController implements Initializable {
                 emails += (e+"_");
             }
             for(Address a: this.addresses){
-                emails += (a+"_");
+                addresses += (a+"_");
             }
             for(SpecialDate sd: this.specialDates){
-                emails += (sd+"_");
+                specialDates += (sd+"_");
             }
             for(String img: this.images){
                 images += (img+"_");
             }
             
-            String line = name+"|"+department+"|"+website+"|"+photo+"|"+images+"|"+phones+"|"+emails+"|"+addresses+"|"+specialDates;
+            String line = name+"/"+department+"/"+website+"/"+photo+"/"+images+"/"+phones+"/"+emails+"/"+addresses+"/"+specialDates;
             General.save(line,App.path + "files/companies.txt");
             
             

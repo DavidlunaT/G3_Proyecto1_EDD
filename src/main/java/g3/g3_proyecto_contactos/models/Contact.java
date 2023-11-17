@@ -4,6 +4,7 @@
  */
 package g3.g3_proyecto_contactos.models;
 
+import g3.g3_proyecto_contactos.App;
 import g3.g3_proyecto_contactos.interfaces.List;
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ import java.io.Serializable;
  */
 public abstract class Contact implements Serializable {
 
+    public static final String photoDefault = "default.jpg";
     protected String name;
 
     protected List<String> images;
@@ -88,5 +90,12 @@ public abstract class Contact implements Serializable {
     public void setPhoto(String Photo) {
         this.Photo = Photo;
     }
+
+    @Override
+    public String toString() {
+        return "Contact{" + "name=" + name + ", images=" + images + ", phones=" + phones + ", addresses=" + addresses + ", emails=" + emails + ", specialDates=" + specialDates + ", Photo=" + Photo + '}';
+    }
+    
+    
 
 }

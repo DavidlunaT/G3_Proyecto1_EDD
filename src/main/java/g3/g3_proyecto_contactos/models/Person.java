@@ -112,6 +112,15 @@ public class Person extends Contact implements Serializable{
     public void setPhoto(String Photo) {
         this.Photo = Photo;
     }
+
+    @Override
+    public String toString() {
+        return super.toString()+"Person{" + "firstName1=" + firstName1 + ", firstName2=" + firstName2 + ", lastName1=" + lastName1 + ", lastName2=" + lastName2 + '}';
+    }
+    
+    
+    
+    
     
     
 }

@@ -13,7 +13,7 @@
       <VBox fx:id="listDisplay" layoutY="118.0" prefHeight="562.0" prefWidth="481.0" />
       <HBox fx:id="labelNameroot" alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="481.0">
          <children>
-            <Label alignment="BOTTOM_LEFT" prefHeight="41.0" prefWidth="200.0" text="Lista de" textAlignment="CENTER" textFill="#3a5d44">
+            <Label alignment="BOTTOM_LEFT" prefHeight="41.0" prefWidth="200.0" text="Lista de contactos" textAlignment="CENTER" textFill="#3a5d44">
                <padding>
                   <Insets right="30.0" />
                </padding>
@@ -43,7 +43,7 @@
             </Button>
          </children>
       </HBox>
-      <Button fx:id="btnPreview" layoutX="8.0" layoutY="53.0" mnemonicParsing="false" text="Preview" onAction="#btnPreview" />
-      <Button fx:id="loadContactsView" layoutX="8.0" layoutY="78.0" mnemonicParsing="false" text="Next" onAction="#loadContactsView" />
+      <Button fx:id="btnPreview" layoutX="8.0" layoutY="53.0" mnemonicParsing="false" onAction="#btnPreview" text="Preview" />
+      <Button fx:id="loadContactsView" layoutX="8.0" layoutY="78.0" mnemonicParsing="false" onAction="#loadContactsView" text="Next" />
    </children>
 </AnchorPane>

@@ -1,17 +1,15 @@
-Owen/Alex/Yagual/Panimboza/Espol Owen/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Ariana/Anais/Castro/Panimboza/Espol Ariana/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Espol Saul/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Mamá/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Papá/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Carmen/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Hermano Jair/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Nayeli/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Nick/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Espol Owen/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Ariana/Anais/Castro/Panimboza/Espol Deivi/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Espol Carlos/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Jorge/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Karina/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Tio Pedro/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Hermana Maria/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
-Owen/Alex/Yagual/Panimboza/Luis/images.jpeg/images.jpeg_/MOBILE:0995197550_/SCHOOL:oayagual@espol.edu.ec_/HOME:Mz 35:Villa 3:129940:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_/
+Owen/Alex/Yagual/Panimboza/A/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/B/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/C/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/D/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/E/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/F/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/G/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/H/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/I/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/J/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/K/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/L/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/M/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/N/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_
+Owen/Alex/Yagual/Panimboza/O/default.png//MOBILE:0995107550_/SCHOOL:oayagual@espol.edu.ec_/Casa:Mz. 5 Villa 3:Bellavista:472184:Guayaquil:Ecuador_/BIRTHDAY:2002-10-04_

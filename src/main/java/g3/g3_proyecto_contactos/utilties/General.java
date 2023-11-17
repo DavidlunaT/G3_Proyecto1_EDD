@@ -32,8 +32,6 @@ public class General {
             while((linea = br.readLine()) != null) {
                 System.out.println(linea);
                 String[] campos = linea.split("/");
-                System.out.println(campos[0]);
-                System.out.println(campos[6]);
                 String[] images = campos[6].split("_");
                 ArrayList<String> lImages = new ArrayList<>();
                 for(String img: images){
@@ -41,11 +39,9 @@ public class General {
                 }
                 
                 String[] phones = campos[7].split("_");
-                System.out.println(phones[0]);
                 ArrayList<Phone> lPhones = new ArrayList<>();
                 for(String phone: phones){
                     String[] dataphone = phone.split(":");
-                    System.out.println(dataphone[0]);
                     Phone p = new Phone(dataphone[1],dataphone[0]);
                     lPhones.addLast(p);
                 }
@@ -80,6 +76,7 @@ public class General {
                 pe.setLastName1(campos[2]);
                 pe.setLastName2(campos[3]);
                 pe.setPhoto(campos[5]);
+                System.out.println(pe.getPhoto());
                 pe.setImages(lImages);
                 pe.setPhones(lPhones);
                 pe.setEmails(lEmails);

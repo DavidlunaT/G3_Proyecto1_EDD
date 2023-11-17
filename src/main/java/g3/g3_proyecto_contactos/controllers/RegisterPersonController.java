@@ -11,6 +11,7 @@ import g3.g3_proyecto_contactos.enums.Type_email;
 import g3.g3_proyecto_contactos.enums.Type_phone;
 import g3.g3_proyecto_contactos.interfaces.List;
 import g3.g3_proyecto_contactos.models.Address;
+import g3.g3_proyecto_contactos.models.Contact;
 import g3.g3_proyecto_contactos.models.Email;
 import g3.g3_proyecto_contactos.models.Person;
 import g3.g3_proyecto_contactos.models.Phone;
@@ -141,12 +142,21 @@ public class RegisterPersonController implements Initializable {
             String lastName = txtLastName.getText();
             String secondLastName = txtSecondLastName.getText();
             String nickname = txtNickname.getText();
-            String photo = images.get(0);
+            
             String phones = "";
             String emails = "";
             String addresses = "";
             String specialDates = "";
             String images = "";
+            String photo = "";
+            
+            if(!images.isEmpty()){
+                photo = Contact.photoDefault;
+            }else{
+                photo = this.images.get(0);
+            }
+            
+            
             
             for(Phone np: this.phones){
                 phones += (np+"_");
@@ -155,16 +165,16 @@ public class RegisterPersonController implements Initializable {
                 emails += (e+"_");
             }
             for(Address a: this.addresses){
-                emails += (a+"_");
+                addresses += (a+"_");
             }
             for(SpecialDate sd: this.specialDates){
-                emails += (sd+"_");
+                specialDates += (sd+"_");
             }
             for(String img: this.images){
                 images += (img+"_");
             }
             
-            String line = name+"|"+secondName+"|"+lastName+"|"+secondLastName+"|"+nickname+"|"+photo+"|"+images+"|"+phones+"|"+emails+"|"+addresses+"|"+specialDates;
+            String line = name+"/"+secondName+"/"+lastName+"/"+secondLastName+"/"+nickname+"/"+photo+"/"+images+"/"+phones+"/"+emails+"/"+addresses+"/"+specialDates;
             General.save(line,App.path + "files/people.txt");
             
             

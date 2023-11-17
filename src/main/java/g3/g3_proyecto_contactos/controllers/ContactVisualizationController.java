@@ -26,22 +26,16 @@ import javafx.stage.Stage;
 import java.util.Set;
 import java.util.HashSet;
 
-
 /**
  * FXML Controller class
  *
  * @author David
  */
 public class ContactVisualizationController implements Initializable {
-    
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-    
     @FXML
     public VBox listDisplay;
-    
+
     public static List<Contact> contacts;
     @FXML
     private HBox labelNameroot;
@@ -51,11 +45,9 @@ public class ContactVisualizationController implements Initializable {
     private Button btnPreview;
     @FXML
     private Button loadContactsView;
-    
+
     private CustomCircularIterator<Contact> contactss;
 
-    
-    
     /**
      * Initializes the controller class.
      */
@@ -66,64 +58,52 @@ public class ContactVisualizationController implements Initializable {
         loadContactsView();
 
     }
-    
+
     @FXML
-    public void switchToRegisterPerson(ActionEvent e)throws IOException{
-        App.setRoot("registerPerson");   
+    public void switchToRegisterPerson(ActionEvent e) throws IOException {
+        App.setRoot("registerPerson");
     }
-    
-    public void loadContactsView(){
-        //for(int i = 0; i <contacts.size();i++){
-            
-            //actual.getChildren().add(new ImageView (new Image(App.path + "images/"+ contacts.get(i).getUrlProfilePic())));
-            
-            //actual.getChildren().add(new Label (contacts.get(i).getName()));
-            //contactListView.getChildren().add(actual);
-            
-            listDisplay.getChildren().clear();
-            Set<Contact> miSet = new HashSet<>();           
-            
-            for(int e = 0; e<7 ;e++){            
-            miSet.add(contactss.next());         
-            }
-            
-            for(Contact aContact: miSet){
-            HBox actual = new HBox();
 
-            //actual.getChildren().add(new ImageView (new Image(App.path + "photos/"+ aContact.getPhoto())));
+    public void loadContactsView() {
+        listDisplay.getChildren().clear();
+        Set<Contact> miSet = new HashSet<>();
 
-            actual.getChildren().add(new Label (aContact.getName()));
-            System.out.println(App.path + "photos/"+ aContact.getPhoto());
-            listDisplay.getChildren().add(actual);
+        for (int e = 0; e < 7; e++) {
+            miSet.add(contactss.next());
+        }
+        System.out.println("CONJUNTO DE CONTACTOS"+miSet);
+
+        for (Contact aContact : miSet) {
+            if (aContact != null) {
+                HBox actual = new HBox();
+                actual.getChildren().add(new ImageView (new Image("file:"+App.path + "photos/"+ aContact.getPhoto(),60,0,true,false)));
+                actual.getChildren().add(new Label(aContact.getName()));
+                listDisplay.getChildren().add(actual);
             }
-            
-        
+        }
 
     }
-    public void loadContactsList(){
+
+    public void loadContactsList() {
         contacts = General.loadPeople();
-        System.out.println(contacts);
         contactss = new CustomCircularIterator<>(this.contacts);
     }
-    public void btnPreview(){
+
+    public void btnPreview() {
         Set<Contact> miSet = new HashSet<>();
         listDisplay.getChildren().clear();
-            
-            
-            for(int e = 0; e<7 ;e++){            
-            miSet.add(contactss.previous());         
-            }
-            
-            for(Contact aContact: miSet){
+
+        for (int e = 0; e < 7; e++) {
+            miSet.add(contactss.previous());
+        }
+
+        for (Contact aContact : miSet) {
             HBox actual = new HBox();
-            //actual.getChildren().add(new ImageView (new Image(App.path + "photo/"+ aContact.getPhoto())));
-            //App.path + "images/"+ aContact.getPhoto()
-            //System.out.println(App.path + "photos/"+ aContact.getPhoto());
-            actual.getChildren().add(new Label (aContact.getName()));
-            
+            actual.getChildren().add(new ImageView (new Image("file:"+App.path + "photos/"+ aContact.getPhoto(),60,0,true,false)));
+            actual.getChildren().add(new Label(aContact.getName()));
+
             listDisplay.getChildren().add(actual);
-            }
+        }
     }
-    
-  
+
 }
