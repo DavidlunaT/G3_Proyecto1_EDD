@@ -5,6 +5,7 @@
 package g3.g3_proyecto_contactos.controllers;
 
 import g3.g3_proyecto_contactos.App;
+import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 import g3.g3_proyecto_contactos.dataStructures.CustomCircularIterator;
 import g3.g3_proyecto_contactos.interfaces.List;
 import g3.g3_proyecto_contactos.models.Contact;
@@ -25,6 +26,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 /**
  * FXML Controller class
@@ -46,15 +48,18 @@ public class ContactVisualizationController implements Initializable {
     @FXML
     private Button loadContactsView;
 
-    private CustomCircularIterator<Contact> contactss;
+    private CustomCircularIterator<Contact> itContacts;
+    private int contModNext;
+    private int contModPreview;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        contModNext = 0;
+        contModPreview = 0;
         loadContactsList();
-        System.out.println(contacts);
         loadContactsView();
 
     }
@@ -65,18 +70,33 @@ public class ContactVisualizationController implements Initializable {
     }
 
     public void loadContactsView() {
+        contModNext++;
+        System.out.println("funciona next");
         listDisplay.getChildren().clear();
-        Set<Contact> miSet = new HashSet<>();
+        Set<Contact> miSet = new LinkedHashSet<>();
+        ArrayList<Contact> currentList = new ArrayList<>();
 
-        for (int e = 0; e < 7; e++) {
-            miSet.add(contactss.next());
+        if (contModPreview != 0) {
+            for (int e = 0; e < 7; e++) {
+                currentList.addFirst(itContacts.next());
+            }
+            currentList.clear();
+            for (int e = 0; e < 7; e++) {
+                miSet.add(itContacts.next());
+            }
+            contModPreview = 0;
+        } else {
+            for (int e = 0; e < 7; e++) {
+                miSet.add(itContacts.next());
+            }
         }
-        System.out.println("CONJUNTO DE CONTACTOS"+miSet);
+
+        System.out.println("CONJUNTO DE CONTACTOS" + miSet);
 
         for (Contact aContact : miSet) {
             if (aContact != null) {
                 HBox actual = new HBox();
-                actual.getChildren().add(new ImageView (new Image("file:"+App.path + "photos/"+ aContact.getPhoto(),60,0,true,false)));
+                actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
                 actual.getChildren().add(new Label(aContact.getName()));
                 listDisplay.getChildren().add(actual);
             }
@@ -86,20 +106,44 @@ public class ContactVisualizationController implements Initializable {
 
     public void loadContactsList() {
         contacts = General.loadPeople();
-        contactss = new CustomCircularIterator<>(this.contacts);
+        itContacts = new CustomCircularIterator<>(this.contacts);
     }
 
     public void btnPreview() {
-        Set<Contact> miSet = new HashSet<>();
+        contModPreview++;
+        System.out.println("funciona preview");
+        Set<Contact> miSet = new LinkedHashSet<>();
         listDisplay.getChildren().clear();
 
-        for (int e = 0; e < 7; e++) {
-            miSet.add(contactss.previous());
+        ArrayList<Contact> currentList = new ArrayList<>();
+
+        if (contModNext != 0) {
+            for (int e = 0; e < 7; e++) {
+                currentList.addFirst(itContacts.previous());
+            }
+            currentList.clear();
+
+            for (int e = 0; e < 7; e++) {
+                currentList.addFirst(itContacts.previous());
+            }
+
+            for (Contact c : currentList) {
+                miSet.add(c);
+            }
+            contModNext = 0;
+        }else{
+            for (int e = 0; e < 7; e++) {
+                currentList.addFirst(itContacts.previous());
+            }
+
+            for (Contact c : currentList) {
+                miSet.add(c);
+            }
         }
 
         for (Contact aContact : miSet) {
             HBox actual = new HBox();
-            actual.getChildren().add(new ImageView (new Image("file:"+App.path + "photos/"+ aContact.getPhoto(),60,0,true,false)));
+            actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
             actual.getChildren().add(new Label(aContact.getName()));
 
             listDisplay.getChildren().add(actual);

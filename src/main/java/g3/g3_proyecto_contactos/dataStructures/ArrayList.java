@@ -287,6 +287,17 @@ public class ArrayList<E> implements List<E>, Serializable {
         return true;
     }
 
+    @Override
+    public boolean clear() {
+        for (int to = effectiveSize; to > 0; to--){
+            elements[--effectiveSize] = null;
+        }
+        CAPACITY = 100; 
+        return true;
+    }
+    
+    
+
     
     
 }

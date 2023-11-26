@@ -6,6 +6,7 @@ package g3.g3_proyecto_contactos.dataStructures;
 
 import g3.g3_proyecto_contactos.interfaces.List;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 /**
  *
@@ -13,39 +14,49 @@ import java.util.ListIterator;
  */
 public class CustomCircularIterator<E> implements ListIterator<E> {  
     
-    private List<E> lista;
-    private int indice = 0;
+    private List<E> list;
+    private int index;
     
     
-    public CustomCircularIterator (List<E> lista){
-        this.lista = lista;
+    public CustomCircularIterator (List<E> list){
+        this.list = list;
+        this.index = 0;
     }
     @Override
     public boolean hasPrevious() {
-        return !lista.isEmpty();
+        return !list.isEmpty();
     }
 
     @Override
     public E previous() {
-        if (indice == 0){
-            indice = lista.size()-1;
-            return lista.getFirst();
+        if (!hasNext()) {
+            throw new IllegalStateException();
         }
-        return lista.get(indice--);
+        index = (index - 1 + list.size()) % list.size();
+        return list.get(index);
     }
       @Override
     public boolean hasNext() {
-        return !lista.isEmpty();
+        return !list.isEmpty();
     }
 
     @Override
-    public E next() {
+    public E next(){
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+        E element = list.get(index);
+        index = (index +1)%list.size();
+        return element;
+    }
+    /*public E next() {
         if(indice == lista.size()-1){
             indice = 0;
             return lista.getLast();
         }
         return lista.get(indice++);
-    }
+    }*/
+    
 
     @Override
     public int nextIndex() {

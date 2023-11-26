@@ -42,6 +42,8 @@ public interface List<E> extends Iterable<E> {
     
     public boolean addAll (List<E> l);
     
+    public boolean clear();
+    
     
 
 }
