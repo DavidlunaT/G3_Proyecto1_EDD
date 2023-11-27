@@ -26,6 +26,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -126,64 +128,45 @@ public class RegisterPersonController implements Initializable {
 
     @FXML
     public void savePerson() {
-        addPhoneNumber();
-        addEmail();
-        addAddress();
-        addSpecialDate();
-
-        if (txtNickname.getText().equals("")) {
-            txtNickname.setText(txtName.getText());
+        
+        if (cmbTphone.getValue() != null && !txtPhoneNumber.getText().equals("")) {
+            phones.addLast(new Phone(txtPhoneNumber.getText(), String.valueOf(cmbTphone.getValue())));
         }
-
+        if (cmbTemail.getValue() != null && !txtEmail.getText().equals("")) {
+            emails.addLast(new Email(txtEmail.getText(), String.valueOf(cmbTemail.getValue())));
+        }
+        if (!txtLabelAddress.getText().equals("") && !txtStreet.getText().equals("")) {
+            addresses.addLast(new Address(txtStreet.getText(), txtSecondaryStreet.getText(), txtCodePostal.getText(), txtCity.getText(), txtCountry.getText(), txtLabelAddress.getText()));
+        }
+        if (cmbTdate.getValue() != null && dpSpecialDate.getValue() != null) {
+            specialDates.addLast(new SpecialDate(dpSpecialDate.getValue().toString(), String.valueOf(cmbTdate.getValue())));
+        }
         if (isRegisteredCorrectly()) {
+            Person p = new Person(txtNickname.getText(),phones);
+            p.setFirstName1(txtName.getText());
+            p.setFirstName2(txtSecondName.getText());
+            p.setLastName1(txtLastName.getText());
+            p.setLastName2(txtSecondLastName.getText());
+            p.setImages(images);
+            p.setAddresses(addresses);
+            p.setEmails(emails);
+            p.setSpecialDates(specialDates);
+            if (images.isEmpty()) {
+                p.setPhoto(Contact.photoDefault);
+            } else {
+                p.setPhoto(this.images.get(0));
+            }
+            
+            ContactVisualizationController.contacts.addLast(p);
+            General.saveContacts(ContactVisualizationController.contacts);
 
-            String name = txtName.getText();
-            String secondName = txtSecondName.getText();
-            String lastName = txtLastName.getText();
-            String secondLastName = txtSecondLastName.getText();
-            String nickname = txtNickname.getText();
-            
-            String phones = "";
-            String emails = "";
-            String addresses = "";
-            String specialDates = "";
-            String images = "";
-            String photo = "";
-            
-            if(!images.isEmpty()){
-                photo = Contact.photoDefault;
-            }else{
-                photo = this.images.get(0);
-            }
-            
-            
-            
-            for(Phone np: this.phones){
-                phones += (np+"_");
-            }
-            for(Email e: this.emails){
-                emails += (e+"_");
-            }
-            for(Address a: this.addresses){
-                addresses += (a+"_");
-            }
-            for(SpecialDate sd: this.specialDates){
-                specialDates += (sd+"_");
-            }
-            for(String img: this.images){
-                images += (img+"_");
-            }
-            
-            String line = name+"/"+secondName+"/"+lastName+"/"+secondLastName+"/"+nickname+"/"+photo+"/"+images+"/"+phones+"/"+emails+"/"+addresses+"/"+specialDates;
-            General.save(line,App.path + "files/people.txt");
-            
-            
             try {
                 switchToContactVisualization();
             } catch (IOException ex) {
                 System.out.println(ex);
-                System.out.println("error");
             }
+        } else {
+            General.errorUser("Necesitas registrar almenos un nombre y un número telefonico");
         }
     }
 
@@ -218,30 +201,43 @@ public class RegisterPersonController implements Initializable {
     }
 
     public boolean isRegisteredCorrectly() {
-        return txtNickname.getText() != null && !phones.isEmpty();
+        if (txtNickname.getText().equals("")) {
+            txtNickname.setText(txtName.getText());
+        }
+        return !txtNickname.getText().equals("") && !phones.isEmpty();
     }
 
     @FXML
     public void addPhoneNumber() {
-        if (cmbTphone.getValue() != null && txtPhoneNumber.getText() != null) {
+        if (cmbTphone.getValue() != null && !txtPhoneNumber.getText().equals("")) {
             phones.addLast(new Phone(txtPhoneNumber.getText(), String.valueOf(cmbTphone.getValue())));
             cmbTphone.setValue(null);
             txtPhoneNumber.clear();
+            General.feedbackUser("Telefono agregado con exito");
+        } else if (cmbTphone.getValue() == null && !txtPhoneNumber.getText().equals("")) {
+            General.errorUser("Debe seleccionar como desea etiquetar este telefono");
+        } else if (txtPhoneNumber.getText().equals("") && cmbTphone.getValue() != null) {
+            General.errorUser("Debe ingresar un número de telefono");
         }
     }
 
     @FXML
     public void addEmail() {
-        if (cmbTemail.getValue() != null && txtEmail.getText() != null) {
+        if (cmbTemail.getValue() != null && !txtEmail.getText().equals("")) {
             emails.addLast(new Email(txtEmail.getText(), String.valueOf(cmbTemail.getValue())));
             cmbTemail.setValue(null);
             txtEmail.clear();
+            General.feedbackUser("Email agregado con exito");
+        }else if(cmbTemail.getValue() == null && !txtEmail.getText().equals("")){
+            General.errorUser("Debe seleccionar como desea etiquetar este email");
+        } else if (txtEmail.getText().equals("") && cmbTemail.getValue() != null) {
+            General.errorUser("Debe ingresar una direccion de correo");
         }
     }
 
     @FXML
     public void addAddress() {
-        if (txtLabelAddress.getText() != null && txtStreet.getText() != null) {
+        if (!txtLabelAddress.getText().equals("") && !txtStreet.getText().equals("")) {
             addresses.addLast(new Address(txtStreet.getText(), txtSecondaryStreet.getText(), txtCodePostal.getText(), txtCity.getText(), txtCountry.getText(), txtLabelAddress.getText()));
             txtLabelAddress.clear();
             txtStreet.clear();
@@ -249,8 +245,12 @@ public class RegisterPersonController implements Initializable {
             txtCodePostal.clear();
             txtCity.clear();
             txtCountry.clear();
+            General.feedbackUser("Direccion agregada con exito");
+        }else if(txtLabelAddress.getText().equals("") && !txtStreet.getText().equals("")){
+            General.errorUser("Debe etiquetar esta direccion");
+        }else if(txtStreet.getText().equals("") && !txtLabelAddress.getText().equals("")){
+            General.errorUser("Debe agregar al menos la calle principal");
         }
-
     }
 
     @FXML
@@ -258,6 +258,11 @@ public class RegisterPersonController implements Initializable {
         if (cmbTdate.getValue() != null && dpSpecialDate.getValue() != null) {
             specialDates.addLast(new SpecialDate(dpSpecialDate.getValue().toString(), String.valueOf(cmbTdate.getValue())));
             cmbTdate.setValue(null);
+            General.feedbackUser("Fecha agregada con exito");
+        }else if(cmbTdate.getValue() == null && dpSpecialDate.getValue() != null){
+            General.errorUser("Debe seleccionar como etiquetar esta fecha");
+        }else if(dpSpecialDate.getValue() == null && cmbTdate.getValue() != null){
+            General.errorUser("Debe seleccionar una fecha");
         }
     }
 
@@ -275,5 +280,7 @@ public class RegisterPersonController implements Initializable {
         cmbTdate.setValue(td[0]);
 
     }
+
+
 
 }

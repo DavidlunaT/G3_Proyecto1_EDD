@@ -12,6 +12,7 @@ import g3.g3_proyecto_contactos.enums.Type_phone;
 import g3.g3_proyecto_contactos.interfaces.List;
 import g3.g3_proyecto_contactos.models.Address;
 import g3.g3_proyecto_contactos.models.Company;
+import g3.g3_proyecto_contactos.models.Contact;
 import g3.g3_proyecto_contactos.models.Email;
 import g3.g3_proyecto_contactos.models.Person;
 import g3.g3_proyecto_contactos.models.Phone;
@@ -126,141 +127,152 @@ public class RegisterCompanyController implements Initializable {
     
     @FXML
     public void saveCompany(){
-        addPhoneNumber();
-        addEmail();
-        addAddress();
-        addSpecialDate();
-
+        if (cmbTphone.getValue() != null && !txtPhoneNumber.getText().equals("")) {
+            phones.addLast(new Phone(txtPhoneNumber.getText(), String.valueOf(cmbTphone.getValue())));
+        }
+        if (cmbTemail.getValue() != null && !txtEmail.getText().equals("")) {
+            emails.addLast(new Email(txtEmail.getText(), String.valueOf(cmbTemail.getValue())));
+        }
+        if (!txtLabelAddress.getText().equals("") && !txtStreet.getText().equals("")) {
+            addresses.addLast(new Address(txtStreet.getText(), txtSecondaryStreet.getText(), txtCodePostal.getText(), txtCity.getText(), txtCountry.getText(), txtLabelAddress.getText()));
+        }
+        if (cmbTdate.getValue() != null && dpSpecialDate.getValue() != null) {
+            specialDates.addLast(new SpecialDate(dpSpecialDate.getValue().toString(), String.valueOf(cmbTdate.getValue())));
+        }
         if (isRegisteredCorrectly()) {
+            Company c = new Company(txtName.getText(),phones);
+            c.setDepartment(txtDepartment.getText());
+            c.setWebsite(txtWebsite.getText());
+            
+            c.setImages(images);
+            c.setAddresses(addresses);
+            c.setEmails(emails);
+            c.setSpecialDates(specialDates);
+            if (images.isEmpty()) {
+                c.setPhoto(Contact.photoDefault);
+            } else {
+                c.setPhoto(this.images.get(0));
+            }
+            
+            ContactVisualizationController.contacts.addLast(c);
+            General.saveContacts(ContactVisualizationController.contacts);
 
-            String name = txtName.getText();
-            String department = txtDepartment.getText();
-            String website = txtWebsite.getText();
-            String photo = images.get(0);
-            String phones = "";
-            String emails = "";
-            String addresses = "";
-            String specialDates = "";
-            String images = "";
-            
-            for(Phone np: this.phones){
-                phones += (np+"_");
-            }
-            for(Email e: this.emails){
-                emails += (e+"_");
-            }
-            for(Address a: this.addresses){
-                addresses += (a+"_");
-            }
-            for(SpecialDate sd: this.specialDates){
-                specialDates += (sd+"_");
-            }
-            for(String img: this.images){
-                images += (img+"_");
-            }
-            
-            String line = name+"/"+department+"/"+website+"/"+photo+"/"+images+"/"+phones+"/"+emails+"/"+addresses+"/"+specialDates;
-            General.save(line,App.path + "files/companies.txt");
-            
-            
             try {
                 switchToContactVisualization();
             } catch (IOException ex) {
                 System.out.println(ex);
-                System.out.println("error");
             }
+        } else {
+            General.errorUser("Necesitas registrar almenos un nombre y un número telefonico");
         }
     }
-    
 
-    
     @FXML
     private void addImages() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleccionar Imágenes");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg","*.jpeg", "*.gif")
+                new FileChooser.ExtensionFilter("Archivos de Imagen", "*.png", "*.jpg", "*.jpeg", "*.gif")
         );
-        
+
         //showOpenMultipleDialogo retorna una List de la API de java, aqui camuflo el "casting" con un for-each
+        for (File file : fileChooser.showOpenMultipleDialog(null)) {
+            System.out.println("Archivo seleccionado: " + file.getAbsolutePath()); //path local maybe hay que cambiar esto
+            try {
+                Path sourcePath = file.toPath();
+                Path targetPath = Path.of(App.path, "photos", file.getName());
 
-            for (File file : fileChooser.showOpenMultipleDialog(null)) { 
-                System.out.println("Archivo seleccionado: " + file.getAbsolutePath()); //path local maybe hay que cambiar esto
-                try {
-                    Path sourcePath = file.toPath();
-                    Path targetPath = Path.of(App.path, "photos", file.getName());
+                // Crea la carpeta 'photos' si no existe
+                Files.createDirectories(targetPath.getParent());
 
-                    // Crea la carpeta 'photos' si no existe
-                    Files.createDirectories(targetPath.getParent());
+                // Copia el archivo al nuevo destino
+                Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
 
-                    // Copia el archivo al nuevo destino
-                    Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Archivo copiado a: " + targetPath.toString());
 
-                    System.out.println("Archivo copiado a: " + targetPath.toString());
-                    images.addLast(targetPath.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                images.addLast(file.getName());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
     }
-    
-    public boolean isRegisteredCorrectly(){
-        return txtName.getText() != null && !phones.isEmpty();
+
+    public boolean isRegisteredCorrectly() {
+        return txtName.getText().equals("") && !phones.isEmpty();
     }
-    
+
     @FXML
-    public void addPhoneNumber(){
-        if(cmbTphone.getValue() != null && txtPhoneNumber.getText()!= null){
-            phones.addLast(new Phone(txtPhoneNumber.getText(),String.valueOf(cmbTphone.getValue())));
+    public void addPhoneNumber() {
+        if (cmbTphone.getValue() != null && !txtPhoneNumber.getText().equals("")) {
+            phones.addLast(new Phone(txtPhoneNumber.getText(), String.valueOf(cmbTphone.getValue())));
             cmbTphone.setValue(null);
             txtPhoneNumber.clear();
+            General.feedbackUser("Telefono agregado con exito");
+        } else if (cmbTphone.getValue() == null && !txtPhoneNumber.getText().equals("")) {
+            General.errorUser("Debe seleccionar como desea etiquetar este telefono");
+        } else if (txtPhoneNumber.getText().equals("") && cmbTphone.getValue() != null) {
+            General.errorUser("Debe ingresar un número de telefono");
         }
     }
-    
+
     @FXML
-    public void addEmail(){
-        if(cmbTemail.getValue() != null && txtEmail.getText()!= null){
-            emails.addLast(new Email(txtEmail.getText(),String.valueOf(cmbTemail.getValue())));
+    public void addEmail() {
+        if (cmbTemail.getValue() != null && !txtEmail.getText().equals("")) {
+            emails.addLast(new Email(txtEmail.getText(), String.valueOf(cmbTemail.getValue())));
             cmbTemail.setValue(null);
             txtEmail.clear();
+            General.feedbackUser("Email agregado con exito");
+        }else if(cmbTemail.getValue() == null && !txtEmail.getText().equals("")){
+            General.errorUser("Debe seleccionar como desea etiquetar este email");
+        } else if (txtEmail.getText().equals("") && cmbTemail.getValue() != null) {
+            General.errorUser("Debe ingresar una direccion de correo");
         }
     }
-    
+
     @FXML
-    public void addAddress(){
-        if(txtLabelAddress.getText() != null && txtStreet.getText()!= null){
-            addresses.addLast(new Address(txtStreet.getText(),txtSecondaryStreet.getText(),txtCodePostal.getText(),txtCity.getText(),txtCountry.getText(),txtLabelAddress.getText()));
+    public void addAddress() {
+        if (!txtLabelAddress.getText().equals("") && !txtStreet.getText().equals("")) {
+            addresses.addLast(new Address(txtStreet.getText(), txtSecondaryStreet.getText(), txtCodePostal.getText(), txtCity.getText(), txtCountry.getText(), txtLabelAddress.getText()));
             txtLabelAddress.clear();
             txtStreet.clear();
             txtSecondaryStreet.clear();
             txtCodePostal.clear();
             txtCity.clear();
             txtCountry.clear();
+            General.feedbackUser("Direccion agregada con exito");
+        }else if(txtLabelAddress.getText().equals("") && !txtStreet.getText().equals("")){
+            General.errorUser("Debe etiquetar esta direccion");
+        }else if(txtStreet.getText().equals("") && !txtLabelAddress.getText().equals("")){
+            General.errorUser("Debe agregar al menos la calle principal");
         }
-        
     }
-    
+
     @FXML
-    public void addSpecialDate(){
-        if(cmbTdate.getValue() != null && dpSpecialDate.getValue()!= null){
-            specialDates.addLast(new SpecialDate(dpSpecialDate.getValue().toString(),String.valueOf(cmbTdate.getValue())));
+    public void addSpecialDate() {
+        if (cmbTdate.getValue() != null && dpSpecialDate.getValue() != null) {
+            specialDates.addLast(new SpecialDate(dpSpecialDate.getValue().toString(), String.valueOf(cmbTdate.getValue())));
             cmbTdate.setValue(null);
+            General.feedbackUser("Fecha agregada con exito");
+        }else if(cmbTdate.getValue() == null && dpSpecialDate.getValue() != null){
+            General.errorUser("Debe seleccionar como etiquetar esta fecha");
+        }else if(dpSpecialDate.getValue() == null && cmbTdate.getValue() != null){
+            General.errorUser("Debe seleccionar una fecha");
         }
     }
-    
-    
-    public void fillComboBoxes(){
+
+    public void fillComboBoxes() {
         Type_phone[] tp = Type_phone.values();
         cmbTphone.getItems().addAll(tp);
         cmbTphone.setValue(tp[0]);
-        
+
         Type_email[] te = Type_email.values();
         cmbTemail.getItems().addAll(te);
         cmbTemail.setValue(te[0]);
-        
+
         Type_date[] td = Type_date.values();
         cmbTdate.getItems().addAll(td);
         cmbTdate.setValue(td[0]);
 
     }
 }
+

@@ -38,7 +38,7 @@ public class ContactVisualizationController implements Initializable {
     @FXML
     public VBox listDisplay;
 
-    public static List<Contact> contacts;
+    public static ArrayList<Contact> contacts;
     @FXML
     private HBox labelNameroot;
     @FXML
@@ -60,8 +60,9 @@ public class ContactVisualizationController implements Initializable {
         contModNext = 0;
         contModPreview = 0;
         loadContactsList();
-        loadContactsView();
-
+        if(!contacts.isEmpty()){
+            loadContactsView();
+        }
     }
 
     @FXML
@@ -70,7 +71,6 @@ public class ContactVisualizationController implements Initializable {
     }
 
     public void loadContactsView() {
-        contModNext++;
         System.out.println("funciona next");
         listDisplay.getChildren().clear();
         Set<Contact> miSet = new LinkedHashSet<>();
@@ -96,21 +96,23 @@ public class ContactVisualizationController implements Initializable {
         for (Contact aContact : miSet) {
             if (aContact != null) {
                 HBox actual = new HBox();
+                System.out.println(aContact.getPhoto());
                 actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
                 actual.getChildren().add(new Label(aContact.getName()));
                 listDisplay.getChildren().add(actual);
             }
         }
+        contModNext++;
 
     }
 
     public void loadContactsList() {
-        contacts = General.loadPeople();
+        contacts = General.loadContacts();
         itContacts = new CustomCircularIterator<>(this.contacts);
     }
 
     public void btnPreview() {
-        contModPreview++;
+        
         System.out.println("funciona preview");
         Set<Contact> miSet = new LinkedHashSet<>();
         listDisplay.getChildren().clear();
@@ -148,6 +150,7 @@ public class ContactVisualizationController implements Initializable {
 
             listDisplay.getChildren().add(actual);
         }
+        contModPreview++;
     }
 
 }

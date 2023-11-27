@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 public abstract class Contact implements Serializable {
 
-    public static final String photoDefault = "default.jpg";
+    public static final String photoDefault = "default.png";
     protected String name;
 
     protected List<String> images;
