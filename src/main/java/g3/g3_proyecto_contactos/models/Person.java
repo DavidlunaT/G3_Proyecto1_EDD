@@ -5,6 +5,7 @@
 package g3.g3_proyecto_contactos.models;
 
 import g3.g3_proyecto_contactos.interfaces.List;
+import java.io.Serializable;
 
 
 
@@ -13,7 +14,7 @@ import g3.g3_proyecto_contactos.interfaces.List;
  *
  * @author oweny
  */
-public class Person extends Contact{ 
+public class Person extends Contact implements Serializable{ 
     
     public String firstName1;
     public String firstName2;
@@ -64,14 +65,6 @@ public class Person extends Contact{
         this.name = name;
     }
 
-    public String getUrlProfilePic() {
-        return urlProfilePic;
-    }
-
-    public void setUrlProfilePic(String urlProfilePic) {
-        this.urlProfilePic = urlProfilePic;
-    }
-
     public List<String> getImages() {
         return images;
     }
@@ -119,8 +112,6 @@ public class Person extends Contact{
     public void setPhoto(String Photo) {
         this.Photo = Photo;
     }
-
-
-
+    
     
 }

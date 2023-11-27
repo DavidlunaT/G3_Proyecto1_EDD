@@ -5,13 +5,14 @@
 package g3.g3_proyecto_contactos.dataStructures;
 
 import g3.g3_proyecto_contactos.interfaces.List;
+import java.io.Serializable;
 import java.util.Iterator;
 
 /**
  *
  * @author David
  */
-public class ArrayList<E> implements List<E> {
+public class ArrayList<E> implements List<E>, Serializable {
 
     private E[] elements;
     private int CAPACITY = 100;
