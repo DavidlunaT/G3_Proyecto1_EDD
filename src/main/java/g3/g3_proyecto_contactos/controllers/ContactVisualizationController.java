@@ -27,9 +27,16 @@ import javafx.stage.Stage;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+
 
 /**
  * FXML Controller class
@@ -87,7 +94,7 @@ public class ContactVisualizationController implements Initializable {
     }
 
     public void loadContactsView() {
-        contModNext++;
+        
         System.out.println("funciona next");
         listDisplay.getChildren().clear();
         Set<Contact> miSet = new LinkedHashSet<>();
@@ -112,13 +119,14 @@ public class ContactVisualizationController implements Initializable {
 
         for (Contact aContact : miSet) {
             if (aContact != null) {
-                HBox actual = new HBox();
-                actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
-                actual.getChildren().add(new Label(aContact.getName()));
-                listDisplay.getChildren().add(actual);
+//                HBox actual = new HBox();
+//                actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
+//                actual.getChildren().add(new Label(aContact.getName()));
+//                listDisplay.getChildren().add(actual);
+                styleContact(aContact);
             }
         }
-
+        contModNext++;
     }
 
     public void loadContactsList() {
@@ -127,7 +135,7 @@ public class ContactVisualizationController implements Initializable {
     }
 
     public void btnPreview() {
-        contModPreview++;
+        
         System.out.println("funciona preview");
         Set<Contact> miSet = new LinkedHashSet<>();
         listDisplay.getChildren().clear();
@@ -165,6 +173,24 @@ public class ContactVisualizationController implements Initializable {
 
             listDisplay.getChildren().add(actual);
         }
+        contModPreview++;
+    }
+    
+    public void styleContact(Contact c){
+        HBox rootC = new HBox();
+        //style
+        rootC.setPadding(new Insets(10, 5, 10, 5));
+        rootC.setStyle("-fx-background-color: #5A8165");
+        //children
+        ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 60, 0, true, false));
+        Label lb = new Label(c.getName());
+        lb.setPadding(new Insets(10,20,10,5));
+        lb.setAlignment(Pos.CENTER_LEFT);
+        lb.setFont(new Font("Arial", 20));
+        lb.setStyle("-fx-font-color: #FBF8F2");
+        //agregar al root
+        rootC.getChildren().addAll(imv,lb);
+        listDisplay.getChildren().add(rootC);
     }
     public void orderBy() throws IOException{
                 
