@@ -27,10 +27,16 @@ import javafx.stage.Stage;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
 
 /**
  * FXML Controller class
@@ -41,7 +47,14 @@ public class ContactVisualizationController implements Initializable {
 
     @FXML
     public VBox listDisplay;
-
+    @FXML
+    private Stage orderBy;
+    
+    @FXML
+    public Button btnOrderBy;
+    @FXML
+    public ComboBox<String> filterBy;
+    
     public static List<Contact> contacts;
     @FXML
     private HBox labelNameroot;
@@ -65,6 +78,13 @@ public class ContactVisualizationController implements Initializable {
         contModPreview = 0;
         loadContactsList();
         loadContactsView();
+        ObservableList<String> opciones = FXCollections.observableArrayList(
+                "Nombre",
+                "Ciudad",
+                "Telefono"
+        );
+        
+        filterBy.setItems(opciones);
 
     }
 
@@ -186,5 +206,19 @@ public class ContactVisualizationController implements Initializable {
         rootA.getChildren().addAll(rootC);
         listDisplay.getChildren().add(rootA);
     }
+    public void orderBy() throws IOException{
+                
+        Parent root = App.loadFXML("orderBy");
+        Stage nView = new Stage();
+        nView.setTitle("Order By");
+        Scene scene = new Scene(root);
+        nView.setScene(scene);
+        nView.show();
+                
 
+        
+    }
+    public void filterBy(){
+        
+    }
 }

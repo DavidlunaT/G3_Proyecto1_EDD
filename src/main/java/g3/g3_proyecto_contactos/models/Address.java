@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author oweny
  */
-public class Address implements Serializable {
+public class Address implements Serializable, Comparable<Address>{
 
     public String Street;
     public String secondaryStreet;
@@ -80,6 +80,11 @@ public class Address implements Serializable {
     public String toString() {
         return label + ":" + Street+ ":" + secondaryStreet+ ":" + postalCode+ ":" + city+":"+country;
     }
+
+    @Override
+    public int compareTo(Address o) {
+       return country.compareTo(o.getCountry());
+    }  
 
    
     
