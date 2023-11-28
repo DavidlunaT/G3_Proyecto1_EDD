@@ -157,20 +157,34 @@ public class ContactVisualizationController implements Initializable {
     }
     
     public void styleContact(Contact c){
+        //roots
+        HBox rootA = new HBox(); 
         HBox rootC = new HBox();
+        //dimensions
+        rootA.setAlignment(Pos.CENTER);
+        rootA.setPadding(new Insets(1,3,1,3));
+        rootA.setPrefHeight(10);
+        rootC.setPadding(new Insets(10, 5, 10, 5));      
+        rootC.setPrefWidth(450);      
         //style
-        rootC.setPadding(new Insets(10, 5, 10, 5));
-        rootC.setStyle("-fx-background-color: #5A8165");
+        rootC.setStyle("-fx-background-radius: 10;"
+                + "-fx-border-radius: 10;"
+                + "-fx-background-color: #5A8165;"
+                + "-fx-border-color: #FBF8F2;"            
+                + "-fx-border-width: 2;");    
         //children
-        ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 60, 0, true, false));
+        ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 50, 0, true, false));
         Label lb = new Label(c.getName());
+        //dimensions
         lb.setPadding(new Insets(10,20,10,5));
         lb.setAlignment(Pos.CENTER_LEFT);
+        //style
         lb.setFont(new Font("Arial", 20));
-        lb.setStyle("-fx-font-color: #FBF8F2");
-        //agregar al root
-        rootC.getChildren().addAll(imv,lb);
-        listDisplay.getChildren().add(rootC);
+        lb.setTextFill(Color.web("#FBF8F2"));   
+        //adding
+        rootC.getChildren().addAll(imv,lb);        
+        rootA.getChildren().addAll(rootC);
+        listDisplay.getChildren().add(rootA);
     }
 
 }
