@@ -30,10 +30,12 @@ import java.util.LinkedHashSet;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -43,7 +45,7 @@ import javafx.scene.text.Font;
  *
  * @author David
  */
-public class ContactVisualizationController implements Initializable {
+public class ContactVisualizationController implements Initializable, EventHandler<ActionEvent> {
 
     @FXML
     public VBox listDisplay;
@@ -192,6 +194,8 @@ public class ContactVisualizationController implements Initializable {
                 + "-fx-background-color: #5A8165;"
                 + "-fx-border-color: #FBF8F2;"            
                 + "-fx-border-width: 2;");    
+        //Event
+        setActionHBox(rootC);
         //children
         ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 50, 0, true, false));
         Label lb = new Label(c.getName());
@@ -206,6 +210,18 @@ public class ContactVisualizationController implements Initializable {
         rootA.getChildren().addAll(rootC);
         listDisplay.getChildren().add(rootA);
     }
+    
+    public void setActionHBox(HBox hbx){
+        hbx.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("mouseeee");
+            }
+            
+        });
+        
+    }
+    
     public void orderBy() throws IOException{
                 
         Parent root = App.loadFXML("orderBy");
@@ -214,11 +230,14 @@ public class ContactVisualizationController implements Initializable {
         Scene scene = new Scene(root);
         nView.setScene(scene);
         nView.show();
-                
-
+    }
+    
+    public void filterBy(){
         
     }
-    public void filterBy(){
+
+    @Override
+    public void handle(ActionEvent t) {
         
     }
 }
