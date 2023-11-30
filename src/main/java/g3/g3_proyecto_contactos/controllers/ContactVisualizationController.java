@@ -192,14 +192,10 @@ public class ContactVisualizationController implements Initializable {
     }
 
     public void switchToContactDetail() {
-        try {
-            App.setRoot("contactDetail");
-        } catch (IOException ex) {
-        }
+        try {App.setRoot("contactDetail");} catch (IOException ex) {}
     }
 
     public void orderBy() throws IOException {
-
         Parent root = App.loadFXML("orderBy");
         Stage nView = new Stage();
         nView.setTitle("Order By");
