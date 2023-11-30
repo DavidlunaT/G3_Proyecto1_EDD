@@ -8,7 +8,9 @@ import g3.g3_proyecto_contactos.App;
 import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 import g3.g3_proyecto_contactos.dataStructures.CustomCircularIterator;
 import g3.g3_proyecto_contactos.interfaces.List;
+import g3.g3_proyecto_contactos.models.Company;
 import g3.g3_proyecto_contactos.models.Contact;
+import g3.g3_proyecto_contactos.models.Person;
 import g3.g3_proyecto_contactos.models.User;
 import g3.g3_proyecto_contactos.utilties.General;
 import java.io.IOException;
@@ -50,7 +52,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
 
     @FXML
     public VBox listDisplay;
-    public RadioButton rdbtnCountry;
+    
     public RadioButton rdbtnName;
     public ToggleGroup np;
     public RadioButton rdbtnPN;
@@ -78,7 +80,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
     private int contModPreview;
     
     private PriorityQueue<Contact> nameC ;
-    private PriorityQueue<Contact> countryC;
+    
     private PriorityQueue<Contact> numberC;
 
     /**
@@ -109,40 +111,37 @@ public class ContactVisualizationController implements Initializable, EventHandl
     }
 
     public void loadContactsView() {
-        System.out.println("funciona next");
+        
         listDisplay.getChildren().clear();
         Set<Contact> miSet = new LinkedHashSet<>();
         ArrayList<Contact> currentList = new ArrayList<>();
         if (itContacts != null) {
-            if (contModPreview != 0) {
-                for (int e = 0; e < 7; e++) {
-                    currentList.addFirst(itContacts.next());
-                }
-                currentList.clear();
-                for (int e = 0; e < 7; e++) {
-                    miSet.add(itContacts.next());
-                }
-                contModPreview = 0;
-            } else {
-                for (int e = 0; e < 7; e++) {
-                    miSet.add(itContacts.next());
-                }
+            for (int e = 0; e < 7; e++) {
+                    System.out.println(miSet.add(itContacts.next()));
             }
-
-            System.out.println("CONJUNTO DE CONTACTOS" + miSet);
             for (Contact aContact : miSet) {
-            if (aContact != null) {
-//                HBox actual = new HBox();
-//                actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
-//                actual.getChildren().add(new Label(aContact.getName()));
-//                listDisplay.getChildren().add(actual);
                 styleContact(aContact);
-            }
-        }
-        contModNext++;
         }
 
         
+        }
+    }
+    public void btnPreview() {
+
+        listDisplay.getChildren().clear();
+        Set<Contact> miSet = new LinkedHashSet<>();
+        ArrayList<Contact> currentList = new ArrayList<>();
+        if (itContacts != null) {
+            for (int e = 0; e < 7; e++) {
+                System.out.println(miSet.add(itContacts.previous()));
+                
+            }
+            for (Contact aContact : miSet) {
+                styleContact(aContact);
+        }
+
+        
+        }
     }
 
     public void loadContactsList() {
@@ -156,13 +155,8 @@ public class ContactVisualizationController implements Initializable, EventHandl
             return c1.getName().compareTo(c2.getName());
         };
         
-        //comparador pais
-        Comparator<Contact> cCountry = (c1,c2)-> {
-            if (c1.getAddresses().getFirst() == null || c2.getAddresses().getFirst()== null){
-                return -100000;
-            }
-            return c1.getAddresses().getFirst().getCountry().compareTo(c2.getAddresses().getFirst().getCountry());
-        };
+        
+        
         
         //comparador telefono
         Comparator<Contact> cPhone = (c1,c2)-> {
@@ -173,7 +167,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
         //instancio las colas con un comparador
         nameC = new PriorityQueue<>(cName);
         
-        countryC = new PriorityQueue<>(cCountry);
+        
         
         numberC = new PriorityQueue<>(cPhone);
         
@@ -183,55 +177,14 @@ public class ContactVisualizationController implements Initializable, EventHandl
         for (int i = 0; i < contacts.size(); i++){
             
             nameC.offer(contacts.get(i));
-            countryC.offer(contacts.get(i));
+            
             numberC.offer(contacts.get(i));
         }
         
 
     }
 
-    public void btnPreview() {
-
-        System.out.println("funciona preview");
-        Set<Contact> miSet = new LinkedHashSet<>();
-        listDisplay.getChildren().clear();
-
-        ArrayList<Contact> currentList = new ArrayList<>();
-
-        if (contModNext != 0) {
-            for (int e = 0; e < 7; e++) {
-                currentList.addFirst(itContacts.previous());
-            }
-            currentList.clear();
-
-            for (int e = 0; e < 7; e++) {
-                currentList.addFirst(itContacts.previous());
-            }
-
-            for (Contact c : currentList) {
-                miSet.add(c);
-            }
-            contModNext = 0;
-        } else {
-            for (int e = 0; e < 7; e++) {
-                currentList.addFirst(itContacts.previous());
-            }
-
-            for (Contact c : currentList) {
-                miSet.add(c);
-            }
-        }
-
-        for (Contact aContact : miSet) {
-//            HBox actual = new HBox();
-//            actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
-//            actual.getChildren().add(new Label(aContact.getName()));
-//
-//            listDisplay.getChildren().add(actual);
-              styleContact(aContact);
-        }
-        contModPreview++;
-    }
+    
 
     public void styleContact(Contact c) {
         //roots
@@ -287,18 +240,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
 
     }
 
-    public void countrySelected(ActionEvent actionEvent) {
-        if(rdbtnCountry.isSelected()){
-            ArrayList<Contact> countryOrdered = new ArrayList<>();
-            for (Contact aContact: countryC){
-                countryOrdered.addLast(aContact);
-            }
-            itContacts = new CustomCircularIterator(countryOrdered);
-        }
-        else if(!rdbtnCountry.isSelected()){
-            
-        }
-    }
+   
     public void nameSelected(ActionEvent actionEvent) {
         if(rdbtnName.isSelected()){
             ArrayList<Contact> countryOrdered = new ArrayList<>();
@@ -323,7 +265,67 @@ public class ContactVisualizationController implements Initializable, EventHandl
             
         }
     }
+//    public void load(){
+//        listDisplay.getChildren().clear();
+//        Set<Contact> miSet = new LinkedHashSet<>();
+//        ArrayList<Contact> currentList = new ArrayList<>();
+//        if (itContacts != null) {
+//            for (int e = 0; e < 7; e++) {
+//                    currentList.addFirst();
+//                }
+//                currentList.clear();
+//                for (int e = 0; e < 7; e++) {
+//                    miSet.add(itContacts.next());
+//                }
+//        }
+//        
+//    }
 
     public void TypeSelected(ActionEvent actionEvent) {
+         if(rdbtnPN.isSelected()){
+            ArrayList<Contact> nContacts = new ArrayList<>();
+        
+        for(Contact aContact : contacts){
+            if (aContact instanceof Person){
+            nContacts.addLast(aContact);
+            }
+            
+        }
+        for(Contact aContact : contacts){
+            if (aContact instanceof Company){
+            nContacts.addLast(aContact);
+            }
+            
+        }
+        
+        contacts = nContacts; 
+        itContacts = new CustomCircularIterator<>(this.contacts);
+        contModNext = contModPreview = 1;
+        loadContactsView();
+         }
+         else {
+             ArrayList<Contact> nContacts = new ArrayList<>();
+             for(Contact aContact : contacts){
+                if (aContact instanceof Company){
+                    nContacts.addLast(aContact);
+                }
+            
+             }
+        
+            for(Contact aContact : contacts){
+                if (aContact instanceof Person){
+                nContacts.addLast(aContact);
+                }
+                
+            }      
+        
+            contacts = nContacts; 
+            itContacts = new CustomCircularIterator<>(this.contacts);
+            contModNext = contModPreview = 1;
+            loadContactsView();
+             
+         }
+        
+        
     }
 }

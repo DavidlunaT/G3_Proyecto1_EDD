@@ -198,7 +198,7 @@ public class RegisterCompanyController implements Initializable {
     }
 
     public boolean isRegisteredCorrectly() {
-        return txtName.getText().equals("") && !phones.isEmpty();
+        return !txtName.getText().equals("") && !phones.isEmpty();
     }
 
     @FXML
