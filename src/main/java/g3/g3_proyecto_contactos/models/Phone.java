@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author oweny
  */
-public class Phone implements Serializable{
+public class Phone implements Serializable, Comparable<Phone>{
     public String number;
     public String label;
 
@@ -40,6 +40,11 @@ public class Phone implements Serializable{
     @Override
     public String toString() {
         return label + ":" + number;
+    }
+
+    @Override
+    public int compareTo(Phone o) {
+        return number.compareTo(o.getNumber());
     }
     
     
