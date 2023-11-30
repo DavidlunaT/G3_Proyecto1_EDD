@@ -94,7 +94,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
         if (!contacts.isEmpty()) {
             loadContactsView();
         }
-        loadContactsView();
+        
         ObservableList<String> opciones = FXCollections.observableArrayList(
                 "Nombre",
                 "Ciudad",
@@ -111,38 +111,29 @@ public class ContactVisualizationController implements Initializable, EventHandl
     }
 
     public void loadContactsView() {
-        
         listDisplay.getChildren().clear();
-        Set<Contact> miSet = new LinkedHashSet<>();
-        ArrayList<Contact> currentList = new ArrayList<>();
-        if (itContacts != null) {
-            for (int e = 0; e < 7; e++) {
-                    System.out.println(miSet.add(itContacts.next()));
-            }
-            for (Contact aContact : miSet) {
-                styleContact(aContact);
+        Contact last = contacts.remove(contacts.size()-1);
+        contacts.addFirst(last);
+        for (int i = 0; i < 7 ; i++){
+            styleContact(contacts.get(i));
         }
-
         
-        }
+    
+    
     }
     public void btnPreview() {
-
         listDisplay.getChildren().clear();
-        Set<Contact> miSet = new LinkedHashSet<>();
-        ArrayList<Contact> currentList = new ArrayList<>();
-        if (itContacts != null) {
-            for (int e = 0; e < 7; e++) {
-                System.out.println(miSet.add(itContacts.previous()));
-                
-            }
-            for (Contact aContact : miSet) {
-                styleContact(aContact);
+        Contact fisrt = contacts.remove(0);
+        contacts.addLast(fisrt);
+        for (int i = 0; i < 7 ; i++){
+            styleContact(contacts.get(i));
         }
-
+        for(Contact a : contacts){
+            System.out.println(a.getName());
+        }
         
-        }
     }
+
 
     public void loadContactsList() {
         contacts = General.loadContacts();
@@ -282,26 +273,32 @@ public class ContactVisualizationController implements Initializable, EventHandl
 //    }
 
     public void TypeSelected(ActionEvent actionEvent) {
-         if(rdbtnPN.isSelected()){
+         if(rdbtnPC.isSelected()){
             ArrayList<Contact> nContacts = new ArrayList<>();
         
         for(Contact aContact : contacts){
+            System.out.println(aContact.getClass().getName());
             if (aContact instanceof Person){
-            nContacts.addLast(aContact);
-            }
+                nContacts.addLast(aContact);
+                System.out.println("a");
+                }
+            
             
         }
         for(Contact aContact : contacts){
             if (aContact instanceof Company){
             nContacts.addLast(aContact);
+                System.out.println("b");
             }
             
         }
-        
-        contacts = nContacts; 
-        itContacts = new CustomCircularIterator<>(this.contacts);
-        contModNext = contModPreview = 1;
+        for(Contact a: nContacts){
+            System.out.println(a.getName());
+        }
+        contacts = nContacts;
         loadContactsView();
+        
+        
          }
          else {
              ArrayList<Contact> nContacts = new ArrayList<>();
@@ -317,15 +314,102 @@ public class ContactVisualizationController implements Initializable, EventHandl
                 nContacts.addLast(aContact);
                 }
                 
-            }      
-        
-            contacts = nContacts; 
-            itContacts = new CustomCircularIterator<>(this.contacts);
-            contModNext = contModPreview = 1;
+            
+            } 
+            for(Contact a: nContacts){
+            System.out.println(a.getName());
+        }
+            contacts = nContacts;
             loadContactsView();
-             
+        
+            
          }
         
         
     }
 }
+//     public void loadContactsView() {
+//        System.out.println("funciona next");
+//        listDisplay.getChildren().clear();
+//        Set<Contact> miSet = new LinkedHashSet<>();
+//        ArrayList<Contact> currentList = new ArrayList<>();
+//        if (itContacts != null) {
+//            if (contModPreview != 0) {
+//                for (int e = 0; e < 7; e++) {
+//                    Contact a = itContacts.next();
+//                    
+//                    if(currentList.contains(a)){
+//                        currentList.addLast(a);
+//                        itContacts.previous();
+//                    }
+//                    else{
+//                        currentList.addLast(a);
+//                    }
+//                }
+//                currentList.clear();
+//                for (int e = 0; e < 7; e++) {
+//                    if(!miSet.add(itContacts.next())){
+//                        itContacts.previous();
+//                        
+//                    }
+//                    
+//                    
+//                }
+//                contModPreview = 0;
+//            } else {
+//                for (int e = 0; e < 7; e++) {
+//                    if(!miSet.add(itContacts.next())){
+//                        
+//                        itContacts.previous();
+//                    }
+//                    System.out.println(itContacts.next().getName());
+//                    System.out.println(itContacts.previous().getName());
+//                }
+//            }
+//
+//            System.out.println("CONJUNTO DE CONTACTOS" + miSet);
+//            for (Contact aContact : miSet) {
+//            if (aContact != null) {
+//                styleContact(aContact);
+//            }
+//        }
+//        contModNext++;
+//        }
+//     }
+//     public void btnPreview() {
+//
+//        
+//        Set<Contact> miSet = new LinkedHashSet<>();
+//        listDisplay.getChildren().clear();
+//
+//        ArrayList<Contact> currentList = new ArrayList<>();
+//
+//        if (contModNext != 0) {
+//            for (int e = 0; e < 7; e++) {
+//                currentList.addFirst(itContacts.previous());
+//            }
+//            currentList.clear();
+//
+//            for (int e = 0; e < 7; e++) {
+//                currentList.addFirst(itContacts.previous());
+//            }
+//
+//            for (Contact c : currentList) {
+//                miSet.add(c);
+//            }
+//            contModNext = 0;
+//        } else {
+//            for (int e = 0; e < 7; e++) {
+//                currentList.addFirst(itContacts.previous());
+//            }
+//
+//            for (Contact c : currentList) {
+//                miSet.add(c);
+//            }
+//        }
+//
+//        for (Contact aContact : miSet) {
+//              styleContact(aContact);
+//        }
+//        contModPreview++;
+//    }

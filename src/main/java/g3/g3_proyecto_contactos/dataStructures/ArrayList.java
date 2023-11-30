@@ -225,9 +225,11 @@ public class ArrayList<E> implements List<E>, Serializable {
         }
         E element = elements[index];
         //mueve el ArrayList hacia la izquieda
-        for (int i = index; i < effectiveSize - 1; i++) {
-            elements[index] = elements[index + 1];
-        }
+        if (index < effectiveSize - 1) {
+            for (int i = index; i < effectiveSize - 1; i++) {
+                elements[i] = elements[i + 1];
+            }
+        }    
         elements[effectiveSize - 1] = null;
         effectiveSize--;
         return element;
