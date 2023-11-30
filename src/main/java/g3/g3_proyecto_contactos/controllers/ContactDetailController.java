@@ -13,6 +13,7 @@ import g3.g3_proyecto_contactos.models.Contact;
 import g3.g3_proyecto_contactos.models.Email;
 import g3.g3_proyecto_contactos.models.Person;
 import g3.g3_proyecto_contactos.models.Phone;
+import g3.g3_proyecto_contactos.utilties.General;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -92,7 +93,14 @@ public class ContactDetailController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(c);
-    }    
+    }
+    public void switchToContactVisualization() {
+        try {
+            App.setRoot("contactVisualization");
+        } catch (IOException ex) {
+        }
+    }
+    
     
     public void loadImage(String imageUrl){
         Image img = new Image("file:" + App.path + "photos/" + imageUrl, 50, 0, true, false);
@@ -172,6 +180,16 @@ public class ContactDetailController implements Initializable {
            ScrollPane root = fxmlLoader.load();
             ct.fillFields(comp);
             App.changeRoot(root);
+        }
+    }
+    
+    @FXML
+    public void deleteContact(){
+        if(ContactVisualizationController.contacts.contains(c)){
+            ContactVisualizationController.contacts.remove(c);
+            General.saveContacts(ContactVisualizationController.contacts);
+             switchToContactVisualization();
+            
         }
     }
     
