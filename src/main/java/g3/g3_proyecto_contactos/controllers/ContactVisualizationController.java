@@ -9,6 +9,7 @@ import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 import g3.g3_proyecto_contactos.dataStructures.CustomCircularIterator;
 import g3.g3_proyecto_contactos.interfaces.List;
 import g3.g3_proyecto_contactos.models.Contact;
+import g3.g3_proyecto_contactos.models.Person;
 import g3.g3_proyecto_contactos.models.User;
 import g3.g3_proyecto_contactos.utilties.General;
 import java.io.IOException;
@@ -80,7 +81,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
         loadContactsList();
         if (!contacts.isEmpty()) {
             loadContactsView();
-            
+
         }
         loadContactsView();
         ObservableList<String> opciones = FXCollections.observableArrayList(
@@ -246,4 +247,10 @@ public class ContactVisualizationController implements Initializable, EventHandl
     public void handle(ActionEvent t) {
 
     }
+
+    /*public void editar() {
+        if (c instanceof Person) {
+            Person p = 
+        }
+    }*/
 }
