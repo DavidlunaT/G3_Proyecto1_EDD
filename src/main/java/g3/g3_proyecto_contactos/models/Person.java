@@ -5,6 +5,7 @@
 package g3.g3_proyecto_contactos.models;
 
 import g3.g3_proyecto_contactos.interfaces.List;
+import java.io.Serializable;
 
 
 
@@ -13,7 +14,7 @@ import g3.g3_proyecto_contactos.interfaces.List;
  *
  * @author oweny
  */
-public class Person extends Contact{ 
+public class Person extends Contact implements Serializable, Comparable<Person>{ 
     
     public String firstName1;
     public String firstName2;
@@ -64,14 +65,6 @@ public class Person extends Contact{
         this.name = name;
     }
 
-    public String getUrlProfilePic() {
-        return urlProfilePic;
-    }
-
-    public void setUrlProfilePic(String urlProfilePic) {
-        this.urlProfilePic = urlProfilePic;
-    }
-
     public List<String> getImages() {
         return images;
     }
@@ -120,7 +113,23 @@ public class Person extends Contact{
         this.Photo = Photo;
     }
 
+    @Override
+    public String toString() {
+        return super.toString()+"Person{" + "firstName1=" + firstName1 + ", firstName2=" + firstName2 + ", lastName1=" + lastName1 + ", lastName2=" + lastName2 + '}';
+    }
 
-
+    @Override
+    public int compareTo(Person o) {
+        int comp = firstName1.compareTo(o.getFirstName1());
+        if(comp == 0){
+            comp = lastName1.compareTo(o.getLastName1());
+        }
+        return comp;
+    }
+    
+    
+    
+    
+    
     
 }

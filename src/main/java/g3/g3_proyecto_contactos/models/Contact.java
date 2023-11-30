@@ -4,21 +4,19 @@
  */
 package g3.g3_proyecto_contactos.models;
 
-
+import g3.g3_proyecto_contactos.App;
 import g3.g3_proyecto_contactos.interfaces.List;
+import java.io.Serializable;
 
-
-
- //implementar tda
-
+//implementar tda
 /**
  *
  * @author oweny
  */
-public abstract class Contact {
-    
+public abstract class Contact implements Serializable {
+
+    public static final String photoDefault = "default.png";
     protected String name;
-    protected String urlProfilePic;
     protected List<String> images;
     protected List<Phone> phones;
     protected List<Address> addresses;
@@ -34,8 +32,7 @@ public abstract class Contact {
         this.name = name;
         this.phones = phones;
     }
-    
-    
+
     public String getName() {
         return name;
     }
@@ -44,13 +41,6 @@ public abstract class Contact {
         this.name = name;
     }
 
-    public String getUrlProfilePic() {
-        return urlProfilePic;
-    }
-
-    public void setUrlProfilePic(String urlProfilePic) {
-        this.urlProfilePic = urlProfilePic;
-    }
 
     public List<String> getImages() {
         return images;
@@ -99,7 +89,12 @@ public abstract class Contact {
     public void setPhoto(String Photo) {
         this.Photo = Photo;
     }
+
+    @Override
+    public String toString() {
+        return "Contact{" + "name=" + name + ", images=" + images + ", phones=" + phones + ", addresses=" + addresses + ", emails=" + emails + ", specialDates=" + specialDates + ", Photo=" + Photo + '}';
+    }
     
     
-    
+
 }

@@ -5,3 +5,14 @@
 .mainFxmlClass {
 
 }
+
+.addingContact{
+    -fx-background-image: url("AddingContact.png");
+    -fx-background-color: none;
+    -fx-background-position: center;
+    -fx-background-size: cover;   
+}
+
+.rootContact{
+    -fx-background-color: #5A8165;   
+}

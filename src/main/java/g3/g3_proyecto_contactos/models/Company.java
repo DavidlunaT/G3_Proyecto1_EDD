@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package g3.g3_proyecto_contactos.models;
 
 import g3.g3_proyecto_contactos.interfaces.List;
+import java.io.Serializable;
 
 
 
@@ -12,14 +9,13 @@ import g3.g3_proyecto_contactos.interfaces.List;
  *
  * @author oweny
  */
-public class Company extends Contact{
+public class Company extends Contact implements Serializable{
     
     public String department;
     public String website;
 
     public Company(String name, List<Phone> phones) {
         super(name, phones);
-        this.department = department;
     }
 
     public Company(List<Phone> phones) {
@@ -48,14 +44,6 @@ public class Company extends Contact{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUrlProfilePic() {
-        return urlProfilePic;
-    }
-
-    public void setUrlProfilePic(String urlProfilePic) {
-        this.urlProfilePic = urlProfilePic;
     }
 
     public List<String> getImages() {
@@ -105,7 +93,5 @@ public class Company extends Contact{
     public void setPhoto(String Photo) {
         this.Photo = Photo;
     }
-
-
 
 }

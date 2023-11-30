@@ -3,26 +3,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package g3.g3_proyecto_contactos.models;
-import java.time.LocalDate;
+import java.io.Serializable;
 /**
  *
  * @author oweny
  */
-public class SpecialDate {
+public class SpecialDate implements Serializable{
 
-    public LocalDate date;
+    public String date;
     public String label;
     
-    public SpecialDate(LocalDate date, String label) {
+    public SpecialDate(String date, String label) {
         this.date = date;
         this.label = label;
     }  
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -33,6 +33,12 @@ public class SpecialDate {
     public void setLabel(String label) {
         this.label = label;
     }
+
+    @Override
+    public String toString() {
+        return label + ":" + date;
+    }
+    
     
     
 }

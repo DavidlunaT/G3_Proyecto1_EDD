@@ -4,11 +4,13 @@
  */
 package g3.g3_proyecto_contactos.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author oweny
  */
-public class Phone {
+public class Phone implements Serializable, Comparable<Phone>{
     public String number;
     public String label;
 
@@ -34,5 +36,17 @@ public class Phone {
     public String getNumber() {
         return number;
     }
+
+    @Override
+    public String toString() {
+        return label + ":" + number;
+    }
+
+    @Override
+    public int compareTo(Phone o) {
+        return number.compareTo(o.getNumber());
+    }
+    
+    
  
 }
