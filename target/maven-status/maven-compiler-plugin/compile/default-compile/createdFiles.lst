@@ -21,7 +21,11 @@ g3\g3_proyecto_contactos\dataStructures\LinkedList.class
 g3\g3_proyecto_contactos\dataStructures\ArrayList.class
 g3\g3_proyecto_contactos\models\Phone.class
 g3\g3_proyecto_contactos\models\Contact.class
+<<<<<<< HEAD
 g3\g3_proyecto_contactos\controllers\OrderByController.class
+=======
+g3\g3_proyecto_contactos\controllers\RegisterCompanyController.class
+>>>>>>> 75ab64dda0d3409f0506ff4d7aed19896c594048
 g3\g3_proyecto_contactos\models\Relation.class
 g3\g3_proyecto_contactos\dataStructures\ArrayList$1.class
 g3\g3_proyecto_contactos\models\Person.class

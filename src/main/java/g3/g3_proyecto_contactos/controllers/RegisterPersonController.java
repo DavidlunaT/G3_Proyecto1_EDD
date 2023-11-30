@@ -5,7 +5,6 @@
 package g3.g3_proyecto_contactos.controllers;
 
 import g3.g3_proyecto_contactos.App;
-import static g3.g3_proyecto_contactos.controllers.ContactVisualizationController.contacts;
 import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 import g3.g3_proyecto_contactos.enums.Type_date;
 import g3.g3_proyecto_contactos.enums.Type_email;

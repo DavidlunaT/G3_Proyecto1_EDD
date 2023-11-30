@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\oweny\OneDrive\Documentos\Codes\Estructura de datos\G3_Proyecto1_EDD\src\main\java\module-info.java
 C:\Users\oweny\OneDrive\Documentos\Codes\Estructura de datos\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\controllers\FrontPageAppController.java
 C:\Users\oweny\OneDrive\Documentos\Codes\Estructura de datos\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\enums\Type_date.java
@@ -24,3 +25,30 @@ C:\Users\oweny\OneDrive\Documentos\Codes\Estructura de datos\G3_Proyecto1_EDD\sr
 C:\Users\oweny\OneDrive\Documentos\Codes\Estructura de datos\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\enums\Type_phone.java
 C:\Users\oweny\OneDrive\Documentos\Codes\Estructura de datos\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Company.java
 C:\Users\oweny\OneDrive\Documentos\Codes\Estructura de datos\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\controllers\OrderByController.java
+=======
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Person.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Company.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\controllers\RegisterCompanyController.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\interfaces\List.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\controllers\RegisterPersonController.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\dataStructures\ArrayList.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\dataStructures\Node.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\enums\Type_date.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\dataStructures\CustomCircularIterator.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Contact.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\dataStructures\LinkedList.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\enums\Type_email.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Email.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Address.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\controllers\ContactVisualizationController.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\utilties\General.java
+D:\G3_Proyecto1_EDD\src\main\java\module-info.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\App.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\controllers\FrontPageAppController.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Phone.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\SpecialDate.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\User.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\controllers\Inset.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\enums\Type_phone.java
+D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Relation.java
+>>>>>>> 75ab64dda0d3409f0506ff4d7aed19896c594048
