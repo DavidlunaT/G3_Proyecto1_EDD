@@ -199,13 +199,10 @@ public class ContactVisualizationController implements Initializable {
     }
 
     public void switchToContactDetail() {
-        try {
-            App.setRoot("contactDetail");
-        } catch (IOException ex) {
-        }
+        try {App.setRoot("contactDetail");} catch (IOException ex) {}
     }
 
-    
+
 
     public void TypeSelected(ActionEvent actionEvent) {
         if (rdbtnPC.isSelected()) {

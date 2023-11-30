@@ -102,12 +102,14 @@ public class ContactDetailController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(c);
+        loadImage(c.getPhoto());
+        loadDefaultPhone(c.getPhones());
+        loadDefaultMail(c.getEmails());
+        loadDefaultAddress(c.getAddresses());
+        
     }
     public void switchToContactVisualization() {
-        try {
-            App.setRoot("contactVisualization");
-        } catch (IOException ex) {
-        }
+        try {App.setRoot("contactVisualization");} catch (IOException ex) {}       
     }
     
     

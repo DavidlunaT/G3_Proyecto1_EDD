@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Person.java
 D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Company.java
 D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\controllers\RegisterCompanyController.java
@@ -26,6 +27,8 @@ D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\enums\Type_phone.java
 D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Relation.java
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 39b73b0a20e89741bed99742e3f079bffbd91b1d
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/dataStructures/ArrayList.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/controllers/RegisterPersonController.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/models/Person.java
@@ -51,6 +54,7 @@ D:\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Relation.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/models/Phone.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/utilties/General.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/enums/Type_email.java
+<<<<<<< HEAD
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/controllers/OrderByController.java
 =======
 C:\Users\oweny\OneDrive\Documentos\Codes\Estructura de datos\G3_Proyecto1_EDD\src\main\java\module-info.java
@@ -80,3 +84,5 @@ C:\Users\oweny\OneDrive\Documentos\Codes\Estructura de datos\G3_Proyecto1_EDD\sr
 C:\Users\oweny\OneDrive\Documentos\Codes\Estructura de datos\G3_Proyecto1_EDD\src\main\java\g3\g3_proyecto_contactos\models\Company.java
 >>>>>>> 439f2783d69f188aba4fb991bed108fba355f400
 >>>>>>> 193a8943abdc01d9ebe642dfe221ace51e684e84
+=======
+>>>>>>> 39b73b0a20e89741bed99742e3f079bffbd91b1d
