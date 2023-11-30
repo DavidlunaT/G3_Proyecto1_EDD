@@ -54,6 +54,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
     public RadioButton rdbtnName;
     public ToggleGroup np;
     public RadioButton rdbtnPN;
+    public RadioButton rdbtnPC;
     @FXML
     private Stage orderBy;
 
@@ -321,5 +322,8 @@ public class ContactVisualizationController implements Initializable, EventHandl
         else if(!rdbtnPN.isSelected()){
             
         }
+    }
+
+    public void TypeSelected(ActionEvent actionEvent) {
     }
 }
