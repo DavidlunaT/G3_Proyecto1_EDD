@@ -336,7 +336,7 @@ public class ContactVisualizationController implements Initializable {
         }
     };
         Comparator<Contact> cmp2 =  (c1,c2)->{
-            return c1.getName().compareTo(c2.getName());
+            return c1.getName().toLowerCase().compareTo(c2.getName().toLowerCase());
         };
         
         
