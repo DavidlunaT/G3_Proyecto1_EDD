@@ -14,7 +14,7 @@ import java.io.IOException;
 public class App extends Application {
     // The logic for starting the application goes here
     
-    private static Scene scene;
+    public static Scene scene;
     public static String path = "src/main/resources/g3/g3_proyecto_contactos/";
 
     @Override

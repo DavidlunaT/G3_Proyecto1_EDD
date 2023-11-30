@@ -96,6 +96,17 @@ public abstract class Contact implements Serializable {
         return "Contact{" + "name=" + name + ", images=" + images + ", phones=" + phones + ", addresses=" + addresses + ", emails=" + emails + ", specialDates=" + specialDates + ", Photo=" + Photo + '}';
     }
     
+    @Override
+    public boolean equals(Object obj){
+        if(this==obj){
+            return true;
+        }
+        if (obj != null &&  obj instanceof Contact){
+            Contact other = (Contact) obj;
+            return name.equals(other.name);
+        }
+        return false;
+    }
     
 
 }

@@ -1,0 +1,16 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.button {
+    
+}
+
+.hbx {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-background-color: #F8F1E3;
+    -fx-border-color: #FBF8F2;          
+    -fx-border-width: 2;      
+}
+
