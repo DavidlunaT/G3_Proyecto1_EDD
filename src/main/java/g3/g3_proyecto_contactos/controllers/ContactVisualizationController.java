@@ -28,17 +28,36 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+
+
 /**
  * FXML Controller class
  *
  * @author David
  */
-public class ContactVisualizationController implements Initializable {
+public class ContactVisualizationController implements Initializable, EventHandler<ActionEvent> {
 
     @FXML
     public VBox listDisplay;
-
-    public static ArrayList<Contact> contacts;
+    @FXML
+    private Stage orderBy;
+    
+    @FXML
+    public Button btnOrderBy;
+    @FXML
+    public ComboBox<String> filterBy;
+    
+    public static List<Contact> contacts;
     @FXML
     private HBox labelNameroot;
     @FXML
@@ -63,6 +82,15 @@ public class ContactVisualizationController implements Initializable {
         if(!contacts.isEmpty()){
             loadContactsView();
         }
+        loadContactsView();
+        ObservableList<String> opciones = FXCollections.observableArrayList(
+                "Nombre",
+                "Ciudad",
+                "Telefono"
+        );
+        
+        filterBy.setItems(opciones);
+
     }
 
     @FXML
@@ -95,15 +123,14 @@ public class ContactVisualizationController implements Initializable {
 
         for (Contact aContact : miSet) {
             if (aContact != null) {
-                HBox actual = new HBox();
-                System.out.println(aContact.getPhoto());
-                actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
-                actual.getChildren().add(new Label(aContact.getName()));
-                listDisplay.getChildren().add(actual);
+//                HBox actual = new HBox();
+//                actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
+//                actual.getChildren().add(new Label(aContact.getName()));
+//                listDisplay.getChildren().add(actual);
+                styleContact(aContact);
             }
         }
         contModNext++;
-
     }
 
     public void loadContactsList() {
@@ -152,5 +179,67 @@ public class ContactVisualizationController implements Initializable {
         }
         contModPreview++;
     }
+    
+    public void styleContact(Contact c){
+        //roots
+        HBox rootA = new HBox(); 
+        HBox rootC = new HBox();
+        //dimensions
+        rootA.setAlignment(Pos.CENTER);
+        rootA.setPadding(new Insets(1,3,1,3));
+        rootA.setPrefHeight(10);
+        rootC.setPadding(new Insets(10, 5, 10, 5));      
+        rootC.setPrefWidth(450);      
+        //style
+        rootC.setStyle("-fx-background-radius: 10;"
+                + "-fx-border-radius: 10;"
+                + "-fx-background-color: #5A8165;"
+                + "-fx-border-color: #FBF8F2;"            
+                + "-fx-border-width: 2;");    
+        //Event
+        setActionHBox(rootC);
+        //children
+        ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 50, 0, true, false));
+        Label lb = new Label(c.getName());
+        //dimensions
+        lb.setPadding(new Insets(10,20,10,5));
+        lb.setAlignment(Pos.CENTER_LEFT);
+        //style
+        lb.setFont(new Font("Arial", 20));
+        lb.setTextFill(Color.web("#FBF8F2"));   
+        //adding
+        rootC.getChildren().addAll(imv,lb);        
+        rootA.getChildren().addAll(rootC);
+        listDisplay.getChildren().add(rootA);
+    }
+    
+    public void setActionHBox(HBox hbx){
+        hbx.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("mouseeee");
+            }
+            
+        });
+        
+    }
+    
+    public void orderBy() throws IOException{
+                
+        Parent root = App.loadFXML("orderBy");
+        Stage nView = new Stage();
+        nView.setTitle("Order By");
+        Scene scene = new Scene(root);
+        nView.setScene(scene);
+        nView.show();
+    }
+    
+    public void filterBy(){
+        
+    }
 
+    @Override
+    public void handle(ActionEvent t) {
+        
+    }
 }

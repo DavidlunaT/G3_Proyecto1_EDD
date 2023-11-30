@@ -39,7 +39,7 @@ public class General {
         return contacts;
     }
 
-    public static void saveContacts(ArrayList<Contact> contacts) {
+    public static void saveContacts(List<Contact> contacts) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(App.path+"files/contacts.ser"))) {
             oos.writeObject(contacts);
         } catch (IOException ex) {

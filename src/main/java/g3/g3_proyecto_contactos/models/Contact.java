@@ -17,7 +17,6 @@ public abstract class Contact implements Serializable {
 
     public static final String photoDefault = "default.png";
     protected String name;
-
     protected List<String> images;
     protected List<Phone> phones;
     protected List<Address> addresses;

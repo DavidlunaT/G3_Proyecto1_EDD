@@ -14,7 +14,7 @@ import java.io.Serializable;
  *
  * @author oweny
  */
-public class Person extends Contact implements Serializable{ 
+public class Person extends Contact implements Serializable, Comparable<Person>{ 
     
     public String firstName1;
     public String firstName2;
@@ -116,6 +116,15 @@ public class Person extends Contact implements Serializable{
     @Override
     public String toString() {
         return super.toString()+"Person{" + "firstName1=" + firstName1 + ", firstName2=" + firstName2 + ", lastName1=" + lastName1 + ", lastName2=" + lastName2 + '}';
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        int comp = firstName1.compareTo(o.getFirstName1());
+        if(comp == 0){
+            comp = lastName1.compareTo(o.getLastName1());
+        }
+        return comp;
     }
     
     

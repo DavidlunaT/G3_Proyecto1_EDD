@@ -12,3 +12,7 @@
     -fx-background-position: center;
     -fx-background-size: cover;   
 }
+
+.rootContact{
+    -fx-background-color: #5A8165;   
+}
