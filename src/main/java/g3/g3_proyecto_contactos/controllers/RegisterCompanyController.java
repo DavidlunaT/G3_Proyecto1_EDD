@@ -5,6 +5,7 @@
 package g3.g3_proyecto_contactos.controllers;
 
 import g3.g3_proyecto_contactos.App;
+import static g3.g3_proyecto_contactos.controllers.RegisterPersonController.isEdition;
 import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 import g3.g3_proyecto_contactos.enums.Type_date;
 import g3.g3_proyecto_contactos.enums.Type_email;
@@ -14,7 +15,6 @@ import g3.g3_proyecto_contactos.models.Address;
 import g3.g3_proyecto_contactos.models.Company;
 import g3.g3_proyecto_contactos.models.Contact;
 import g3.g3_proyecto_contactos.models.Email;
-import g3.g3_proyecto_contactos.models.Person;
 import g3.g3_proyecto_contactos.models.Phone;
 import g3.g3_proyecto_contactos.models.SpecialDate;
 import g3.g3_proyecto_contactos.utilties.General;
@@ -28,11 +28,14 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -59,38 +62,7 @@ public class RegisterCompanyController implements Initializable {
     private TextField txtDepartment;
     @FXML
     private TextField txtWebsite;
-    @FXML
-    private ComboBox cmbTphone;
-    @FXML
-    private TextField txtPhoneNumber;
-    @FXML
-    private Button btnAddPhoneNumber;
-    @FXML
-    private ComboBox cmbTemail;
-    @FXML
-    private TextField txtEmail;
-    @FXML
-    private Button btnAddEmail;
-    @FXML
-    private TextField txtLabelAddress;
-    @FXML
-    private TextField txtStreet;
-    @FXML
-    private TextField txtSecondaryStreet;
-    @FXML
-    private TextField txtCodePostal;
-    @FXML
-    private TextField txtCity;
-    @FXML
-    private TextField txtCountry;
-    @FXML
-    private Button btnAddAddress;
-    @FXML
-    private ComboBox cmbTdate;
-    @FXML
-    private DatePicker dpSpecialDate;
-    @FXML
-    private Button btnAddDate;
+
     /**
      * Initializes the controller class.
      */
@@ -113,9 +85,9 @@ public class RegisterCompanyController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        fillComboBoxes();
-
+        if (!isEdition) {
+            inicializarguardado();
+        }
         phones = new ArrayList<>();
         emails = new ArrayList<>();
         addresses = new ArrayList<>();
@@ -131,7 +103,12 @@ public class RegisterCompanyController implements Initializable {
 
     @FXML
     public void switchToRegisterPerson() throws IOException {
-        App.setRoot("registerPerson");
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/registerPerson.fxml"));//no tiene el controlador especificado
+        RegisterPersonController ct = new RegisterPersonController();
+        fxmlLoader.setController(ct);
+
+        ScrollPane root = fxmlLoader.load();
+        App.changeRoot(root);
     }
 
     @FXML
@@ -210,10 +187,21 @@ public class RegisterCompanyController implements Initializable {
         vbPhones.getChildren().add(currentSize - 1, createContainer(vbPhones));
     }
 
+    public void addPhoneNumber(Phone p) {
+        int currentSize = vbPhones.getChildren().size();
+        vbPhones.getChildren().add(currentSize - 1, createContainerNoAddress(vbPhones, p.getLabel(), p.getNumber()));
+    }
+
     @FXML
     public void addEmail() {
         int currentSize = vbEmails.getChildren().size();
         vbEmails.getChildren().add(currentSize - 1, createContainer(vbEmails));
+
+    }
+
+    public void addEmail(Email e) {
+        int currentSize = vbEmails.getChildren().size();
+        vbEmails.getChildren().add(currentSize - 1, createContainerNoAddress(vbEmails, e.getLabel(), e.getText()));
 
     }
 
@@ -224,10 +212,21 @@ public class RegisterCompanyController implements Initializable {
 
     }
 
+    public void addAddress(Address a) {
+        int currentSize = vbAddresses.getChildren().size();
+        vbAddresses.getChildren().add(currentSize - 1, createContainerAddress(vbAddresses, a));
+
+    }
+
     @FXML
     public void addSpecialDate() {
         int currentSize = vbSpecialDates.getChildren().size();
         vbSpecialDates.getChildren().add(currentSize - 1, createContainer(vbSpecialDates));
+    }
+
+    public void addSpecialDate(SpecialDate sp) {
+        int currentSize = vbSpecialDates.getChildren().size();
+        vbSpecialDates.getChildren().add(currentSize - 1, createContainerNoAddress(vbSpecialDates, sp.getLabel(), sp.getDate()));
     }
 
     public void extractPhones() {
@@ -273,11 +272,10 @@ public class RegisterCompanyController implements Initializable {
         for (int i = 0; i < vbSpecialDates.getChildren().size() - 1; i++) {
             HBox hb = (HBox) vbSpecialDates.getChildren().get(i);
             ComboBox cbs = (ComboBox) hb.getChildren().get(1);
-            DatePicker dps = (DatePicker) hb.getChildren().get(2);
-            if (cbs.getValue() != null && dps.getValue() != null) {
-                specialDates.addLast(new SpecialDate(dps.getValue().toString(), String.valueOf(cbs.getValue())));
+            TextField tfs = (TextField) hb.getChildren().get(2);
+            if (cbs.getValue() != null && !tfs.getText().equals("")) {
+                specialDates.addLast(new SpecialDate(tfs.getText(), String.valueOf(cbs.getValue())));
             }
-
         }
     }
 
@@ -291,13 +289,27 @@ public class RegisterCompanyController implements Initializable {
             cp.getChildren().add(new TextField());
         }
 
-        if (mainContainer != vbAddresses && mainContainer != vbSpecialDates) {
+        if (mainContainer != vbAddresses) {
             cp.getChildren().add(new TextField());
         } else if (mainContainer == vbAddresses) {
             cp.getChildren().add(createContainerDataAddress());
-        } else if (mainContainer == vbSpecialDates) {
-            cp.getChildren().add(new DatePicker());
         }
+        return cp;
+    }
+
+    public HBox createContainerNoAddress(VBox mainContainer, String tipo, String data) {
+        HBox cp = new HBox();
+        cp.getChildren().add(deleteContainer(cp, mainContainer));
+        cp.getChildren().add(createfilledComboBox(mainContainer, tipo));
+        cp.getChildren().add(new TextField(data));
+        return cp;
+    }
+
+    public HBox createContainerAddress(VBox mainContainer, Address a) {
+        HBox cp = new HBox();
+        cp.getChildren().add(deleteContainer(cp, mainContainer));
+        cp.getChildren().add(new TextField(a.getLabel()));
+        cp.getChildren().add(createContainerDataAddress(a));
         return cp;
     }
 
@@ -309,14 +321,14 @@ public class RegisterCompanyController implements Initializable {
         return vb;
     }
 
-    public Button deleteContainer(HBox containerData, VBox mainContainer) {
-        Button b = new Button("-");
-        EventHandler<ActionEvent> eventoClick = (ActionEvent event) -> {
-            int index = mainContainer.getChildren().indexOf(containerData);
-            mainContainer.getChildren().remove(index);
-        };
-        b.setOnAction(eventoClick);
-        return b;
+    public VBox createContainerDataAddress(Address a) {
+        VBox vb = new VBox();
+        vb.getChildren().add(new TextField(a.getStreet()));
+        vb.getChildren().add(new TextField(a.getSecondaryStreet()));
+        vb.getChildren().add(new TextField(a.getPostalCode()));
+        vb.getChildren().add(new TextField(a.getCity()));
+        vb.getChildren().add(new TextField(a.getCountry()));
+        return vb;
     }
 
     public ComboBox createfilledComboBox(VBox mainContainer) {
@@ -334,19 +346,71 @@ public class RegisterCompanyController implements Initializable {
         return cb;
     }
 
-    public void fillComboBoxes() {
-        Type_phone[] tp = Type_phone.values();
-        cmbTphone.getItems().addAll(tp);
-        cmbTphone.setValue(tp[0]);
-
-        Type_email[] te = Type_email.values();
-        cmbTemail.getItems().addAll(te);
-        cmbTemail.setValue(te[0]);
-
-        Type_date[] td = Type_date.values();
-        cmbTdate.getItems().addAll(td);
-        cmbTdate.setValue(td[0]);
-
+    public ComboBox createfilledComboBox(VBox mainContainer, String data) {
+        ComboBox cb = new ComboBox();
+        if (mainContainer == vbPhones) {
+            Type_phone[] tp = Type_phone.values();
+            cb.getItems().addAll(tp);
+            for (Type_phone currentTP : tp) {
+                if (currentTP.toString().equals(data)) {
+                    cb.setValue(currentTP);
+                }
+            }
+        } else if (mainContainer == vbEmails) {
+            Type_email[] te = Type_email.values();
+            cb.getItems().addAll(te);
+            for (Type_email currentTE : te) {
+                if (currentTE.toString().equals(data)) {
+                    cb.setValue(currentTE);
+                }
+            }
+        } else if (mainContainer == vbSpecialDates) {
+            Type_date[] td = Type_date.values();
+            cb.getItems().addAll(td);
+            for (Type_date currentTD : td) {
+                if (currentTD.toString().equals(data)) {
+                    cb.setValue(currentTD);
+                }
+            }
+        }
+        return cb;
     }
 
+    public Button deleteContainer(HBox containerData, VBox mainContainer) {
+        Button b = new Button("-");
+        EventHandler<ActionEvent> eventoClick = (ActionEvent event) -> {
+            int index = mainContainer.getChildren().indexOf(containerData);
+            mainContainer.getChildren().remove(index);
+        };
+        b.setOnAction(eventoClick);
+        return b;
+    }
+
+    public void fillFields(Company c) {
+        btnChange.setDisable(true);
+        btnChange.setVisible(false);
+        txtName.setText(c.getName());
+        txtDepartment.setText(c.getDepartment());
+        txtWebsite.setText(c.getWebsite());
+        imgMain.setImage(new Image("file:" + App.path + "photos/" + c.getPhoto()));
+        for (int i = 0; i < c.getPhones().size(); i++) {
+            addPhoneNumber(c.getPhones().get(i));
+        }
+        for (int i = 0; i < c.getEmails().size(); i++) {
+            addEmail(c.getEmails().get(i));
+        }
+        for (int i = 0; i < c.getAddresses().size(); i++) {
+            addAddress(c.getAddresses().get(i));
+        }
+        for (int i = 0; i < c.getSpecialDates().size(); i++) {
+            addSpecialDate(c.getSpecialDates().get(i));
+        }
+    }
+
+    public void inicializarguardado() {
+        addPhoneNumber();
+        addEmail();
+        addSpecialDate();
+        addAddress();
+    }
 }

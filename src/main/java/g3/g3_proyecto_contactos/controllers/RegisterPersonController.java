@@ -5,6 +5,7 @@
 package g3.g3_proyecto_contactos.controllers;
 
 import g3.g3_proyecto_contactos.App;
+import static g3.g3_proyecto_contactos.controllers.ContactVisualizationController.contacts;
 import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 import g3.g3_proyecto_contactos.enums.Type_date;
 import g3.g3_proyecto_contactos.enums.Type_email;
@@ -27,13 +28,14 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -57,31 +59,13 @@ public class RegisterPersonController implements Initializable {
     @FXML
     private TextField txtNickname;
     @FXML
-    private TextField txtPhoneNumber;
-    @FXML
-    private TextField txtEmail;
-    @FXML
-    private TextField txtStreet;
-    @FXML
-    private TextField txtSecondaryStreet;
-    @FXML
-    private TextField txtCodePostal;
-    @FXML
-    private TextField txtCity;
-    @FXML
-    private TextField txtCountry;
-    @FXML
     private Button btnCancel;
     @FXML
     private Button btnSave;
     @FXML
     private Button btnChange;
     @FXML
-    private ComboBox cmbTphone;
-    @FXML
     private Button btnAddPhoneNumber;
-    @FXML
-    private ComboBox cmbTemail;
     @FXML
     private Button btnAddEmail;
     @FXML
@@ -89,19 +73,7 @@ public class RegisterPersonController implements Initializable {
     @FXML
     private Button btnAddDate;
     @FXML
-    private DatePicker dpSpecialDate;
-    @FXML
-    private TextField txtLabelAddress;
-    @FXML
-    private ComboBox cmbTdate;
-    @FXML
     private ImageView imgMain;
-
-    List<Phone> phones;
-    List<Email> emails;
-    List<Address> addresses;
-    List<SpecialDate> specialDates;
-    List<String> images;
     @FXML
     private VBox vbPhones;
     @FXML
@@ -111,12 +83,24 @@ public class RegisterPersonController implements Initializable {
     @FXML
     private VBox vbSpecialDates;
 
+    public static boolean isEdition;
+    List<Phone> phones;
+    List<Email> emails;
+    List<Address> addresses;
+    List<SpecialDate> specialDates;
+    List<String> images;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        fillComboBoxes();
+        System.out.println("antes de incializar guardado"+vbPhones.getChildren().size());
+        if (!isEdition) {
+            System.out.println("antes de incializar guardado"+vbPhones.getChildren().size());
+            inicializarguardado();
+            System.out.println("despues de incializar guardado"+vbPhones.getChildren().size());
+        }
 
         phones = new ArrayList<>();
         emails = new ArrayList<>();
@@ -133,12 +117,16 @@ public class RegisterPersonController implements Initializable {
 
     @FXML
     public void switchToRegisterCompany() throws IOException {
-        App.setRoot("registerCompany");
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/registerCompany.fxml"));//no tiene el controlador especificado
+        RegisterCompanyController ct = new RegisterCompanyController();
+        fxmlLoader.setController(ct);
+
+        ScrollPane root = fxmlLoader.load();
+        App.changeRoot(root);
     }
 
     @FXML
     public void savePerson() {
-
         extractPhones();
         extractEmails();
         extractAddresses();
@@ -159,8 +147,17 @@ public class RegisterPersonController implements Initializable {
             } else {
                 p.setPhoto(this.images.get(0));
             }
-
-            ContactVisualizationController.contacts.addLast(p);
+            if (!isEdition) {
+                ContactVisualizationController.contacts.addLast(p);
+            } else {
+                //busco elimino antiguo y agrego nuevo
+                Person tmpPerson = new Person(p.getName(), new ArrayList<Phone>());
+                if (ContactVisualizationController.contacts.contains(tmpPerson)) {
+                    //int ind = ContactVisualizationController.contacts.indexOf(tmpPerson);
+                    ContactVisualizationController.contacts.remove(ContactDetailController.c);
+                    ContactVisualizationController.contacts.addLast(p);
+                }
+            }
             General.saveContacts(ContactVisualizationController.contacts);
 
             try {
@@ -213,13 +210,26 @@ public class RegisterPersonController implements Initializable {
     @FXML
     public void addPhoneNumber() {
         int currentSize = vbPhones.getChildren().size();
+        System.out.println("addPhoneNumber:"+currentSize);
         vbPhones.getChildren().add(currentSize - 1, createContainer(vbPhones));
+        System.out.println("despues de addPhoneNumber:"+currentSize);
+    }
+
+    public void addPhoneNumber(Phone p) {
+        int currentSize = vbPhones.getChildren().size();
+        vbPhones.getChildren().add(currentSize - 1, createContainerNoAddress(vbPhones, p.getLabel(), p.getNumber()));
     }
 
     @FXML
     public void addEmail() {
         int currentSize = vbEmails.getChildren().size();
         vbEmails.getChildren().add(currentSize - 1, createContainer(vbEmails));
+
+    }
+
+    public void addEmail(Email e) {
+        int currentSize = vbEmails.getChildren().size();
+        vbEmails.getChildren().add(currentSize - 1, createContainerNoAddress(vbEmails, e.getLabel(), e.getText()));
 
     }
 
@@ -230,15 +240,28 @@ public class RegisterPersonController implements Initializable {
 
     }
 
+    public void addAddress(Address a) {
+        int currentSize = vbAddresses.getChildren().size();
+        vbAddresses.getChildren().add(currentSize - 1, createContainerAddress(vbAddresses, a));
+
+    }
+
     @FXML
     public void addSpecialDate() {
         int currentSize = vbSpecialDates.getChildren().size();
         vbSpecialDates.getChildren().add(currentSize - 1, createContainer(vbSpecialDates));
     }
 
+    public void addSpecialDate(SpecialDate sp) {
+        int currentSize = vbSpecialDates.getChildren().size();
+        vbSpecialDates.getChildren().add(currentSize - 1, createContainerNoAddress(vbSpecialDates, sp.getLabel(), sp.getDate()));
+    }
+
     public void extractPhones() {
+        System.out.println("extractPhones: "+vbPhones.getChildren().size());
         for (int i = 0; i < vbPhones.getChildren().size() - 1; i++) {
             HBox hb = (HBox) vbPhones.getChildren().get(i);
+            System.out.println(hb.getChildren().size());
             ComboBox cbp = (ComboBox) hb.getChildren().get(1);
             TextField tfp = (TextField) hb.getChildren().get(2);
             if (!tfp.getText().equals("")) {
@@ -276,14 +299,14 @@ public class RegisterPersonController implements Initializable {
     }
 
     public void extractSpecialDates() {
+        System.out.println(vbSpecialDates.getChildren().size());
         for (int i = 0; i < vbSpecialDates.getChildren().size() - 1; i++) {
             HBox hb = (HBox) vbSpecialDates.getChildren().get(i);
             ComboBox cbs = (ComboBox) hb.getChildren().get(1);
-            DatePicker dps = (DatePicker) hb.getChildren().get(2);
-            if (cbs.getValue() != null && dps.getValue() != null) {
-                specialDates.addLast(new SpecialDate(dps.getValue().toString(), String.valueOf(cbs.getValue())));
+            TextField tfs = (TextField) hb.getChildren().get(2);
+            if (cbs.getValue() != null && !tfs.getText().equals("")) {
+                specialDates.addLast(new SpecialDate(tfs.getText(), String.valueOf(cbs.getValue())));
             }
-
         }
     }
 
@@ -297,13 +320,27 @@ public class RegisterPersonController implements Initializable {
             cp.getChildren().add(new TextField());
         }
 
-        if (mainContainer != vbAddresses && mainContainer != vbSpecialDates) {
+        if (mainContainer != vbAddresses) {
             cp.getChildren().add(new TextField());
         } else if (mainContainer == vbAddresses) {
             cp.getChildren().add(createContainerDataAddress());
-        } else if (mainContainer == vbSpecialDates) {
-            cp.getChildren().add(new DatePicker());
         }
+        return cp;
+    }
+
+    public HBox createContainerNoAddress(VBox mainContainer, String tipo, String data) {
+        HBox cp = new HBox();
+        cp.getChildren().add(deleteContainer(cp, mainContainer));
+        cp.getChildren().add(createfilledComboBox(mainContainer, tipo));
+        cp.getChildren().add(new TextField(data));
+        return cp;
+    }
+
+    public HBox createContainerAddress(VBox mainContainer, Address a) {
+        HBox cp = new HBox();
+        cp.getChildren().add(deleteContainer(cp, mainContainer));
+        cp.getChildren().add(new TextField(a.getLabel()));
+        cp.getChildren().add(createContainerDataAddress(a));
         return cp;
     }
 
@@ -315,14 +352,14 @@ public class RegisterPersonController implements Initializable {
         return vb;
     }
 
-    public Button deleteContainer(HBox containerData, VBox mainContainer) {
-        Button b = new Button("-");
-        EventHandler<ActionEvent> eventoClick = (ActionEvent event) -> {
-            int index = mainContainer.getChildren().indexOf(containerData);
-            mainContainer.getChildren().remove(index);
-        };
-        b.setOnAction(eventoClick);
-        return b;
+    public VBox createContainerDataAddress(Address a) {
+        VBox vb = new VBox();
+        vb.getChildren().add(new TextField(a.getStreet()));
+        vb.getChildren().add(new TextField(a.getSecondaryStreet()));
+        vb.getChildren().add(new TextField(a.getPostalCode()));
+        vb.getChildren().add(new TextField(a.getCity()));
+        vb.getChildren().add(new TextField(a.getCountry()));
+        return vb;
     }
 
     public ComboBox createfilledComboBox(VBox mainContainer) {
@@ -340,19 +377,80 @@ public class RegisterPersonController implements Initializable {
         return cb;
     }
 
-    public void fillComboBoxes() {
-        Type_phone[] tp = Type_phone.values();
-        cmbTphone.getItems().addAll(tp);
-        cmbTphone.setValue(tp[0]);
+    public ComboBox createfilledComboBox(VBox mainContainer, String data) {
+        ComboBox cb = new ComboBox();
+        if (mainContainer == vbPhones) {
+            Type_phone[] tp = Type_phone.values();
+            cb.getItems().addAll(tp);
+            for (Type_phone currentTP : tp) {
+                if (currentTP.toString().equals(data)) {
+                    cb.setValue(currentTP);
+                }
+            }
+        } else if (mainContainer == vbEmails) {
+            Type_email[] te = Type_email.values();
+            cb.getItems().addAll(te);
+            for (Type_email currentTE : te) {
+                if (currentTE.toString().equals(data)) {
+                    cb.setValue(currentTE);
+                }
+            }
+        } else if (mainContainer == vbSpecialDates) {
+            Type_date[] td = Type_date.values();
+            cb.getItems().addAll(td);
+            for (Type_date currentTD : td) {
+                if (currentTD.toString().equals(data)) {
+                    cb.setValue(currentTD);
+                }
+            }
+        }
+        return cb;
+    }
 
-        Type_email[] te = Type_email.values();
-        cmbTemail.getItems().addAll(te);
-        cmbTemail.setValue(te[0]);
+    public Button deleteContainer(HBox containerData, VBox mainContainer) {
+        Button b = new Button("-");
+        EventHandler<ActionEvent> eventoClick = (ActionEvent event) -> {
+            int index = mainContainer.getChildren().indexOf(containerData);
+            mainContainer.getChildren().remove(index);
+        };
+        b.setOnAction(eventoClick);
+        return b;
+    }
 
-        Type_date[] td = Type_date.values();
-        cmbTdate.getItems().addAll(td);
-        cmbTdate.setValue(td[0]);
+    public void fillFields(Person p) {
+        btnChange.setDisable(true);
+        btnChange.setVisible(false);
 
+        txtName.setText(p.getFirstName1());
+        txtSecondName.setText(p.getFirstName2());
+        txtLastName.setText(p.getLastName1());
+        txtSecondLastName.setText(p.getLastName2());
+        txtNickname.setText(p.getName());
+        imgMain.setImage(new Image("file:" + App.path + "photos/" + p.getPhoto()));
+        images.addAll(p.getImages());
+
+        for (int i = 0; i < p.getPhones().size(); i++) {
+            addPhoneNumber(p.getPhones().get(i));
+        }
+        for (int i = 0; i < p.getEmails().size(); i++) {
+            addEmail(p.getEmails().get(i));
+        }
+        for (int i = 0; i < p.getAddresses().size(); i++) {
+            addAddress(p.getAddresses().get(i));
+        }
+        for (int i = 0; i < p.getSpecialDates().size(); i++) {
+            addSpecialDate(p.getSpecialDates().get(i));
+        }
+    }
+
+    public void inicializarguardado() {
+        //if(vbPhones.getChildren().size()!=){
+            
+        //}
+        addPhoneNumber();
+        addEmail();
+        addSpecialDate();
+        addAddress();
     }
 
 }

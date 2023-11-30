@@ -50,7 +50,6 @@ import javafx.scene.text.Font;
  */
 public class ContactVisualizationController implements Initializable {
 
-    
     public VBox listDisplay;
     @FXML
     private Stage orderBy;
@@ -64,12 +63,11 @@ public class ContactVisualizationController implements Initializable {
     private CustomCircularIterator<Contact> itContacts;
     private int contModNext;
     private int contModPreview;
-    
+
     //needed to create a scene
     //CD: Contact Detail
     private Scene sceneCD;
-    
-    
+
     /**
      * Initializes the controller class.
      */
@@ -94,7 +92,13 @@ public class ContactVisualizationController implements Initializable {
 
     @FXML
     public void switchToRegisterPerson(ActionEvent e) throws IOException {
-        App.setRoot("registerPerson");
+        RegisterPersonController.isEdition = false;
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/registerPerson.fxml"));//no tiene el controlador especificado
+        RegisterPersonController ct = new RegisterPersonController();
+        fxmlLoader.setController(ct);
+        ScrollPane root = fxmlLoader.load();
+        App.changeRoot(root);
+        
     }
 
     public void loadContactsView() {
@@ -124,12 +128,11 @@ public class ContactVisualizationController implements Initializable {
         for (Contact aContact : miSet) {
             if (aContact != null) {
                 HBox actual = new HBox();
-                styleContact(aContact, actual);               
+                styleContact(aContact, actual);
             }
         }
         contModNext++;
     }
-    
 
     public void loadContactsList() {
         contacts = General.loadContacts();
@@ -174,71 +177,70 @@ public class ContactVisualizationController implements Initializable {
         for (Contact aContact : miSet) {
             if (aContact != null) {
                 HBox actual = new HBox();
-                styleContact(aContact, actual);               
+                styleContact(aContact, actual);
             }
         }
         contModPreview++;
     }
 
-    
-    public void styleContact(Contact c, HBox hbx){        
-        HBox rootA = new HBox();                
+    public void styleContact(Contact c, HBox hbx) {
+        HBox rootA = new HBox();
         rootA.setAlignment(Pos.CENTER);
         rootA.setPadding(new Insets(1, 3, 1, 3));
         rootA.setPrefHeight(10);
-        hbx.setPadding(new Insets(10, 5, 10, 5));      
-        hbx.setPrefWidth(450);      
-        
+        hbx.setPadding(new Insets(10, 5, 10, 5));
+        hbx.setPrefWidth(450);
+
         hbx.setStyle("-fx-background-radius: 10;"
                 + "-fx-border-radius: 10;"
                 + "-fx-background-color: #5A8165;"
-                + "-fx-border-color: #FBF8F2;"            
-                + "-fx-border-width: 2;");            
-        
+                + "-fx-border-color: #FBF8F2;"
+                + "-fx-border-width: 2;");
+
         ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 50, 0, true, false));
         Label lb = new Label(c.getName());
-        
-        lb.setPadding(new Insets(10,20,10,5));
+
+        lb.setPadding(new Insets(10, 20, 10, 5));
         lb.setAlignment(Pos.CENTER_LEFT);
-        
+
         lb.setFont(new Font("Arial", 20));
-        
-        lb.setTextFill(Color.web("#FBF8F2"));   
-        
-        hbx.getChildren().addAll(imv,lb);        
+
+        lb.setTextFill(Color.web("#FBF8F2"));
+
+        hbx.getChildren().addAll(imv, lb);
         rootA.getChildren().addAll(hbx);
         EventHandler<MouseEvent> eventoClick = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(c instanceof Person){
-                    Person p = new Person(c.getName(),new ArrayList<Phone>());
-                    if(contacts.contains(p)){
+                if (c instanceof Person) {
+                    Person p = new Person(c.getName(), new ArrayList<Phone>());
+                    if (contacts.contains(p)) {
                         int ind = contacts.indexOf(p);
                         ContactDetailController.c = contacts.get(ind);
-                    }    
-                }else if(c instanceof Company){
+                    }
+                } else if (c instanceof Company) {
                     Company comp = new Company(c.getName(), new ArrayList<Phone>());
-                    if(contacts.contains(comp)){
+                    if (contacts.contains(comp)) {
                         int ind = contacts.indexOf(comp);
-                        ContactDetailController.c = contacts.get(ind); 
+                        ContactDetailController.c = contacts.get(ind);
                     }
                 }
                 switchToContactDetail();
             }
         };
         rootA.setOnMouseClicked(eventoClick);
-        listDisplay.getChildren().add(rootA);          
+        listDisplay.getChildren().add(rootA);
     }
-   
-    
-    public void switchToContactDetail(){
-        try {App.setRoot("contactDetail");} 
-        catch (IOException ex) {}
+
+    public void switchToContactDetail() {
+        try {
+            App.setRoot("contactDetail");
+        } catch (IOException ex) {
+        }
     }
-   
-    
-    public void orderBy() throws IOException{ 
-                
+
+    public void orderBy() throws IOException {
+
         Parent root = App.loadFXML("orderBy");
         Stage nView = new Stage();
         nView.setTitle("Order By");
@@ -254,11 +256,5 @@ public class ContactVisualizationController implements Initializable {
     public void handle(ActionEvent t) {
 
     }
-
-    /*public void editar() {
-        if (c instanceof Person) {
-            Person p = 
-        }
-    }*/
 
 }
