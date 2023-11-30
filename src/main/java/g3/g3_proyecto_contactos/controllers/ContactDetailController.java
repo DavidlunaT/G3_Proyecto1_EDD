@@ -11,12 +11,15 @@ import g3.g3_proyecto_contactos.models.Address;
 import g3.g3_proyecto_contactos.models.Contact;
 import g3.g3_proyecto_contactos.models.Email;
 import g3.g3_proyecto_contactos.models.Phone;
+import g3.g3_proyecto_contactos.models.SpecialDate;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -33,7 +36,7 @@ public class ContactDetailController implements Initializable {
     @FXML
     private HBox rootBtns;
     @FXML
-    private HBox rootImg;
+    private VBox rootImg;
     @FXML
     private VBox dataRoot;
     @FXML
@@ -78,6 +81,8 @@ public class ContactDetailController implements Initializable {
     private Label lbMemories;
     @FXML
     private HBox photosList;
+    @FXML
+    private Label lbName;
     
     
     /**
@@ -120,29 +125,50 @@ public class ContactDetailController implements Initializable {
                 +add.getPostalCode()+", "+add.getCity()+", "+add.getCountry();
     }
     
-    public void loadMoreData(){
-        loadMediasNodes();
-        loadDatesNodes();
+    public void loadMoreData(){ 
+        setSpecialDatesHeader();
+        //loadDatesNodes();
         loadMatchingContactsNodes();
     }
-
-    private void loadMediasNodes() {
-        HBox rootMedias = new HBox();
-        rootMedias.setStyle("-fx-background-radius: 10;" +
+    
+    private void hboxStyle(HBox hbx) {       
+        hbx.setStyle("-fx-background-radius: 10;" +
             "-fx-border-radius: 10;+"+
             "-fx-background-color: #F8F1E3;" +
             "-fx-border-color: #FBF8F2;"+
-            "-fx-border-width: 2; ");  
-        Label mediasHeader = new Label("social medias");
+            "-fx-border-width: 2; ");          
     }
     
     
-    private void loadDatesNodes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void setSpecialDatesHeader(){
+        Label lbDates = new Label("special dates");
+        lbDates.setPrefHeight(17);
+        lbDates.setPrefWidth(462);
+        dataRoot.getChildren().add(lbDates);
     }
-
+    
+    private void loadDatesNodes(List<SpecialDate> spDs) {
+        HBox rootDates = new HBox();
+        hboxStyle(rootDates);
+        for(SpecialDate spD : spDs){
+            loadSpecialDateStyle(spD, rootDates);
+        }
+    }
+    
+    private void loadSpecialDateStyle(SpecialDate spD, HBox rootDate) {
+        VBox rootDates = new VBox();
+        rootDate.setStyle("hbx");
+        ScrollPane srp = new ScrollPane();
+        srp.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        srp.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        srp.setPadding(new Insets(20,10,0,10));
+        srp.setStyle("-fx-background-color: #F8F1E3;");
+    }
+    
     private void loadMatchingContactsNodes() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    
     
 }

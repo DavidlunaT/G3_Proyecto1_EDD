@@ -1,3 +1,4 @@
+package g3.g3_proyecto_contactos.dataStructures;
 public class Node<E> {
 
     private E content;
@@ -22,7 +23,7 @@ public class Node<E> {
         return next;
     }
     public Node<E> getPreview(){
-        return preview
+        return preview;
     }
 
     public void setNext(Node<E> next) {

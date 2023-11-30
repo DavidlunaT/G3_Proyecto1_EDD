@@ -37,11 +37,16 @@
             </Button>
          </children>
       </HBox>
-      <HBox fx:id="rootImg" alignment="CENTER" prefHeight="171.0" prefWidth="480.0">
+      <VBox fx:id="rootImg" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <ImageView fx:id="pfp" fitHeight="181.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pfp" fitHeight="160.0" fitWidth="172.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="lbName" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="242.0" text="name" textFill="#3a5d44">
+               <font>
+                  <Font name="Arial Black" size="15.0" />
+               </font>
+            </Label>
          </children>
-      </HBox>
+      </VBox>
       <ScrollPane hbarPolicy="NEVER" prefHeight="499.0" prefWidth="480.0" style="-fx-background-color: #FBF8F2;" vbarPolicy="ALWAYS">
          <content>
             <VBox fx:id="dataRoot" alignment="TOP_CENTER" prefHeight="516.0" prefWidth="480.0" style="-fx-background-color: #FBF8F2;">
@@ -110,7 +115,7 @@
                         <Insets top="5.0" />
                      </padding>
                   </HBox>
-                  <Label fx:id="lbMemories" prefHeight="17.0" prefWidth="462.0" text="Memories with " textFill="#77897c">
+                  <Label fx:id="lbMemories" prefHeight="17.0" prefWidth="462.0" text="find  me" textFill="#77897c">
                      <opaqueInsets>
                         <Insets top="10.0" />
                      </opaqueInsets>
@@ -161,6 +166,16 @@
                         </VBox>
                      </children>
                   </HBox>
+                  <Label prefHeight="17.0" prefWidth="462.0" text="Label" />
+                  <VBox prefHeight="122.0" prefWidth="480.0">
+                     <children>
+                        <ScrollPane hbarPolicy="ALWAYS" prefHeight="85.0" prefWidth="429.0" vbarPolicy="NEVER">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="20.0" />
+                           </VBox.margin>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
                </children>
                <opaqueInsets>
                   <Insets left="5.0" right="5.0" />
