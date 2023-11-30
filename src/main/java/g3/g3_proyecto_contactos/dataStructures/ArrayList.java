@@ -13,6 +13,7 @@ import java.util.Iterator;
  * @author David
  */
 public class ArrayList<E> implements List<E>, Serializable {
+    private static final long serialVersionUID = 1099110916014732399L;
 
     private E[] elements;
     private int CAPACITY = 100;
@@ -224,9 +225,11 @@ public class ArrayList<E> implements List<E>, Serializable {
         }
         E element = elements[index];
         //mueve el ArrayList hacia la izquieda
-        for (int i = index; i < effectiveSize - 1; i++) {
-            elements[index] = elements[index + 1];
-        }
+        if (index < effectiveSize - 1) {
+            for (int i = index; i < effectiveSize - 1; i++) {
+                elements[i] = elements[i + 1];
+            }
+        }        
         elements[effectiveSize - 1] = null;
         effectiveSize--;
         return element;

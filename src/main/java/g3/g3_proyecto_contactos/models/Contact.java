@@ -14,8 +14,9 @@ import java.io.Serializable;
  * @author oweny
  */
 public abstract class Contact implements Serializable {
+    private static final long serialVersionUID = 1099110916014732399L;
 
-    public static final String photoDefault = "default.jpg";
+    public static final String photoDefault = "default.png";
     protected String name;
     protected List<String> images;
     protected List<Phone> phones;
@@ -23,6 +24,8 @@ public abstract class Contact implements Serializable {
     protected List<Email> emails;
     protected List<SpecialDate> specialDates;
     protected String Photo;
+    protected boolean favorite;
+    protected List<Contact> relatedContacts;
 
     public Contact(List<Phone> phones) {
         this.phones = phones;
@@ -94,7 +97,34 @@ public abstract class Contact implements Serializable {
     public String toString() {
         return "Contact{" + "name=" + name + ", images=" + images + ", phones=" + phones + ", addresses=" + addresses + ", emails=" + emails + ", specialDates=" + specialDates + ", Photo=" + Photo + '}';
     }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public List<Contact> getRelatedContacts() {
+        return relatedContacts;
+    }
+
+    public void setRelatedContacts(List<Contact> relatedContacts) {
+        this.relatedContacts = relatedContacts;
+    }
     
+    @Override
+    public boolean equals(Object obj){
+        if(this==obj){
+            return true;
+        }
+        if (obj != null &&  obj instanceof Contact){
+            Contact other = (Contact) obj;
+            return name.equals(other.name);
+        }
+        return false;
+    }
     
 
 }

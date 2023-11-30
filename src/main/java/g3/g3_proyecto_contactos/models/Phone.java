@@ -11,6 +11,8 @@ import java.io.Serializable;
  * @author oweny
  */
 public class Phone implements Serializable, Comparable<Phone>{
+    private static final long serialVersionUID = 1099110916014732399L;
+
     public String number;
     public String label;
 

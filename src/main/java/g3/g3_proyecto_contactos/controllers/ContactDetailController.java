@@ -8,13 +8,21 @@ import g3.g3_proyecto_contactos.App;
 import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 import g3.g3_proyecto_contactos.interfaces.List;
 import g3.g3_proyecto_contactos.models.Address;
+import g3.g3_proyecto_contactos.models.Company;
 import g3.g3_proyecto_contactos.models.Contact;
 import g3.g3_proyecto_contactos.models.Email;
+import g3.g3_proyecto_contactos.models.Person;
 import g3.g3_proyecto_contactos.models.Phone;
+
 import g3.g3_proyecto_contactos.models.SpecialDate;
+
+import g3.g3_proyecto_contactos.utilties.General;
+import java.io.IOException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -86,14 +94,22 @@ public class ContactDetailController implements Initializable {
     @FXML
     private Label lbName;
     
+    public static Contact c;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        System.out.println(c);
+    }
+    public void switchToContactVisualization() {
+        try {
+            App.setRoot("contactVisualization");
+        } catch (IOException ex) {
+        }
+    }
+    
     
     public void loadImage(String imageUrl){
         Image img = new Image("file:" + App.path + "photos/" + imageUrl, 50, 0, true, false);
@@ -195,5 +211,39 @@ public class ContactDetailController implements Initializable {
     }
 
     
+    
+    @FXML
+    public void editContact() throws IOException{
+        RegisterPersonController.isEdition = true;
+        if(c instanceof Person){
+            Person p = (Person) c;
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/registerPerson.fxml"));//no tiene el controlador especificado
+            RegisterPersonController ct = new RegisterPersonController();
+            fxmlLoader.setController(ct);
+            
+           ScrollPane root = fxmlLoader.load();
+            ct.fillFields(p);
+            App.changeRoot(root);
+        }else{
+            Company comp = (Company) c;
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/registerCompany.fxml"));//no tiene el controlador especificado
+            RegisterCompanyController ct = new RegisterCompanyController();
+            fxmlLoader.setController(ct);
+            
+           ScrollPane root = fxmlLoader.load();
+            ct.fillFields(comp);
+            App.changeRoot(root);
+        }
+    }
+    
+    @FXML
+    public void deleteContact(){
+        if(ContactVisualizationController.contacts.contains(c)){
+            ContactVisualizationController.contacts.remove(c);
+            General.saveContacts(ContactVisualizationController.contacts);
+             switchToContactVisualization();
+            
+        }
+    }
     
 }
