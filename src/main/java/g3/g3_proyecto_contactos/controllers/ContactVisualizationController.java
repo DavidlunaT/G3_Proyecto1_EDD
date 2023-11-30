@@ -93,6 +93,9 @@ public class ContactVisualizationController implements Initializable {
         );
 
         filterBy.setItems(opciones);
+        for(Contact c: contacts){
+            System.out.println(c.getName());
+        }
     }
 
     @FXML
@@ -111,7 +114,8 @@ public class ContactVisualizationController implements Initializable {
         Contact last = contacts.remove(contacts.size() - 1);
         contacts.addFirst(last);
         for (int i = 0; i < 7; i++) {
-            styleContact(contacts.get(i));
+            HBox hb= new HBox();
+            styleContact(contacts.get(i),hb);
         }
     }
 
@@ -129,7 +133,8 @@ public class ContactVisualizationController implements Initializable {
         Contact fisrt = contacts.remove(0);
         contacts.addLast(fisrt);
         for (int i = 0; i < 7; i++) {
-            styleContact(contacts.get(i));
+            HBox hb= new HBox();
+            styleContact(contacts.get(i),hb);
         }
         for (Contact a : contacts) {
             System.out.println(a.getName());
