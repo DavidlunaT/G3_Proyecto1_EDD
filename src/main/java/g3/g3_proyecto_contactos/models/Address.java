@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @author oweny
  */
 public class Address implements Serializable, Comparable<Address>{
+    private static final long serialVersionUID = 1099110916014732399L;
 
     public String Street;
     public String secondaryStreet;

@@ -12,6 +12,7 @@ import g3.g3_proyecto_contactos.models.Phone;
 import g3.g3_proyecto_contactos.models.SpecialDate;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,7 +31,7 @@ public class General {
 
     public static ArrayList<Contact> loadContacts() {
         ArrayList<Contact> contacts = new ArrayList<>();
-
+        
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(App.path+"files/contacts.ser"))) {
             contacts = (ArrayList<Contact>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {

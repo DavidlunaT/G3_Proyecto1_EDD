@@ -1,3 +1,5 @@
+package g3.g3_proyecto_contactos.dataStructures;
+
 public class Node<E> {
 
     private E content;

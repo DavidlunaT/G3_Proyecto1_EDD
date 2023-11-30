@@ -9,6 +9,7 @@ import java.io.Serializable;
  * @author oweny
  */
 public class SpecialDate implements Serializable{
+    private static final long serialVersionUID = 1099110916014732399L;
 
     public String date;
     public String label;
