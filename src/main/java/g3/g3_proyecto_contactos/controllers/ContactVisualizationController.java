@@ -174,11 +174,11 @@ public class ContactVisualizationController implements Initializable, EventHandl
         }
 
         for (Contact aContact : miSet) {
-            HBox actual = new HBox();
-            actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
-            actual.getChildren().add(new Label(aContact.getName()));
+            //HBox actual = new HBox();
+            //actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
+            //actual.getChildren().add(new Label(aContact.getName()));
 
-            listDisplay.getChildren().add(actual);
+            styleContact(aContact);
         }
         contModPreview++;
     }
