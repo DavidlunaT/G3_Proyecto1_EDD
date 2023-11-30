@@ -5,6 +5,7 @@
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/models/Person.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/enums/Type_phone.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/models/Company.java
+/Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/controllers/ContactDetailController.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/enums/Type_date.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/App.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/controllers/FrontPageAppController.java
@@ -16,7 +17,6 @@
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/utilties/General.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/module-info.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/models/Contact.java
-/Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/controllers/Inset.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/interfaces/List.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/enums/Type_email.java
 /Users/gabsy/Desktop/ProyectosGit/G3_Proyecto1_EDD/src/main/java/g3/g3_proyecto_contactos/models/SpecialDate.java

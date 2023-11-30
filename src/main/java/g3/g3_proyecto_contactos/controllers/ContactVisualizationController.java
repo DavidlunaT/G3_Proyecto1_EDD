@@ -5,6 +5,7 @@
 package g3.g3_proyecto_contactos.controllers;
 
 import g3.g3_proyecto_contactos.App;
+import static g3.g3_proyecto_contactos.App.loadFXML;
 import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 import g3.g3_proyecto_contactos.dataStructures.CustomCircularIterator;
 import g3.g3_proyecto_contactos.interfaces.List;
@@ -45,32 +46,24 @@ import javafx.scene.text.Font;
  *
  * @author David
  */
-public class ContactVisualizationController implements Initializable, EventHandler<ActionEvent> {
+public class ContactVisualizationController implements Initializable {
 
-    @FXML
     public VBox listDisplay;
-    @FXML
-    private Stage orderBy;
     
-    @FXML
     public Button btnOrderBy;
-    @FXML
     public ComboBox<String> filterBy;
     
     public static List<Contact> contacts;
-    @FXML
-    private HBox labelNameroot;
-    @FXML
-    private HBox addContactRoot;
-    @FXML
-    private Button btnPreview;
-    @FXML
-    private Button loadContactsView;
 
     private CustomCircularIterator<Contact> itContacts;
     private int contModNext;
     private int contModPreview;
-
+    
+    //needed to create a scene
+    //CD: Contact Detail
+    private Scene sceneCD;
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -87,10 +80,9 @@ public class ContactVisualizationController implements Initializable, EventHandl
         );
         
         filterBy.setItems(opciones);
-
+        setEvents();
     }
 
-    @FXML
     public void switchToRegisterPerson(ActionEvent e) throws IOException {
         App.setRoot("registerPerson");
     }
@@ -121,14 +113,18 @@ public class ContactVisualizationController implements Initializable, EventHandl
 
         for (Contact aContact : miSet) {
             if (aContact != null) {
-//                HBox actual = new HBox();
-//                actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
-//                actual.getChildren().add(new Label(aContact.getName()));
-//                listDisplay.getChildren().add(actual);
-                styleContact(aContact);
+                HBox actual = new HBox();
+                styleContact(aContact, actual);               
             }
         }
         contModNext++;
+    }
+    
+    public void setEvents(){
+        for(Node node : listDisplay.getChildren()){
+            HBox hbx = (HBox)node;
+            hbx.setOnMouseClicked(e -> switchToContactDetail());            
+        }
     }
 
     public void loadContactsList() {
@@ -178,51 +174,42 @@ public class ContactVisualizationController implements Initializable, EventHandl
         contModPreview++;
     }
     
-    public void styleContact(Contact c){
-        //roots
-        HBox rootA = new HBox(); 
-        HBox rootC = new HBox();
-        //dimensions
+    public void styleContact(Contact c, HBox hbx){        
+        HBox rootA = new HBox();                
         rootA.setAlignment(Pos.CENTER);
         rootA.setPadding(new Insets(1,3,1,3));
         rootA.setPrefHeight(10);
-        rootC.setPadding(new Insets(10, 5, 10, 5));      
-        rootC.setPrefWidth(450);      
-        //style
-        rootC.setStyle("-fx-background-radius: 10;"
+        hbx.setPadding(new Insets(10, 5, 10, 5));      
+        hbx.setPrefWidth(450);      
+        
+        hbx.setStyle("-fx-background-radius: 10;"
                 + "-fx-border-radius: 10;"
                 + "-fx-background-color: #5A8165;"
                 + "-fx-border-color: #FBF8F2;"            
-                + "-fx-border-width: 2;");    
-        //Event
-        setActionHBox(rootC);
-        //children
+                + "-fx-border-width: 2;");            
+        
         ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 50, 0, true, false));
         Label lb = new Label(c.getName());
-        //dimensions
+        
         lb.setPadding(new Insets(10,20,10,5));
         lb.setAlignment(Pos.CENTER_LEFT);
-        //style
+        
         lb.setFont(new Font("Arial", 20));
         lb.setTextFill(Color.web("#FBF8F2"));   
-        //adding
-        rootC.getChildren().addAll(imv,lb);        
-        rootA.getChildren().addAll(rootC);
-        listDisplay.getChildren().add(rootA);
-    }
-    
-    public void setActionHBox(HBox hbx){
-        hbx.setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("mouseeee");
-            }
-            
-        });
         
+        hbx.getChildren().addAll(imv,lb);        
+        rootA.getChildren().addAll(hbx);
+        listDisplay.getChildren().add(rootA);          
     }
+   
     
-    public void orderBy() throws IOException{
+    public void switchToContactDetail(){
+        try {App.setRoot("contactDetail");} 
+        catch (IOException ex) {}
+    }
+   
+    
+    public void orderBy() throws IOException{ 
                 
         Parent root = App.loadFXML("orderBy");
         Stage nView = new Stage();
@@ -236,8 +223,4 @@ public class ContactVisualizationController implements Initializable, EventHandl
         
     }
 
-    @Override
-    public void handle(ActionEvent t) {
-        
-    }
 }

@@ -20,6 +20,5 @@ g3/g3_proyecto_contactos/models/Address.class
 g3/g3_proyecto_contactos/utilties/General.class
 g3/g3_proyecto_contactos/models/SpecialDate.class
 g3/g3_proyecto_contactos/controllers/RegisterCompanyController.class
-g3/g3_proyecto_contactos/controllers/Inset.class
 g3/g3_proyecto_contactos/models/Contact.class
 g3/g3_proyecto_contactos/enums/Type_email.class
