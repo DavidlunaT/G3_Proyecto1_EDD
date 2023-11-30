@@ -51,6 +51,11 @@ import javafx.scene.text.Font;
 public class ContactVisualizationController implements Initializable {
 
     public VBox listDisplay;
+    public HBox labelNameroot;
+    public HBox addContactRoot;
+    public RadioButton rdbtnPC;
+    public RadioButton rdbtnName;
+    public RadioButton rdbtnPN;
     @FXML
     private Stage orderBy;
 
