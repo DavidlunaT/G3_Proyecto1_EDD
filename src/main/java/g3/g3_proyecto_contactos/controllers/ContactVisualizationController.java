@@ -93,6 +93,9 @@ public class ContactVisualizationController implements Initializable {
         );
 
         filterBy.setItems(opciones);
+        for(Contact c: contacts){
+            System.out.println(c.getName());
+        }
     }
 
     @FXML
@@ -208,8 +211,7 @@ public class ContactVisualizationController implements Initializable {
     public void TypeSelected(ActionEvent actionEvent) {
         if (rdbtnPC.isSelected()) {
             ArrayList<Contact> nContacts = new ArrayList<>();
-        }
-        for (Contact aContact : contacts) {
+            for (Contact aContact : contacts) {
             System.out.println(aContact.getClass().getName());
             if (aContact instanceof Person) {
                 nContacts.addLast(aContact);
@@ -226,6 +228,8 @@ public class ContactVisualizationController implements Initializable {
         }
         contacts = nContacts;
          loadContactsView();
+        }
+        
     }
     
 
