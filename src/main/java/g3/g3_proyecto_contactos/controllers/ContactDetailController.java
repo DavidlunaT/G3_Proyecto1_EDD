@@ -17,6 +17,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -125,14 +127,15 @@ public class ContactDetailController implements Initializable {
                 +add.getPostalCode()+", "+add.getCity()+", "+add.getCountry();
     }
     
-    public void loadMoreData(){ 
+    public void loadMoreData(){        
         setSpecialDatesHeader();
+        loadSpecialDatesSection();
         //loadDatesNodes();
-        loadMatchingContactsNodes();
+        //loadMatchingContactsNodes();
     }
     
-    private void hboxStyle(HBox hbx) {       
-        hbx.setStyle("-fx-background-radius: 10;" +
+    private void nodeStyle(Node node) {       
+        node.setStyle("-fx-background-radius: 10;" +
             "-fx-border-radius: 10;+"+
             "-fx-background-color: #F8F1E3;" +
             "-fx-border-color: #FBF8F2;"+
@@ -147,22 +150,44 @@ public class ContactDetailController implements Initializable {
         dataRoot.getChildren().add(lbDates);
     }
     
-    private void loadDatesNodes(List<SpecialDate> spDs) {
-        HBox rootDates = new HBox();
-        hboxStyle(rootDates);
+    private HBox loadDatesNodes(List<SpecialDate> spDs) {
+        //mini hbox's generator
+        HBox rootDates = new HBox();       
+        rootDates.setStyle("-fx-background-color: #FBF8F2");
+        rootDates.prefWidth(451);
+        rootDates.prefHeight(59);     
         for(SpecialDate spD : spDs){
-            loadSpecialDateStyle(spD, rootDates);
+            VBox container = styleSpecialDateMini(spD);
+            rootDates.getChildren().add(container);
         }
+        return rootDates;
     }
     
-    private void loadSpecialDateStyle(SpecialDate spD, HBox rootDate) {
-        VBox rootDates = new VBox();
-        rootDate.setStyle("hbx");
-        ScrollPane srp = new ScrollPane();
-        srp.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        srp.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        srp.setPadding(new Insets(20,10,0,10));
-        srp.setStyle("-fx-background-color: #F8F1E3;");
+    private VBox styleSpecialDateMini(SpecialDate date){
+       VBox miniContainer = new VBox();
+       miniContainer.setAlignment(Pos.CENTER);
+       nodeStyle(miniContainer);
+       Label lbTypeDate = new Label(date.getLabel());
+       lbTypeDate.setAlignment(Pos.CENTER);
+       Label lbDate = new Label(date.getDate());
+       lbDate.setAlignment(Pos.CENTER);
+       miniContainer.getChildren().addAll(lbTypeDate, lbDate);
+       return miniContainer;
+    }
+    
+    
+    private void loadSpecialDatesSection() {
+        //setting main roots
+        ScrollPane scrP = new ScrollPane();
+        scrP.prefWidth(451);
+        scrP.prefHeight(59);
+        scrP.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrP.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrP.setStyle("-fx-background: #FBF8F2"
+                + "-fx-background-color: #FBF8F2");
+        //HBox dates = loadDatesNodes(c.getSpecialDates());
+        //scrP.getChildrenUnmodifiable(dates);
+        dataRoot.getChildren().add(scrP);
     }
     
     private void loadMatchingContactsNodes() {
