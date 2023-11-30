@@ -17,6 +17,7 @@ import g3.g3_proyecto_contactos.models.User;
 import g3.g3_proyecto_contactos.utilties.General;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,6 +32,7 @@ import javafx.stage.Stage;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.PriorityQueue;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -93,9 +95,7 @@ public class ContactVisualizationController implements Initializable {
         );
 
         filterBy.setItems(opciones);
-        for(Contact c: contacts){
-            System.out.println(c.getName());
-        }
+        
     }
 
     @FXML
@@ -114,8 +114,13 @@ public class ContactVisualizationController implements Initializable {
         Contact last = contacts.remove(contacts.size() - 1);
         contacts.addFirst(last);
         for (int i = 0; i < 7; i++) {
-            HBox hb= new HBox();
-            styleContact(contacts.get(i),hb);
+            if(contacts.get(i)==null){
+                
+            }else{
+                HBox hb= new HBox();
+                styleContact(contacts.get(i),hb);
+            }
+            
         }
     }
 
@@ -133,12 +138,14 @@ public class ContactVisualizationController implements Initializable {
         Contact fisrt = contacts.remove(0);
         contacts.addLast(fisrt);
         for (int i = 0; i < 7; i++) {
-            HBox hb= new HBox();
-            styleContact(contacts.get(i),hb);
+            if(contacts.get(i)==null){
+                
+            }else{
+                HBox hb= new HBox();
+                styleContact(contacts.get(i),hb);
+            }
         }
-        for (Contact a : contacts) {
-            System.out.println(a.getName());
-        }
+        
 
     }
 
@@ -204,23 +211,48 @@ public class ContactVisualizationController implements Initializable {
         if (rdbtnPC.isSelected()) {
             ArrayList<Contact> nContacts = new ArrayList<>();
             for (Contact aContact : contacts) {
-            System.out.println(aContact.getClass().getName());
+            
             if (aContact instanceof Person) {
                 
                 nContacts.addLast(aContact);
-                System.out.println("a");
+                
             }
         }
         for (Contact aContact : contacts) {
             if (aContact instanceof Company) {
                 nContacts.addLast(aContact);
-                System.out.println("b");
+                
             }
-        }for(Contact a: nContacts){
-            System.out.println(a.getName());
-        }
+        } 
+
         contacts = nContacts;
          loadContactsView();
+         btnPreview();
+         
+        }
+        if (!rdbtnPC.isSelected()) {
+            ArrayList<Contact> nContacts = new ArrayList<>();
+            for (Contact aContact : contacts) {
+            if (aContact instanceof Company) {
+                nContacts.addLast(aContact);
+                
+            }
+        } 
+            
+            for (Contact aContact : contacts) {
+            
+            if (aContact instanceof Person) {
+                
+                nContacts.addLast(aContact);
+                
+            }
+        }
+        
+
+        contacts = nContacts;
+         loadContactsView();
+         btnPreview();
+         
         }
         
     }
@@ -234,4 +266,125 @@ public class ContactVisualizationController implements Initializable {
 
     }
 
+    public void pNSelected(ActionEvent actionEvent) {
+        Comparator<Contact> cmp = (c1, c2) -> {
+        if (c1 instanceof Person && c2 instanceof Person) {
+            return 0; // Ambos son Person, se consideran iguales en la clasificación principal
+        } else if (c1 instanceof Company && c2 instanceof Company) {
+            return 0; // Ambos son Company, se consideran iguales en la clasificación principal
+        } else if (c1 instanceof Person && c2 instanceof Company) {
+            return -1; // Person se clasifica antes que Company
+        } else {
+            return 1; // Company se clasifica después de Person
+        }
+    };
+        Comparator<Contact> cmp2 =  (c1,c2)->{
+            int number1 = Integer.parseInt(c1.getPhones().getFirst().getNumber());
+            int number2 = Integer.parseInt(c2.getPhones().getFirst().getNumber());
+            return number1-number2;
+        };
+        
+        
+        
+        if(rdbtnPN.isSelected() && rdbtnPC.isSelected() ){
+            Comparator cmp3 = cmp.thenComparing(cmp2);
+            PriorityQueue<Contact> contactsOrdered = new PriorityQueue<>(cmp3);
+            for(Contact aContact: contacts){
+                contactsOrdered.offer(aContact);
+                
+            }
+            int hasta = contacts.size();
+            contacts.clear();
+            for(int i = 0; i<hasta; i++){
+                
+                Contact a = contactsOrdered.poll();
+                System.out.println(a.getName());
+                contacts.addLast(a);
+                
+            }
+            loadContactsView();
+                
+        }
+        else if(rdbtnPN.isSelected()){
+            
+            PriorityQueue<Contact> contactsOrdered = new PriorityQueue<>(cmp2);
+            for(Contact aContact: contacts){
+                contactsOrdered.offer(aContact);
+            }
+            int hasta = contacts.size();
+            contacts.clear();
+            for(int i = 0; i<hasta; i++){
+                
+                Contact a = contactsOrdered.poll();
+                System.out.println(a.getName());
+                System.out.println(a.getPhones().getFirst().getNumber());
+                contacts.addLast(a);
+                
+            }
+            loadContactsView();
+                
+        }
+    }
+
+    public void nameSelected(ActionEvent actionEvent) {
+         Comparator<Contact> cmp = (c1, c2) -> {
+        if (c1 instanceof Person && c2 instanceof Person) {
+            return 0; // Ambos son Person, se consideran iguales en la clasificación principal
+        } else if (c1 instanceof Company && c2 instanceof Company) {
+            return 0; // Ambos son Company, se consideran iguales en la clasificación principal
+        } else if (c1 instanceof Person && c2 instanceof Company) {
+            return -1; // Person se clasifica antes que Company
+        } else {
+            return 1; // Company se clasifica después de Person
+        }
+    };
+        Comparator<Contact> cmp2 =  (c1,c2)->{
+            return c1.getName().compareTo(c2.getName());
+        };
+        
+        
+        
+        if(rdbtnName.isSelected() && rdbtnPC.isSelected() ){
+            Comparator cmp3 = cmp.thenComparing(cmp2);
+            PriorityQueue<Contact> contactsOrdered = new PriorityQueue<>(cmp3);
+            for(Contact aContact: contacts){
+                contactsOrdered.offer(aContact);
+                
+            }
+            int hasta = contacts.size();
+            contacts.clear();
+            for(int i = 0; i<hasta; i++){
+                
+                Contact a = contactsOrdered.poll();
+                System.out.println(a.getName());
+                contacts.addLast(a);
+                
+            }
+            loadContactsView();
+            btnPreview();
+            
+            
+                
+        }
+        else if(rdbtnName.isSelected()){
+            
+            PriorityQueue<Contact> contactsOrdered = new PriorityQueue<>(cmp2);
+            for(Contact aContact: contacts){
+                contactsOrdered.offer(aContact);
+            }
+            int hasta = contacts.size();
+            contacts.clear();
+            for(int i = 0; i<hasta; i++){
+                
+                Contact a = contactsOrdered.poll();
+                System.out.println(a.getName());
+                System.out.println(a.getPhones().getFirst().getNumber());
+                contacts.addLast(a);
+                
+            }
+            loadContactsView();
+            btnPreview();
+                
+        }
+    }
 }

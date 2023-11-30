@@ -50,12 +50,12 @@
       <Button fx:id="loadContactsView" layoutX="16.0" layoutY="53.0" mnemonicParsing="false" onAction="#loadContactsView" text="Next" />
       <ComboBox fx:id="filterBy" layoutX="348.0" layoutY="78.0" onAction="#filterBy" prefHeight="25.0" prefWidth="102.0" promptText="Filtrar Por:" />
       <RadioButton fx:id="rdbtnPC" layoutX="230.0" layoutY="57.0" mnemonicParsing="false" onAction="#TypeSelected" text="Type" />
-      <RadioButton fx:id="rdbtnName" layoutX="302.0" layoutY="57.0" mnemonicParsing="false" text="Name">
+      <RadioButton fx:id="rdbtnName" layoutX="302.0" layoutY="57.0" mnemonicParsing="false" onAction="#nameSelected" text="Name">
          <toggleGroup>
             <ToggleGroup fx:id="np" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="rdbtnPN" layoutX="365.0" layoutY="57.0" mnemonicParsing="false" text="Phone Number" toggleGroup="$np" />
+      <RadioButton fx:id="rdbtnPN" layoutX="365.0" layoutY="57.0" mnemonicParsing="false" onAction="#pNSelected" text="Phone Number" toggleGroup="$np" />
       <Label layoutX="162.0" layoutY="57.0" text="Order By:" />
    </children>
 </AnchorPane>
