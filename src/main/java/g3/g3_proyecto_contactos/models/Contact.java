@@ -24,6 +24,8 @@ public abstract class Contact implements Serializable {
     protected List<Email> emails;
     protected List<SpecialDate> specialDates;
     protected String Photo;
+    protected boolean favorite;
+    protected List<Contact> relatedContacts;
 
     public Contact(List<Phone> phones) {
         this.phones = phones;
@@ -94,6 +96,22 @@ public abstract class Contact implements Serializable {
     @Override
     public String toString() {
         return "Contact{" + "name=" + name + ", images=" + images + ", phones=" + phones + ", addresses=" + addresses + ", emails=" + emails + ", specialDates=" + specialDates + ", Photo=" + Photo + '}';
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public List<Contact> getRelatedContacts() {
+        return relatedContacts;
+    }
+
+    public void setRelatedContacts(List<Contact> relatedContacts) {
+        this.relatedContacts = relatedContacts;
     }
     
     

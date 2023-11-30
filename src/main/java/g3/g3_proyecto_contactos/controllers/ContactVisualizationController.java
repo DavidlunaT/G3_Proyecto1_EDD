@@ -13,6 +13,7 @@ import g3.g3_proyecto_contactos.models.User;
 import g3.g3_proyecto_contactos.utilties.General;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +28,7 @@ import javafx.stage.Stage;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.PriorityQueue;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,6 +50,10 @@ public class ContactVisualizationController implements Initializable, EventHandl
 
     @FXML
     public VBox listDisplay;
+    public RadioButton rdbtnCountry;
+    public RadioButton rdbtnName;
+    public ToggleGroup np;
+    public RadioButton rdbtnPN;
     @FXML
     private Stage orderBy;
 
@@ -69,6 +75,10 @@ public class ContactVisualizationController implements Initializable, EventHandl
     private CustomCircularIterator<Contact> itContacts;
     private int contModNext;
     private int contModPreview;
+    
+    private PriorityQueue<Contact> nameC ;
+    private PriorityQueue<Contact> countryC;
+    private PriorityQueue<Contact> numberC;
 
     /**
      * Initializes the controller class.
@@ -119,9 +129,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
             }
 
             System.out.println("CONJUNTO DE CONTACTOS" + miSet);
-        }
-
-        for (Contact aContact : miSet) {
+            for (Contact aContact : miSet) {
             if (aContact != null) {
 //                HBox actual = new HBox();
 //                actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
@@ -131,6 +139,9 @@ public class ContactVisualizationController implements Initializable, EventHandl
             }
         }
         contModNext++;
+        }
+
+        
     }
 
     public void loadContactsList() {
@@ -138,6 +149,43 @@ public class ContactVisualizationController implements Initializable, EventHandl
         if (!contacts.isEmpty()) {
             itContacts = new CustomCircularIterator<>(this.contacts);
         }
+        
+        //comparador name
+        Comparator<Contact> cName = (c1,c2)-> {
+            return c1.getName().compareTo(c2.getName());
+        };
+        
+        //comparador pais
+        Comparator<Contact> cCountry = (c1,c2)-> {
+            if (c1.getAddresses().getFirst() == null || c2.getAddresses().getFirst()== null){
+                return -100000;
+            }
+            return c1.getAddresses().getFirst().getCountry().compareTo(c2.getAddresses().getFirst().getCountry());
+        };
+        
+        //comparador telefono
+        Comparator<Contact> cPhone = (c1,c2)-> {
+            int n1 = Integer.parseInt(c1.getPhones().getFirst().getNumber());
+            int n2 = Integer.parseInt(c2.getPhones().getFirst().getNumber());
+            return n1 - n2;
+        };
+        //instancio las colas con un comparador
+        nameC = new PriorityQueue<>(cName);
+        
+        countryC = new PriorityQueue<>(cCountry);
+        
+        numberC = new PriorityQueue<>(cPhone);
+        
+        
+        //ingreso elementos a las colas
+        System.out.println(contacts.size());
+        for (int i = 0; i < contacts.size(); i++){
+            
+            nameC.offer(contacts.get(i));
+            countryC.offer(contacts.get(i));
+            numberC.offer(contacts.get(i));
+        }
+        
 
     }
 
@@ -174,11 +222,12 @@ public class ContactVisualizationController implements Initializable, EventHandl
         }
 
         for (Contact aContact : miSet) {
-            HBox actual = new HBox();
-            actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
-            actual.getChildren().add(new Label(aContact.getName()));
-
-            listDisplay.getChildren().add(actual);
+//            HBox actual = new HBox();
+//            actual.getChildren().add(new ImageView(new Image("file:" + App.path + "photos/" + aContact.getPhoto(), 60, 0, true, false)));
+//            actual.getChildren().add(new Label(aContact.getName()));
+//
+//            listDisplay.getChildren().add(actual);
+              styleContact(aContact);
         }
         contModPreview++;
     }
@@ -227,16 +276,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
 
     }
 
-    public void orderBy() throws IOException {
-
-        Parent root = App.loadFXML("orderBy");
-        Stage nView = new Stage();
-        nView.setTitle("Order By");
-        Scene scene = new Scene(root);
-        nView.setScene(scene);
-        nView.show();
-    }
-
+    
     public void filterBy() {
 
     }
@@ -244,5 +284,42 @@ public class ContactVisualizationController implements Initializable, EventHandl
     @Override
     public void handle(ActionEvent t) {
 
+    }
+
+    public void countrySelected(ActionEvent actionEvent) {
+        if(rdbtnCountry.isSelected()){
+            ArrayList<Contact> countryOrdered = new ArrayList<>();
+            for (Contact aContact: countryC){
+                countryOrdered.addLast(aContact);
+            }
+            itContacts = new CustomCircularIterator(countryOrdered);
+        }
+        else if(!rdbtnCountry.isSelected()){
+            
+        }
+    }
+    public void nameSelected(ActionEvent actionEvent) {
+        if(rdbtnName.isSelected()){
+            ArrayList<Contact> countryOrdered = new ArrayList<>();
+            for (Contact aContact: nameC){
+                countryOrdered.addLast(aContact);
+            }
+            itContacts = new CustomCircularIterator(countryOrdered);
+        }
+        else if(!rdbtnName.isSelected()){
+            
+        }
+    }
+    public void numberSelected(ActionEvent actionEvent) {
+        if(rdbtnPN.isSelected()){
+            ArrayList<Contact> countryOrdered = new ArrayList<>();
+            for (Contact aContact: numberC){
+                countryOrdered.addLast(aContact);
+            }
+            itContacts = new CustomCircularIterator(countryOrdered);
+        }
+        else if(!rdbtnPN.isSelected()){
+            
+        }
     }
 }
