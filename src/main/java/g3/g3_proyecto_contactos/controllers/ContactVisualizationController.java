@@ -193,23 +193,15 @@ public class ContactVisualizationController implements Initializable {
         }
     }
 
-    public void orderBy() throws IOException {
-
-        Parent root = App.loadFXML("orderBy");
-        Stage nView = new Stage();
-        nView.setTitle("Order By");
-        Scene scene = new Scene(root);
-        nView.setScene(scene);
-        nView.show();
-    }
+    
 
     public void TypeSelected(ActionEvent actionEvent) {
         if (rdbtnPC.isSelected()) {
             ArrayList<Contact> nContacts = new ArrayList<>();
-        }
-        for (Contact aContact : contacts) {
+            for (Contact aContact : contacts) {
             System.out.println(aContact.getClass().getName());
             if (aContact instanceof Person) {
+                
                 nContacts.addLast(aContact);
                 System.out.println("a");
             }
@@ -224,6 +216,8 @@ public class ContactVisualizationController implements Initializable {
         }
         contacts = nContacts;
          loadContactsView();
+        }
+        
     }
     
 
