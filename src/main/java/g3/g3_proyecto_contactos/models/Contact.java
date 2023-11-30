@@ -14,6 +14,7 @@ import java.io.Serializable;
  * @author oweny
  */
 public abstract class Contact implements Serializable {
+    private static final long serialVersionUID = 1099110916014732399L;
 
     public static final String photoDefault = "default.png";
     protected String name;

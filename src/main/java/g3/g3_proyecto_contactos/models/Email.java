@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @author oweny
  */
 public class Email implements Serializable {
+    private static final long serialVersionUID = 1099110916014732399L;
     public String emailAddress;
     public String label;
 

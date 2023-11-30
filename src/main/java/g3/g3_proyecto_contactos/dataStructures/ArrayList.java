@@ -13,6 +13,7 @@ import java.util.Iterator;
  * @author David
  */
 public class ArrayList<E> implements List<E>, Serializable {
+    private static final long serialVersionUID = 1099110916014732399L;
 
     private E[] elements;
     private int CAPACITY = 100;

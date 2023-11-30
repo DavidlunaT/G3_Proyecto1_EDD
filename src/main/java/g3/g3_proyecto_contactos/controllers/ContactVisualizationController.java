@@ -39,7 +39,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-
 /**
  * FXML Controller class
  *
@@ -51,12 +50,12 @@ public class ContactVisualizationController implements Initializable, EventHandl
     public VBox listDisplay;
     @FXML
     private Stage orderBy;
-    
+
     @FXML
     public Button btnOrderBy;
     @FXML
     public ComboBox<String> filterBy;
-    
+
     public static List<Contact> contacts;
     @FXML
     private HBox labelNameroot;
@@ -79,7 +78,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
         contModNext = 0;
         contModPreview = 0;
         loadContactsList();
-        if(!contacts.isEmpty()){
+        if (!contacts.isEmpty()) {
             loadContactsView();
         }
         loadContactsView();
@@ -88,7 +87,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
                 "Ciudad",
                 "Telefono"
         );
-        
+
         filterBy.setItems(opciones);
 
     }
@@ -103,23 +102,24 @@ public class ContactVisualizationController implements Initializable, EventHandl
         listDisplay.getChildren().clear();
         Set<Contact> miSet = new LinkedHashSet<>();
         ArrayList<Contact> currentList = new ArrayList<>();
+        if (itContacts != null) {
+            if (contModPreview != 0) {
+                for (int e = 0; e < 7; e++) {
+                    currentList.addFirst(itContacts.next());
+                }
+                currentList.clear();
+                for (int e = 0; e < 7; e++) {
+                    miSet.add(itContacts.next());
+                }
+                contModPreview = 0;
+            } else {
+                for (int e = 0; e < 7; e++) {
+                    miSet.add(itContacts.next());
+                }
+            }
 
-        if (contModPreview != 0) {
-            for (int e = 0; e < 7; e++) {
-                currentList.addFirst(itContacts.next());
-            }
-            currentList.clear();
-            for (int e = 0; e < 7; e++) {
-                miSet.add(itContacts.next());
-            }
-            contModPreview = 0;
-        } else {
-            for (int e = 0; e < 7; e++) {
-                miSet.add(itContacts.next());
-            }
+            System.out.println("CONJUNTO DE CONTACTOS" + miSet);
         }
-
-        System.out.println("CONJUNTO DE CONTACTOS" + miSet);
 
         for (Contact aContact : miSet) {
             if (aContact != null) {
@@ -135,11 +135,14 @@ public class ContactVisualizationController implements Initializable, EventHandl
 
     public void loadContactsList() {
         contacts = General.loadContacts();
-        itContacts = new CustomCircularIterator<>(this.contacts);
+        if (!contacts.isEmpty()) {
+            itContacts = new CustomCircularIterator<>(this.contacts);
+        }
+
     }
 
     public void btnPreview() {
-        
+
         System.out.println("funciona preview");
         Set<Contact> miSet = new LinkedHashSet<>();
         listDisplay.getChildren().clear();
@@ -160,7 +163,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
                 miSet.add(c);
             }
             contModNext = 0;
-        }else{
+        } else {
             for (int e = 0; e < 7; e++) {
                 currentList.addFirst(itContacts.previous());
             }
@@ -179,53 +182,53 @@ public class ContactVisualizationController implements Initializable, EventHandl
         }
         contModPreview++;
     }
-    
-    public void styleContact(Contact c){
+
+    public void styleContact(Contact c) {
         //roots
-        HBox rootA = new HBox(); 
+        HBox rootA = new HBox();
         HBox rootC = new HBox();
         //dimensions
         rootA.setAlignment(Pos.CENTER);
-        rootA.setPadding(new Insets(1,3,1,3));
+        rootA.setPadding(new Insets(1, 3, 1, 3));
         rootA.setPrefHeight(10);
-        rootC.setPadding(new Insets(10, 5, 10, 5));      
-        rootC.setPrefWidth(450);      
+        rootC.setPadding(new Insets(10, 5, 10, 5));
+        rootC.setPrefWidth(450);
         //style
         rootC.setStyle("-fx-background-radius: 10;"
                 + "-fx-border-radius: 10;"
                 + "-fx-background-color: #5A8165;"
-                + "-fx-border-color: #FBF8F2;"            
-                + "-fx-border-width: 2;");    
+                + "-fx-border-color: #FBF8F2;"
+                + "-fx-border-width: 2;");
         //Event
         setActionHBox(rootC);
         //children
         ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 50, 0, true, false));
         Label lb = new Label(c.getName());
         //dimensions
-        lb.setPadding(new Insets(10,20,10,5));
+        lb.setPadding(new Insets(10, 20, 10, 5));
         lb.setAlignment(Pos.CENTER_LEFT);
         //style
         lb.setFont(new Font("Arial", 20));
-        lb.setTextFill(Color.web("#FBF8F2"));   
+        lb.setTextFill(Color.web("#FBF8F2"));
         //adding
-        rootC.getChildren().addAll(imv,lb);        
+        rootC.getChildren().addAll(imv, lb);
         rootA.getChildren().addAll(rootC);
         listDisplay.getChildren().add(rootA);
     }
-    
-    public void setActionHBox(HBox hbx){
-        hbx.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+    public void setActionHBox(HBox hbx) {
+        hbx.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("mouseeee");
             }
-            
+
         });
-        
+
     }
-    
-    public void orderBy() throws IOException{
-                
+
+    public void orderBy() throws IOException {
+
         Parent root = App.loadFXML("orderBy");
         Stage nView = new Stage();
         nView.setTitle("Order By");
@@ -233,13 +236,13 @@ public class ContactVisualizationController implements Initializable, EventHandl
         nView.setScene(scene);
         nView.show();
     }
-    
-    public void filterBy(){
-        
+
+    public void filterBy() {
+
     }
 
     @Override
     public void handle(ActionEvent t) {
-        
+
     }
 }
