@@ -25,6 +25,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -32,14 +34,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+
 /**
  * FXML Controller class
  *
  * @author oweny
  */
 public class RegisterCompanyController implements Initializable {
-
 
     @FXML
     private Button btnCancel;
@@ -49,8 +53,6 @@ public class RegisterCompanyController implements Initializable {
     private ImageView imgMain;
     @FXML
     private Button btnChange;
-    @FXML
-    private Button btnAddImages;
     @FXML
     private TextField txtName;
     @FXML
@@ -97,53 +99,54 @@ public class RegisterCompanyController implements Initializable {
     List<Address> addresses;
     List<SpecialDate> specialDates;
     List<String> images;
-    
+    @FXML
+    private VBox vbPhones;
+    @FXML
+    private VBox vbEmails;
+    @FXML
+    private VBox vbAddresses;
+    @FXML
+    private VBox vbSpecialDates;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         fillComboBoxes();
-        
+
         phones = new ArrayList<>();
         emails = new ArrayList<>();
         addresses = new ArrayList<>();
         specialDates = new ArrayList<>();
         images = new ArrayList<>();
-        
-        
-        
+
     }
-    
+
     @FXML
-    public void switchToContactVisualization()throws IOException{
+    public void switchToContactVisualization() throws IOException {
         App.setRoot("contactVisualization");
     }
-    
+
     @FXML
-    public void switchToRegisterPerson()throws IOException{
+    public void switchToRegisterPerson() throws IOException {
         App.setRoot("registerPerson");
     }
-    
+
     @FXML
-    public void saveCompany(){
-        if (cmbTphone.getValue() != null && !txtPhoneNumber.getText().equals("")) {
-            phones.addLast(new Phone(txtPhoneNumber.getText(), String.valueOf(cmbTphone.getValue())));
-        }
-        if (cmbTemail.getValue() != null && !txtEmail.getText().equals("")) {
-            emails.addLast(new Email(txtEmail.getText(), String.valueOf(cmbTemail.getValue())));
-        }
-        if (!txtLabelAddress.getText().equals("") && !txtStreet.getText().equals("")) {
-            addresses.addLast(new Address(txtStreet.getText(), txtSecondaryStreet.getText(), txtCodePostal.getText(), txtCity.getText(), txtCountry.getText(), txtLabelAddress.getText()));
-        }
-        if (cmbTdate.getValue() != null && dpSpecialDate.getValue() != null) {
-            specialDates.addLast(new SpecialDate(dpSpecialDate.getValue().toString(), String.valueOf(cmbTdate.getValue())));
-        }
+    public void saveCompany() {
+        extractPhones();
+        extractEmails();
+        extractAddresses();
+        extractSpecialDates();
+
         if (isRegisteredCorrectly()) {
-            Company c = new Company(txtName.getText(),phones);
+
+            Company c = new Company(txtName.getText(), phones);
             c.setDepartment(txtDepartment.getText());
             c.setWebsite(txtWebsite.getText());
-            
+
             c.setImages(images);
             c.setAddresses(addresses);
             c.setEmails(emails);
@@ -153,7 +156,7 @@ public class RegisterCompanyController implements Initializable {
             } else {
                 c.setPhoto(this.images.get(0));
             }
-            
+
             ContactVisualizationController.contacts.addLast(c);
             General.saveContacts(ContactVisualizationController.contacts);
 
@@ -203,61 +206,132 @@ public class RegisterCompanyController implements Initializable {
 
     @FXML
     public void addPhoneNumber() {
-        if (cmbTphone.getValue() != null && !txtPhoneNumber.getText().equals("")) {
-            phones.addLast(new Phone(txtPhoneNumber.getText(), String.valueOf(cmbTphone.getValue())));
-            cmbTphone.setValue(null);
-            txtPhoneNumber.clear();
-            General.feedbackUser("Telefono agregado con exito");
-        } else if (cmbTphone.getValue() == null && !txtPhoneNumber.getText().equals("")) {
-            General.errorUser("Debe seleccionar como desea etiquetar este telefono");
-        } else if (txtPhoneNumber.getText().equals("") && cmbTphone.getValue() != null) {
-            General.errorUser("Debe ingresar un número de telefono");
-        }
+        int currentSize = vbPhones.getChildren().size();
+        vbPhones.getChildren().add(currentSize - 1, createContainer(vbPhones));
     }
 
     @FXML
     public void addEmail() {
-        if (cmbTemail.getValue() != null && !txtEmail.getText().equals("")) {
-            emails.addLast(new Email(txtEmail.getText(), String.valueOf(cmbTemail.getValue())));
-            cmbTemail.setValue(null);
-            txtEmail.clear();
-            General.feedbackUser("Email agregado con exito");
-        }else if(cmbTemail.getValue() == null && !txtEmail.getText().equals("")){
-            General.errorUser("Debe seleccionar como desea etiquetar este email");
-        } else if (txtEmail.getText().equals("") && cmbTemail.getValue() != null) {
-            General.errorUser("Debe ingresar una direccion de correo");
-        }
+        int currentSize = vbEmails.getChildren().size();
+        vbEmails.getChildren().add(currentSize - 1, createContainer(vbEmails));
+
     }
 
     @FXML
     public void addAddress() {
-        if (!txtLabelAddress.getText().equals("") && !txtStreet.getText().equals("")) {
-            addresses.addLast(new Address(txtStreet.getText(), txtSecondaryStreet.getText(), txtCodePostal.getText(), txtCity.getText(), txtCountry.getText(), txtLabelAddress.getText()));
-            txtLabelAddress.clear();
-            txtStreet.clear();
-            txtSecondaryStreet.clear();
-            txtCodePostal.clear();
-            txtCity.clear();
-            txtCountry.clear();
-            General.feedbackUser("Direccion agregada con exito");
-        }else if(txtLabelAddress.getText().equals("") && !txtStreet.getText().equals("")){
-            General.errorUser("Debe etiquetar esta direccion");
-        }else if(txtStreet.getText().equals("") && !txtLabelAddress.getText().equals("")){
-            General.errorUser("Debe agregar al menos la calle principal");
-        }
+        int currentSize = vbAddresses.getChildren().size();
+        vbAddresses.getChildren().add(currentSize - 1, createContainer(vbAddresses));
+
     }
 
     @FXML
     public void addSpecialDate() {
-        if (cmbTdate.getValue() != null && dpSpecialDate.getValue() != null) {
-            specialDates.addLast(new SpecialDate(dpSpecialDate.getValue().toString(), String.valueOf(cmbTdate.getValue())));
-            cmbTdate.setValue(null);
-            General.feedbackUser("Fecha agregada con exito");
-        }else if(cmbTdate.getValue() == null && dpSpecialDate.getValue() != null){
-            General.errorUser("Debe seleccionar como etiquetar esta fecha");
-        }else if(dpSpecialDate.getValue() == null && cmbTdate.getValue() != null){
-            General.errorUser("Debe seleccionar una fecha");
+        int currentSize = vbSpecialDates.getChildren().size();
+        vbSpecialDates.getChildren().add(currentSize - 1, createContainer(vbSpecialDates));
+    }
+
+    public void extractPhones() {
+        for (int i = 0; i < vbPhones.getChildren().size() - 1; i++) {
+            HBox hb = (HBox) vbPhones.getChildren().get(i);
+            ComboBox cbp = (ComboBox) hb.getChildren().get(1);
+            TextField tfp = (TextField) hb.getChildren().get(2);
+            if (!tfp.getText().equals("")) {
+                phones.addLast(new Phone(tfp.getText(), String.valueOf(cbp.getValue())));
+            }
         }
+    }
+
+    public void extractEmails() {
+        for (int i = 0; i < vbEmails.getChildren().size() - 1; i++) {
+            HBox hb = (HBox) vbEmails.getChildren().get(i);
+            ComboBox cbe = (ComboBox) hb.getChildren().get(1);
+            TextField tfe = (TextField) hb.getChildren().get(2);
+            if (!tfe.getText().equals("")) {
+                emails.addLast(new Email(tfe.getText(), String.valueOf(cbe.getValue())));
+            }
+        }
+    }
+
+    public void extractAddresses() {
+        for (int i = 0; i < vbAddresses.getChildren().size() - 1; i++) {
+            HBox hb = (HBox) vbAddresses.getChildren().get(i);
+            TextField tfa = (TextField) hb.getChildren().get(1);
+            VBox vba = (VBox) hb.getChildren().get(2);
+
+            TextField tf1 = (TextField) vba.getChildren().get(0);
+            TextField tf2 = (TextField) vba.getChildren().get(1);
+            TextField tf3 = (TextField) vba.getChildren().get(2);
+            TextField tf4 = (TextField) vba.getChildren().get(3);
+            TextField tf5 = (TextField) vba.getChildren().get(4);
+            if (!tfa.getText().equals("") && !tf1.getText().equals("")) {
+                addresses.addLast(new Address(tf1.getText(), tf2.getText(), tf3.getText(), tf4.getText(), tf5.getText(), tfa.getText()));
+            }
+        }
+    }
+
+    public void extractSpecialDates() {
+        for (int i = 0; i < vbSpecialDates.getChildren().size() - 1; i++) {
+            HBox hb = (HBox) vbSpecialDates.getChildren().get(i);
+            ComboBox cbs = (ComboBox) hb.getChildren().get(1);
+            DatePicker dps = (DatePicker) hb.getChildren().get(2);
+            if (cbs.getValue() != null && dps.getValue() != null) {
+                specialDates.addLast(new SpecialDate(dps.getValue().toString(), String.valueOf(cbs.getValue())));
+            }
+
+        }
+    }
+
+    public HBox createContainer(VBox mainContainer) {
+        HBox cp = new HBox();
+        cp.getChildren().add(deleteContainer(cp, mainContainer));
+
+        if (mainContainer != vbAddresses) {
+            cp.getChildren().add(createfilledComboBox(mainContainer));
+        } else {
+            cp.getChildren().add(new TextField());
+        }
+
+        if (mainContainer != vbAddresses && mainContainer != vbSpecialDates) {
+            cp.getChildren().add(new TextField());
+        } else if (mainContainer == vbAddresses) {
+            cp.getChildren().add(createContainerDataAddress());
+        } else if (mainContainer == vbSpecialDates) {
+            cp.getChildren().add(new DatePicker());
+        }
+        return cp;
+    }
+
+    public VBox createContainerDataAddress() {
+        VBox vb = new VBox();
+        for (int i = 0; i < 5; i++) {
+            vb.getChildren().add(new TextField());
+        }
+        return vb;
+    }
+
+    public Button deleteContainer(HBox containerData, VBox mainContainer) {
+        Button b = new Button("-");
+        EventHandler<ActionEvent> eventoClick = (ActionEvent event) -> {
+            int index = mainContainer.getChildren().indexOf(containerData);
+            mainContainer.getChildren().remove(index);
+        };
+        b.setOnAction(eventoClick);
+        return b;
+    }
+
+    public ComboBox createfilledComboBox(VBox mainContainer) {
+        ComboBox cb = new ComboBox();
+        if (mainContainer == vbPhones) {
+            cb.getItems().addAll(Type_phone.values());
+            cb.setValue(Type_phone.values()[0]);
+        } else if (mainContainer == vbEmails) {
+            cb.getItems().addAll(Type_email.values());
+            cb.setValue(Type_email.values()[0]);
+        } else if (mainContainer == vbSpecialDates) {
+            cb.getItems().addAll(Type_date.values());
+            cb.setValue(Type_date.values()[0]);
+        }
+        return cb;
     }
 
     public void fillComboBoxes() {
@@ -274,5 +348,5 @@ public class RegisterCompanyController implements Initializable {
         cmbTdate.setValue(td[0]);
 
     }
-}
 
+}

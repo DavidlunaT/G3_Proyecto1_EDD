@@ -6,35 +6,52 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="286.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.RegisterPersonController">
-  <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="680.0" prefWidth="270.0">
+   <content>
+      <VBox prefHeight="631.0" prefWidth="284.0" spacing="40.0">
          <children>
-            <Button fx:id="btnCancel" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToContactVisualization" text="Cancel" />
-            <Button fx:id="btnSave" layoutX="215.0" layoutY="14.0" mnemonicParsing="false" onAction="#savePerson" text="Save" />
-            <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="49.0" prefHeight="131.0" prefWidth="250.0">
+            <HBox prefHeight="29.0" prefWidth="284.0" spacing="140.0">
+               <children>
+                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#switchToContactVisualization" prefHeight="25.0" prefWidth="72.0" text="Cancel">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#savePerson" prefHeight="25.0" prefWidth="71.0" text="Save">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="131.0" prefWidth="250.0">
                <children>
                   <AnchorPane prefHeight="131.0" prefWidth="100.0">
                      <children>
-                        <ImageView fx:id="imgMain" fitHeight="44.0" fitWidth="54.0" layoutX="13.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="btnChange" layoutX="14.0" layoutY="85.0" mnemonicParsing="false" onAction="#switchToRegisterCompany" text="P or C" />
-                        <Button fx:id="btnAddImages" layoutX="12.0" layoutY="14.0" mnemonicParsing="false" onAction="#addImages" prefHeight="46.0" prefWidth="52.0" text="Add Images" />
+                        <ImageView fx:id="imgMain" fitHeight="71.0" fitWidth="70.0" layoutX="18.0" layoutY="4.0" onMouseClicked="#addImages" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../photos/default.png" />
+                           </image></ImageView>
+                        <Button fx:id="btnChange" layoutX="29.0" layoutY="74.0" mnemonicParsing="false" onAction="#switchToRegisterCompany" text="P or C" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefWidth="170.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="131.0" prefWidth="170.0">
+                        <VBox alignment="CENTER" prefHeight="77.0" prefWidth="170.0">
                            <children>
-                              <TextField fx:id="txtName" focusTraversable="false" prefHeight="25.0" prefWidth="140.0" promptText="Name" />
+                              <TextField fx:id="txtName" focusTraversable="false" prefHeight="25.0" prefWidth="149.0" promptText="Name" />
                               <TextField fx:id="txtSecondName" promptText="Second Name" />
                               <TextField fx:id="txtLastName" promptText="Last Name" />
-                              <TextField fx:id="txtSecondLastName" prefHeight="25.0" prefWidth="140.0" promptText="Second Last Name" />
+                              <TextField fx:id="txtSecondLastName" promptText="Second Last Name" />
                               <TextField fx:id="txtNickname" promptText="Nickname" />
                            </children>
                            <opaqueInsets>
@@ -45,46 +62,78 @@
                   </AnchorPane>
                </children>
             </HBox>
-            <FlowPane layoutX="10.0" layoutY="211.0" prefHeight="70.0" prefWidth="250.0">
+            <VBox fx:id="vbPhones" prefHeight="22.0" prefWidth="250.0">
                <children>
-                  <Button mnemonicParsing="false" text="-" />
-                  <ComboBox fx:id="cmbTphone" prefHeight="25.0" prefWidth="85.0" />
-                  <TextField fx:id="txtPhoneNumber" prefHeight="25.0" prefWidth="143.0" promptText="Phone Number" />
-                  <Button fx:id="btnAddPhoneNumber" mnemonicParsing="false" onAction="#addPhoneNumber" prefHeight="25.0" prefWidth="250.0" text="+ Add Phone Number" />
-               </children>
-            </FlowPane>
-            <FlowPane layoutX="10.0" layoutY="308.0" prefHeight="70.0" prefWidth="250.0">
-               <children>
-                  <Button mnemonicParsing="false" text="-" />
-                  <ComboBox fx:id="cmbTemail" prefHeight="25.0" prefWidth="85.0" />
-                  <TextField fx:id="txtEmail" prefHeight="25.0" prefWidth="143.0" promptText="Email" />
-                  <Button fx:id="btnAddEmail" mnemonicParsing="false" onAction="#addEmail" prefHeight="25.0" prefWidth="250.0" text="+ Add Email" />
-               </children>
-            </FlowPane>
-            <FlowPane layoutX="10.0" layoutY="400.0" prefHeight="70.0" prefWidth="250.0">
-               <children>
-                  <Button mnemonicParsing="false" text="-" />
-                  <TextField fx:id="txtLabelAddress" prefHeight="25.0" prefWidth="85.0" />
-                  <VBox prefHeight="129.0" prefWidth="144.0">
+                  <HBox prefHeight="24.0" prefWidth="258.0">
                      <children>
-                        <TextField fx:id="txtStreet" focusTraversable="false" prefHeight="25.0" prefWidth="140.0" promptText="Street" />
-                        <TextField fx:id="txtSecondaryStreet" promptText="Secondary Steet" />
-                        <TextField fx:id="txtCodePostal" promptText="C. P." />
-                        <TextField fx:id="txtCity" prefHeight="25.0" prefWidth="140.0" promptText="City" />
-                        <TextField fx:id="txtCountry" promptText="Country" />
+                        <Button mnemonicParsing="false" text="-" />
+                        <ComboBox fx:id="cmbTphone" prefHeight="25.0" prefWidth="85.0" />
+                        <TextField fx:id="txtPhoneNumber" prefHeight="25.0" prefWidth="158.0" promptText="Phone Number" />
                      </children>
-                  </VBox>
-                  <Button fx:id="btnAddAddress" mnemonicParsing="false" onAction="#addAddress" prefHeight="25.0" prefWidth="250.0" text="+ Add Address" />
+                  </HBox>
+                  <Button fx:id="btnAddPhoneNumber" mnemonicParsing="false" onAction="#addPhoneNumber" prefHeight="25.0" prefWidth="265.0" text="+ Add Phone Number" />
                </children>
-            </FlowPane>
-            <FlowPane layoutX="10.0" layoutY="599.0" prefHeight="70.0" prefWidth="250.0">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox fx:id="vbEmails" prefHeight="24.0" prefWidth="250.0">
                <children>
-                  <Button mnemonicParsing="false" text="-" />
-                  <ComboBox fx:id="cmbTdate" prefHeight="25.0" prefWidth="85.0" />
-                  <DatePicker fx:id="dpSpecialDate" prefHeight="25.0" prefWidth="144.0" />
-                  <Button fx:id="btnAddDate" mnemonicParsing="false" onAction="#addSpecialDate" prefHeight="25.0" prefWidth="250.0" text="+ Add Special Date" />
+                  <HBox prefHeight="22.0" prefWidth="250.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="-" />
+                        <ComboBox fx:id="cmbTemail" prefHeight="25.0" prefWidth="85.0" />
+                        <TextField fx:id="txtEmail" prefHeight="25.0" prefWidth="160.0" promptText="Email" />
+                     </children>
+                  </HBox>
+                  <Button fx:id="btnAddEmail" mnemonicParsing="false" onAction="#addEmail" prefHeight="25.0" prefWidth="264.0" text="+ Add Email" />
                </children>
-            </FlowPane>
-         </children></AnchorPane>
-  </content>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox fx:id="vbAddresses" prefHeight="50.0" prefWidth="270.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="-" />
+                        <TextField fx:id="txtLabelAddress" prefHeight="25.0" prefWidth="85.0" />
+                        <VBox prefHeight="125.0" prefWidth="160.0">
+                           <children>
+                              <TextField fx:id="txtStreet" focusTraversable="false" prefHeight="25.0" prefWidth="140.0" promptText="Street" />
+                              <TextField fx:id="txtSecondaryStreet" promptText="Secondary Steet" />
+                              <TextField fx:id="txtCodePostal" promptText="C. P." />
+                              <TextField fx:id="txtCity" prefHeight="25.0" prefWidth="140.0" promptText="City" />
+                              <TextField fx:id="txtCountry" promptText="Country" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <Button fx:id="btnAddAddress" mnemonicParsing="false" onAction="#addAddress" prefHeight="25.0" prefWidth="269.0" text="+ Add Address" />
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </VBox>
+            <VBox fx:id="vbSpecialDates" prefHeight="28.0" prefWidth="270.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="-" />
+                        <ComboBox fx:id="cmbTdate" prefHeight="25.0" prefWidth="85.0" />
+                        <DatePicker fx:id="dpSpecialDate" prefHeight="25.0" prefWidth="162.0" />
+                     </children>
+                  </HBox>
+                  <Button fx:id="btnAddDate" mnemonicParsing="false" onAction="#addSpecialDate" prefHeight="25.0" prefWidth="265.0" text="+ Add Special Date" />
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+   </content>
 </ScrollPane>

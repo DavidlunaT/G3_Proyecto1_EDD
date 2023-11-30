@@ -80,6 +80,7 @@ public class ContactVisualizationController implements Initializable, EventHandl
         loadContactsList();
         if (!contacts.isEmpty()) {
             loadContactsView();
+            
         }
         loadContactsView();
         ObservableList<String> opciones = FXCollections.observableArrayList(
