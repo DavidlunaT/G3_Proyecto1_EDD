@@ -147,17 +147,21 @@ public class RegisterPersonController implements Initializable {
                 p.setPhoto(this.images.get(0));
             }
             if (!isEdition) {
+                //validar que no se agregue un contacto con un nombre que ya existe
                 ContactVisualizationController.contacts.addLast(p);
+                General.saveContacts(ContactVisualizationController.contacts);
             } else {
-                //busco elimino antiguo y agrego nuevo
+                //busco elimino antiguo y agrego nuevoGeneral.saveContacts(ContactVisualizationController.contacts);
+
                 Person tmpPerson = new Person(p.getName(), new ArrayList<Phone>());
                 if (ContactVisualizationController.contacts.contains(tmpPerson)) {
                     //int ind = ContactVisualizationController.contacts.indexOf(tmpPerson);
                     ContactVisualizationController.contacts.remove(ContactDetailController.c);
                     ContactVisualizationController.contacts.addLast(p);
+                    General.saveContacts(ContactVisualizationController.contacts);
                 }
             }
-            General.saveContacts(ContactVisualizationController.contacts);
+            
 
             try {
                 switchToContactVisualization();

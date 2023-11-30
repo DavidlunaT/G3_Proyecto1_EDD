@@ -15,6 +15,7 @@ import g3.g3_proyecto_contactos.models.Address;
 import g3.g3_proyecto_contactos.models.Company;
 import g3.g3_proyecto_contactos.models.Contact;
 import g3.g3_proyecto_contactos.models.Email;
+import g3.g3_proyecto_contactos.models.Person;
 import g3.g3_proyecto_contactos.models.Phone;
 import g3.g3_proyecto_contactos.models.SpecialDate;
 import g3.g3_proyecto_contactos.utilties.General;
@@ -134,7 +135,18 @@ public class RegisterCompanyController implements Initializable {
                 c.setPhoto(this.images.get(0));
             }
 
-            ContactVisualizationController.contacts.addLast(c);
+            if (!isEdition) {
+                
+                ContactVisualizationController.contacts.addLast(c);
+            } else {
+                //busco elimino antiguo y agrego nuevo
+                Company tmpCompany = new Company(c.getName(), new ArrayList<Phone>());
+                if (ContactVisualizationController.contacts.contains(tmpCompany)) {
+                    //int ind = ContactVisualizationController.contacts.indexOf(tmpPerson);
+                    ContactVisualizationController.contacts.remove(ContactDetailController.c);
+                    ContactVisualizationController.contacts.addLast(c);
+                }
+            }
             General.saveContacts(ContactVisualizationController.contacts);
 
             try {

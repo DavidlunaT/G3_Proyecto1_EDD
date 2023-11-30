@@ -13,12 +13,20 @@ import g3.g3_proyecto_contactos.models.Contact;
 import g3.g3_proyecto_contactos.models.Email;
 import g3.g3_proyecto_contactos.models.Person;
 import g3.g3_proyecto_contactos.models.Phone;
+
+import g3.g3_proyecto_contactos.models.SpecialDate;
+
+import g3.g3_proyecto_contactos.utilties.General;
 import java.io.IOException;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -38,7 +46,7 @@ public class ContactDetailController implements Initializable {
     @FXML
     private HBox rootBtns;
     @FXML
-    private HBox rootImg;
+    private VBox rootImg;
     @FXML
     private VBox dataRoot;
     @FXML
@@ -83,6 +91,8 @@ public class ContactDetailController implements Initializable {
     private Label lbMemories;
     @FXML
     private HBox photosList;
+    @FXML
+    private Label lbName;
     
     public static Contact c;
     
@@ -92,7 +102,14 @@ public class ContactDetailController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(c);
-    }    
+    }
+    public void switchToContactVisualization() {
+        try {
+            App.setRoot("contactVisualization");
+        } catch (IOException ex) {
+        }
+    }
+    
     
     public void loadImage(String imageUrl){
         Image img = new Image("file:" + App.path + "photos/" + imageUrl, 50, 0, true, false);
@@ -126,30 +143,74 @@ public class ContactDetailController implements Initializable {
                 +add.getPostalCode()+", "+add.getCity()+", "+add.getCountry();
     }
     
-    public void loadMoreData(){
-        loadMediasNodes();
-        loadDatesNodes();
-        loadMatchingContactsNodes();
+    public void loadMoreData(){        
+        setSpecialDatesHeader();
+        loadSpecialDatesSection();
+        //loadDatesNodes();
+        //loadMatchingContactsNodes();
     }
-
-    private void loadMediasNodes() {
-        HBox rootMedias = new HBox();
-        rootMedias.setStyle("-fx-background-radius: 10;" +
+    
+    private void nodeStyle(Node node) {       
+        node.setStyle("-fx-background-radius: 10;" +
             "-fx-border-radius: 10;+"+
             "-fx-background-color: #F8F1E3;" +
             "-fx-border-color: #FBF8F2;"+
-            "-fx-border-width: 2; ");  
-        Label mediasHeader = new Label("social medias");
+            "-fx-border-width: 2; ");          
     }
     
     
-    private void loadDatesNodes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void setSpecialDatesHeader(){
+        Label lbDates = new Label("special dates");
+        lbDates.setPrefHeight(17);
+        lbDates.setPrefWidth(462);
+        dataRoot.getChildren().add(lbDates);
     }
-
+    
+    private HBox loadDatesNodes(List<SpecialDate> spDs) {
+        //mini hbox's generator
+        HBox rootDates = new HBox();       
+        rootDates.setStyle("-fx-background-color: #FBF8F2");
+        rootDates.prefWidth(451);
+        rootDates.prefHeight(59);     
+        for(SpecialDate spD : spDs){
+            VBox container = styleSpecialDateMini(spD);
+            rootDates.getChildren().add(container);
+        }
+        return rootDates;
+    }
+    
+    private VBox styleSpecialDateMini(SpecialDate date){
+       VBox miniContainer = new VBox();
+       miniContainer.setAlignment(Pos.CENTER);
+       nodeStyle(miniContainer);
+       Label lbTypeDate = new Label(date.getLabel());
+       lbTypeDate.setAlignment(Pos.CENTER);
+       Label lbDate = new Label(date.getDate());
+       lbDate.setAlignment(Pos.CENTER);
+       miniContainer.getChildren().addAll(lbTypeDate, lbDate);
+       return miniContainer;
+    }
+    
+    
+    private void loadSpecialDatesSection() {
+        //setting main roots
+        ScrollPane scrP = new ScrollPane();
+        scrP.prefWidth(451);
+        scrP.prefHeight(59);
+        scrP.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrP.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrP.setStyle("-fx-background: #FBF8F2"
+                + "-fx-background-color: #FBF8F2");
+        //HBox dates = loadDatesNodes(c.getSpecialDates());
+        //scrP.getChildrenUnmodifiable(dates);
+        dataRoot.getChildren().add(scrP);
+    }
+    
     private void loadMatchingContactsNodes() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    
     
     @FXML
     public void editContact() throws IOException{
@@ -172,6 +233,16 @@ public class ContactDetailController implements Initializable {
            ScrollPane root = fxmlLoader.load();
             ct.fillFields(comp);
             App.changeRoot(root);
+        }
+    }
+    
+    @FXML
+    public void deleteContact(){
+        if(ContactVisualizationController.contacts.contains(c)){
+            ContactVisualizationController.contacts.remove(c);
+            General.saveContacts(ContactVisualizationController.contacts);
+             switchToContactVisualization();
+            
         }
     }
     
