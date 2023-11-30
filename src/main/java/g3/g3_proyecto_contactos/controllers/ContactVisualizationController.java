@@ -98,43 +98,20 @@ public class ContactVisualizationController implements Initializable {
         fxmlLoader.setController(ct);
         ScrollPane root = fxmlLoader.load();
         App.changeRoot(root);
-        
+
     }
 
     public void loadContactsView() {
-        System.out.println("funciona next");
         listDisplay.getChildren().clear();
-        Set<Contact> miSet = new LinkedHashSet<>();
-        ArrayList<Contact> currentList = new ArrayList<>();
-        if (itContacts != null) {
-            if (contModPreview != 0) {
-                for (int e = 0; e < 7; e++) {
-                    currentList.addFirst(itContacts.next());
-                }
-                currentList.clear();
-                for (int e = 0; e < 7; e++) {
-                    miSet.add(itContacts.next());
-                }
-                contModPreview = 0;
-            } else {
-                for (int e = 0; e < 7; e++) {
-                    miSet.add(itContacts.next());
-                }
-            }
-
-            System.out.println("CONJUNTO DE CONTACTOS" + miSet);
+        Contact last = contacts.remove(contacts.size() - 1);
+        contacts.addFirst(last);
+        for (int i = 0; i < 7; i++) {
+            styleContact(contacts.get(i));
         }
-
-        for (Contact aContact : miSet) {
-            if (aContact != null) {
-                HBox actual = new HBox();
-                styleContact(aContact, actual);
-            }
-        }
-        contModNext++;
     }
 
     public void loadContactsList() {
+
         contacts = General.loadContacts();
         if (!contacts.isEmpty()) {
             itContacts = new CustomCircularIterator<>(this.contacts);
@@ -143,44 +120,16 @@ public class ContactVisualizationController implements Initializable {
     }
 
     public void btnPreview() {
-
-        System.out.println("funciona preview");
-        Set<Contact> miSet = new LinkedHashSet<>();
         listDisplay.getChildren().clear();
-
-        ArrayList<Contact> currentList = new ArrayList<>();
-
-        if (contModNext != 0) {
-            for (int e = 0; e < 7; e++) {
-                currentList.addFirst(itContacts.previous());
-            }
-            currentList.clear();
-
-            for (int e = 0; e < 7; e++) {
-                currentList.addFirst(itContacts.previous());
-            }
-
-            for (Contact c : currentList) {
-                miSet.add(c);
-            }
-            contModNext = 0;
-        } else {
-            for (int e = 0; e < 7; e++) {
-                currentList.addFirst(itContacts.previous());
-            }
-
-            for (Contact c : currentList) {
-                miSet.add(c);
-            }
+        Contact fisrt = contacts.remove(0);
+        contacts.addLast(fisrt);
+        for (int i = 0; i < 7; i++) {
+            styleContact(contacts.get(i));
+        }
+        for (Contact a : contacts) {
+            System.out.println(a.getName());
         }
 
-        for (Contact aContact : miSet) {
-            if (aContact != null) {
-                HBox actual = new HBox();
-                styleContact(aContact, actual);
-            }
-        }
-        contModPreview++;
     }
 
     public void styleContact(Contact c, HBox hbx) {
@@ -248,6 +197,30 @@ public class ContactVisualizationController implements Initializable {
         nView.setScene(scene);
         nView.show();
     }
+
+    public void TypeSelected(ActionEvent actionEvent) {
+        if (rdbtnPC.isSelected()) {
+            ArrayList<Contact> nContacts = new ArrayList<>();
+        }
+        for (Contact aContact : contacts) {
+            System.out.println(aContact.getClass().getName());
+            if (aContact instanceof Person) {
+                nContacts.addLast(aContact);
+                System.out.println("a");
+            }
+        }
+        for (Contact aContact : contacts) {
+            if (aContact instanceof Company) {
+                nContacts.addLast(aContact);
+                System.out.println("b");
+            }
+        }for(Contact a: nContacts){
+            System.out.println(a.getName());
+        }
+        contacts = nContacts;
+         loadContactsView();
+    }
+    
 
     public void filterBy() {
 

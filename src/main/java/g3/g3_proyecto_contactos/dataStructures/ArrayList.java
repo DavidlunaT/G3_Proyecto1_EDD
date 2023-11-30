@@ -229,7 +229,7 @@ public class ArrayList<E> implements List<E>, Serializable {
             for (int i = index; i < effectiveSize - 1; i++) {
                 elements[i] = elements[i + 1];
             }
-        }    
+        }        
         elements[effectiveSize - 1] = null;
         effectiveSize--;
         return element;
