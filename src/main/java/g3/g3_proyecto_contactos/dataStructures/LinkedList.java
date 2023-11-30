@@ -1,10 +1,18 @@
 package g3.g3_proyecto_contactos.dataStructures;
+
 import g3.g3_proyecto_contactos.interfaces.List;
+
+
+import g3.g3_proyecto_contactos.interfaces.List;
+import java.io.Serializable;
+
 import java.util.Comparator;
 import java.util.Iterator;
 
 
-public class LinkedList<E> implements List<E> {
+public class LinkedList<E> implements List<E>,Serializable {
+    
+    private static final long serialVersionUID = 1099110916014732399L;
 
     private Node<E> first, last;
 

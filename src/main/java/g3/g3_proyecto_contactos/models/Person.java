@@ -14,7 +14,8 @@ import java.io.Serializable;
  *
  * @author oweny
  */
-public class Person extends Contact implements Serializable, Comparable<Person>{ 
+public class Person extends Contact implements Serializable, Comparable<Person>{
+    private static final long serialVersionUID = 1099110916014732399L;
     
     public String firstName1;
     public String firstName2;

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="AnchorPane" prefHeight="740.0" prefWidth="480.0" style="-fx-background-color: #FBF8F2;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.ContactDetailController">
+<VBox id="AnchorPane" prefHeight="740.0" prefWidth="480.0" style="-fx-background-color: #FBF8F2;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.ContactDetailController">
     <stylesheets>
         <URL value="@/g3/g3_proyecto_contactos/styles/contactdetail.css" />
     </stylesheets>
@@ -26,12 +26,12 @@
                   <Insets left="20.0" right="200.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnDelete" mnemonicParsing="false" prefHeight="27.0" prefWidth="87.0" text="delete">
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteContact" prefHeight="27.0" prefWidth="87.0" text="delete">
                <HBox.margin>
                   <Insets right="15.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnEdit" mnemonicParsing="false" prefHeight="27.0" prefWidth="61.0" text="Edit">
+            <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#editContact" prefHeight="27.0" prefWidth="61.0" text="Edit">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
