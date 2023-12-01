@@ -132,6 +132,7 @@ public class RegisterCompanyController implements Initializable {
             c.setSpecialDates(specialDates);
             if (images.isEmpty()) {
                 c.setPhoto(Contact.photoDefault);
+                images.addLast(Contact.photoDefault);
             } else {
                 c.setPhoto(this.images.get(0));
             }

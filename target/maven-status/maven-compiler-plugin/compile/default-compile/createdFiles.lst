@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-g3/g3_proyecto_contactos/enums/Type_date.class
-g3/g3_proyecto_contactos/dataStructures/ArrayList.class
-g3/g3_proyecto_contactos/controllers/ContactVisualizationController.class
-=======
-<<<<<<< HEAD
 g3\g3_proyecto_contactos\dataStructures\LinkedList$1.class
 g3\g3_proyecto_contactos\dataStructures\Node.class
 g3\g3_proyecto_contactos\controllers\RegisterPersonController.class
@@ -15,52 +7,12 @@ g3\g3_proyecto_contactos\App.class
 g3\g3_proyecto_contactos\controllers\RegisterCompanyController.class
 g3\g3_proyecto_contactos\models\Company.class
 g3\g3_proyecto_contactos\interfaces\List.class
-=======
-<<<<<<< HEAD
->>>>>>> 9246ef18c342107561eacd847bee46a70ab64abf
->>>>>>> Owen
-g3/g3_proyecto_contactos/models/User.class
-g3/g3_proyecto_contactos/models/Person.class
-g3/g3_proyecto_contactos/dataStructures/CustomCircularIterator.class
-g3/g3_proyecto_contactos/dataStructures/LinkedList$1.class
-g3/g3_proyecto_contactos/enums/Type_phone.class
-g3/g3_proyecto_contactos/controllers/ContactDetailController.class
-<<<<<<< HEAD
-module-info.class
-g3/g3_proyecto_contactos/dataStructures/ArrayList$1.class
-=======
-g3/g3_proyecto_contactos/dataStructures/ArrayList.class
-g3/g3_proyecto_contactos/dataStructures/LinkedList.class
-g3/g3_proyecto_contactos/controllers/ContactVisualizationController.class
-<<<<<<< HEAD
-module-info.class
-g3/g3_proyecto_contactos/controllers/ContactVisualizationController$1.class
-g3/g3_proyecto_contactos/models/Phone.class
-g3/g3_proyecto_contactos/models/Email.class
-g3/g3_proyecto_contactos/dataStructures/Node.class
-g3/g3_proyecto_contactos/controllers/FrontPageAppController.class
-g3/g3_proyecto_contactos/models/Relation.class
-g3/g3_proyecto_contactos/App.class
-g3/g3_proyecto_contactos/models/Company.class
-g3/g3_proyecto_contactos/dataStructures/ArrayList$1.class
-g3/g3_proyecto_contactos/controllers/RegisterPersonController.class
-g3/g3_proyecto_contactos/interfaces/List.class
-g3/g3_proyecto_contactos/models/Address.class
-g3/g3_proyecto_contactos/utilties/General.class
-g3/g3_proyecto_contactos/models/SpecialDate.class
-g3/g3_proyecto_contactos/controllers/RegisterCompanyController.class
-g3/g3_proyecto_contactos/models/Contact.class
-g3/g3_proyecto_contactos/enums/Type_email.class
-=======
-=======
->>>>>>> 193a8943abdc01d9ebe642dfe221ace51e684e84
 g3\g3_proyecto_contactos\models\SpecialDate.class
 g3\g3_proyecto_contactos\models\User.class
 g3\g3_proyecto_contactos\controllers\ContactVisualizationController$1.class
 g3\g3_proyecto_contactos\utilties\General.class
 g3\g3_proyecto_contactos\controllers\FrontPageAppController.class
 g3\g3_proyecto_contactos\enums\Type_date.class
->>>>>>> 439f2783d69f188aba4fb991bed108fba355f400
 module-info.class
 g3\g3_proyecto_contactos\enums\Type_phone.class
 g3\g3_proyecto_contactos\controllers\ContactDetailController.class
@@ -74,5 +26,3 @@ g3\g3_proyecto_contactos\dataStructures\ArrayList$1.class
 g3\g3_proyecto_contactos\models\Person.class
 g3\g3_proyecto_contactos\models\Email.class
 g3\g3_proyecto_contactos\dataStructures\CustomCircularIterator.class
->>>>>>> 9246ef18c342107561eacd847bee46a70ab64abf
->>>>>>> Owen

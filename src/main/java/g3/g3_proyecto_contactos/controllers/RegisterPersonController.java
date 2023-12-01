@@ -143,6 +143,7 @@ public class RegisterPersonController implements Initializable {
             p.setSpecialDates(specialDates);
             if (images.isEmpty()) {
                 p.setPhoto(Contact.photoDefault);
+                images.addLast(Contact.photoDefault);
             } else {
                 p.setPhoto(this.images.get(0));
             }
