@@ -160,7 +160,7 @@ public class ContactVisualizationController implements Initializable {
             }
             else {
                 contactsCompanies.addLast(aContact);
-                
+               
             }
         }
         
