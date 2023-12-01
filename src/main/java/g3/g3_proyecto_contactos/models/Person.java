@@ -114,10 +114,6 @@ public class Person extends Contact implements Serializable, Comparable<Person>{
         this.Photo = Photo;
     }
 
-    @Override
-    public String toString() {
-        return super.toString()+"Person{" + "firstName1=" + firstName1 + ", firstName2=" + firstName2 + ", lastName1=" + lastName1 + ", lastName2=" + lastName2 + '}';
-    }
 
     @Override
     public int compareTo(Person o) {

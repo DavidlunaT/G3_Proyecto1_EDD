@@ -72,6 +72,7 @@ public class RegisterCompanyController implements Initializable {
     List<Address> addresses;
     List<SpecialDate> specialDates;
     List<String> images;
+    List<Contact> relations;
     @FXML
     private VBox vbPhones;
     @FXML
@@ -80,7 +81,8 @@ public class RegisterCompanyController implements Initializable {
     private VBox vbAddresses;
     @FXML
     private VBox vbSpecialDates;
-
+    @FXML
+    private VBox vbRelations;
     /**
      * Initializes the controller class.
      */
@@ -94,6 +96,7 @@ public class RegisterCompanyController implements Initializable {
         addresses = new ArrayList<>();
         specialDates = new ArrayList<>();
         images = new ArrayList<>();
+        relations = new ArrayList<>();
         
 
     }
@@ -130,6 +133,7 @@ public class RegisterCompanyController implements Initializable {
             c.setAddresses(addresses);
             c.setEmails(emails);
             c.setSpecialDates(specialDates);
+            c.setRelatedContacts(relations);
             if (images.isEmpty()) {
                 c.setPhoto(Contact.photoDefault);
                 images.addLast(Contact.photoDefault);
@@ -254,6 +258,12 @@ public class RegisterCompanyController implements Initializable {
         int currentSize = vbSpecialDates.getChildren().size();
         vbSpecialDates.getChildren().add(currentSize - 1, createContainerNoAddress(vbSpecialDates, sp.getLabel(), sp.getDate()));
     }
+    
+    @FXML
+    public void addRelation(){
+        int currentSize = vbRelations.getChildren().size();
+        vbRelations.getChildren().add(currentSize-1,createContainerRelation(vbRelations));
+    }
 
     public void extractPhones() {
         for (int i = 0; i < vbPhones.getChildren().size() - 1; i++) {
@@ -304,6 +314,17 @@ public class RegisterCompanyController implements Initializable {
             }
         }
     }
+    
+    public void extractRelations(){
+        for(int i = 0;i<vbRelations.getChildren().size() - 1; i++){
+            HBox hb = (HBox) vbRelations.getChildren().get(i);
+            ComboBox cbr = (ComboBox) hb.getChildren().get(1);
+            if(cbr.getValue() != null){
+                System.out.println(cbr.getValue().getClass());
+                relations.addLast((Contact)cbr.getValue());
+            }
+        }
+    }
 
     public HBox createContainer(VBox mainContainer) {
         HBox cp = new HBox();
@@ -346,6 +367,12 @@ public class RegisterCompanyController implements Initializable {
         }
         return vb;
     }
+    public HBox createContainerRelation(VBox mainContainer){
+        HBox cp = new HBox();
+        cp.getChildren().add(deleteContainer(cp, mainContainer));
+        cp.getChildren().add(createfilledComboBox(mainContainer));
+        return cp;
+    }
 
     public VBox createContainerDataAddress(Address a) {
         VBox vb = new VBox();
@@ -368,6 +395,11 @@ public class RegisterCompanyController implements Initializable {
         } else if (mainContainer == vbSpecialDates) {
             cb.getItems().addAll(Type_date.values());
             cb.setValue(Type_date.values()[0]);
+        }else if(mainContainer == vbRelations){
+            for(Contact currentContact:ContactVisualizationController.contacts){
+                cb.getItems().add(currentContact);
+            }
+            
         }
         return cb;
     }

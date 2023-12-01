@@ -82,6 +82,8 @@ public class RegisterPersonController implements Initializable {
     private VBox vbAddresses;
     @FXML
     private VBox vbSpecialDates;
+     @FXML
+    private VBox vbRelations;
 
     public static boolean isEdition;
     List<Phone> phones;
@@ -89,6 +91,7 @@ public class RegisterPersonController implements Initializable {
     List<Address> addresses;
     List<SpecialDate> specialDates;
     List<String> images;
+    List<Contact> relations;
 
     /**
      * Initializes the controller class.
@@ -107,6 +110,7 @@ public class RegisterPersonController implements Initializable {
         addresses = new ArrayList<>();
         specialDates = new ArrayList<>();
         images = new ArrayList<>();
+        relations = new ArrayList<>();
 
     }
 
@@ -131,6 +135,7 @@ public class RegisterPersonController implements Initializable {
         extractEmails();
         extractAddresses();
         extractSpecialDates();
+        extractRelations();
 
         if (isRegisteredCorrectly()) {
             Person p = new Person(txtNickname.getText(), phones);
@@ -142,6 +147,7 @@ public class RegisterPersonController implements Initializable {
             p.setAddresses(addresses);
             p.setEmails(emails);
             p.setSpecialDates(specialDates);
+            p.setRelatedContacts(relations);
             if (images.isEmpty()) {
                 p.setPhoto(Contact.photoDefault);
                 images.addLast(Contact.photoDefault);
@@ -271,12 +277,16 @@ public class RegisterPersonController implements Initializable {
         int currentSize = vbSpecialDates.getChildren().size();
         vbSpecialDates.getChildren().add(currentSize - 1, createContainerNoAddress(vbSpecialDates, sp.getLabel(), sp.getDate()));
     }
+    
+    @FXML
+    public void addRelation(){
+        int currentSize = vbRelations.getChildren().size();
+        vbRelations.getChildren().add(currentSize-1,createContainerRelation(vbRelations));
+    }
 
     public void extractPhones() {
-        System.out.println("extractPhones: " + vbPhones.getChildren().size());
         for (int i = 0; i < vbPhones.getChildren().size() - 1; i++) {
             HBox hb = (HBox) vbPhones.getChildren().get(i);
-            System.out.println(hb.getChildren().size());
             ComboBox cbp = (ComboBox) hb.getChildren().get(1);
             TextField tfp = (TextField) hb.getChildren().get(2);
             if (!tfp.getText().equals("")) {
@@ -314,13 +324,23 @@ public class RegisterPersonController implements Initializable {
     }
 
     public void extractSpecialDates() {
-        System.out.println(vbSpecialDates.getChildren().size());
         for (int i = 0; i < vbSpecialDates.getChildren().size() - 1; i++) {
             HBox hb = (HBox) vbSpecialDates.getChildren().get(i);
             ComboBox cbs = (ComboBox) hb.getChildren().get(1);
             TextField tfs = (TextField) hb.getChildren().get(2);
             if (cbs.getValue() != null && !tfs.getText().equals("")) {
                 specialDates.addLast(new SpecialDate(tfs.getText(), String.valueOf(cbs.getValue())));
+            }
+        }
+    }
+    
+    public void extractRelations(){
+        for(int i = 0;i<vbRelations.getChildren().size() - 1; i++){
+            HBox hb = (HBox) vbRelations.getChildren().get(i);
+            ComboBox cbr = (ComboBox) hb.getChildren().get(1);
+            if(cbr.getValue() != null){
+                System.out.println(cbr.getValue().getClass());
+                relations.addLast((Contact)cbr.getValue());
             }
         }
     }
@@ -368,6 +388,12 @@ public class RegisterPersonController implements Initializable {
         }
         return vb;
     }
+    public HBox createContainerRelation(VBox mainContainer){
+        HBox cp = new HBox();
+        cp.getChildren().add(deleteContainer(cp, mainContainer));
+        cp.getChildren().add(createfilledComboBox(mainContainer));
+        return cp;
+    }
 
     public VBox createContainerDataAddress(Address a) {
         VBox vb = new VBox();
@@ -391,6 +417,11 @@ public class RegisterPersonController implements Initializable {
         } else if (mainContainer == vbSpecialDates) {
             cb.getItems().addAll(Type_date.values());
             cb.setValue(Type_date.values()[0]);
+        }else if(mainContainer == vbRelations){
+            for(Contact currentContact:ContactVisualizationController.contacts){
+                cb.getItems().add(currentContact);
+            }
+            
         }
         return cb;
     }
