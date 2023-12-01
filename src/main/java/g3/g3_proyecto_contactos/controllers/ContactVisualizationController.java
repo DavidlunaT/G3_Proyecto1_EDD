@@ -106,18 +106,8 @@ public class ContactVisualizationController implements Initializable {
         );
 
         filterBy.setItems(opciones);
-        for(Contact aContact: contactsBackup){
-            
-            if (aContact instanceof Person) {
-                
-                contactsPersons.addLast(aContact);
-                
-            }
-            else {
-                contactsCompanies.addLast(aContact);
-                
-            }
-        }
+        filterBy.setValue("Nombre");
+       
 
     }
 
@@ -158,6 +148,17 @@ public class ContactVisualizationController implements Initializable {
             itContacts = new CustomCircularIterator<>(this.contacts);
         }
         contactsBackup = General.loadContacts();
+        for(Contact aContact: General.loadContacts()){
+            if (aContact instanceof Person) {
+                
+                contactsPersons.addLast(aContact);
+                
+            }
+            else {
+                contactsCompanies.addLast(aContact);
+                
+            }
+        }
         
 
     }
@@ -252,52 +253,37 @@ public class ContactVisualizationController implements Initializable {
 
     public void TypeSelected(ActionEvent actionEvent) {
         if (rdbtnPC.isSelected()) {
-            ArrayList<Contact> nContacts = new ArrayList<>();
-            for (Contact aContact : contacts) {
-            
-            if (aContact instanceof Person) {
-                
-                nContacts.addLast(aContact);
-                
-            }
-            else if (aContact instanceof Company) {
-                nContacts.addLast(aContact);
-                
-            }
+            Comparator<Contact> cmp = (c1, c2) -> {
+        if (c1 instanceof Person && c2 instanceof Person) {
+            return 0; // Ambos son Person, se consideran iguales en la clasificación principal
+        } else if (c1 instanceof Company && c2 instanceof Company) {
+            return 0; // Ambos son Company, se consideran iguales en la clasificación principal
+        } else if (c1 instanceof Person && c2 instanceof Company) {
+            return -1; // Person se clasifica antes que Company
+        } else {
+            return 1; // Company se clasifica después de Person
         }
-        for (Contact aContact : contacts) {
-            
-        } 
+    };
+        PriorityQueue<Contact> contactsOrdered = new PriorityQueue<>(cmp);
+            for(Contact aContact: contacts){
+                contactsOrdered.offer(aContact);
+                
+            }
+            int hasta = contacts.size();
+            contacts.clear();
+            for(int i = 0; i<hasta; i++){
+                
+                Contact a = contactsOrdered.poll();
+                System.out.println(a.getName());
+                contacts.addLast(a);
+                
+            }
+            loadContactsView();
 
-        contacts = nContacts;
-         loadContactsView();
-         btnPreview();
+        
          
-        }
-        if (!rdbtnPC.isSelected()) {
-            ArrayList<Contact> nContacts = new ArrayList<>();
-            for (Contact aContact : contacts) {
-            if (aContact instanceof Company) {
-                nContacts.addLast(aContact);
-                
-            }
-        } 
-            
-            for (Contact aContact : contacts) {
-            
-            if (aContact instanceof Person) {
-                
-                nContacts.addLast(aContact);
-                
-            }
         }
         
-
-        contacts = nContacts;
-         loadContactsView();
-         btnPreview();
-         
-        }
         
     }
     
@@ -419,8 +405,7 @@ public class ContactVisualizationController implements Initializable {
             for(int i = 0; i<hasta; i++){
                 
                 Contact a = contactsOrdered.poll();
-                System.out.println(a.getName());
-                System.out.println(a.getPhones().getFirst().getNumber());
+                
                 contacts.addLast(a);
                 
             }
@@ -432,7 +417,7 @@ public class ContactVisualizationController implements Initializable {
 
     public void filterByInput(KeyEvent keyEvent) {
         String condition = filterBy.getValue();
-        
+        if(!rdbtnPersons.isSelected() && !rdbtnCompanies.isSelected()){
         if (condition == null || condition.equals("Nombre") ){
             //limpiamos la lista
             contacts.clear();
@@ -460,21 +445,29 @@ public class ContactVisualizationController implements Initializable {
             }
             loadContactsView();
         }
+        }
+        
 
         
     }
     public void filterBy() {
         String condition = filterBy.getValue();
             if(rdbtnAll.isSelected()){
-                contacts = contactsBackup;
+                contacts.clear();
+                contacts.addAll(contactsBackup);
+                
                 loadContactsView();
             }
         if (rdbtnPersons.isSelected() ){
-                contacts = contactsPersons;
+                contacts.clear();
+                contacts.addAll(contactsPersons);
+                
                 loadContactsView();
             }
             if ( rdbtnCompanies.isSelected()){
-                contacts = contactsCompanies;
+                contacts.clear();
+                contacts.addAll(contactsCompanies);
+                
                 loadContactsView();
             }
     }
