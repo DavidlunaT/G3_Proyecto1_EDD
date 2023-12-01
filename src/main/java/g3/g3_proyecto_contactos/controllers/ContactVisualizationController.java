@@ -74,6 +74,7 @@ public class ContactVisualizationController implements Initializable {
 
     public static List<Contact> contacts;
     public static List<Contact> contactsBackup;
+//    public static List<Contact> contactsFavorites;
     public static List<Contact> contactsPersons = new ArrayList<>();
     public static List<Contact> contactsCompanies  = new ArrayList<>();
 
@@ -107,6 +108,7 @@ public class ContactVisualizationController implements Initializable {
 
         filterBy.setItems(opciones);
         filterBy.setValue("Nombre");
+        rdbtnAll.setSelected(true);
        
 
     }
@@ -149,6 +151,9 @@ public class ContactVisualizationController implements Initializable {
         }
         contactsBackup = General.loadContacts();
         for(Contact aContact: General.loadContacts()){
+//            if(aContact.isFavorite()){
+//                contactsFavorites.addLast(aContact);
+//            }
             if (aContact instanceof Person) {
                 
                 contactsPersons.addLast(aContact);
@@ -331,6 +336,7 @@ public class ContactVisualizationController implements Initializable {
                 
             }
             loadContactsView();
+            btnPreview();
                 
         }
         else if(rdbtnPN.isSelected()){
@@ -350,6 +356,7 @@ public class ContactVisualizationController implements Initializable {
                 
             }
             loadContactsView();
+            btnPreview();
                 
         }
     }
