@@ -35,6 +35,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 /**
  * FXML Controller class
@@ -72,17 +74,12 @@ public class ContactDetailController implements Initializable {
     @FXML
     private HBox rootPhotos;
     @FXML
-    private ImageView loationIcon;
-    @FXML
-    private Label headerPhone1;
-    @FXML
     private Button btnBack;
     @FXML
     private Button btnDelete;
     @FXML
     private Button btnEdit;
-    @FXML
-    private ImageView pfp;
+    
     @FXML
     private VBox rootMap;
     @FXML
@@ -93,8 +90,17 @@ public class ContactDetailController implements Initializable {
     private HBox photosList;
     @FXML
     private Label lbName;
+    @FXML
+    private Circle pfp;
     
     public static Contact c;
+    @FXML
+    private ImageView locationIcon;
+    @FXML
+    private Label typeAddress;
+    @FXML
+    private ImageView imvMap;
+    
     
     /**
      * Initializes the controller class.
@@ -102,40 +108,48 @@ public class ContactDetailController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(c);
+        loadImage(c.getPhoto());
+        setName();
+        loadDefaultPhone();
+        loadDefaultMail();
+        loadDefaultAddress();
+        loadMoreData();
     }
     public void switchToContactVisualization() {
-        try {
-            App.setRoot("contactVisualization");
-        } catch (IOException ex) {
-        }
+        try {App.setRoot("contactVisualization");} catch (IOException ex) {}       
     }
     
     
     public void loadImage(String imageUrl){
-        Image img = new Image("file:" + App.path + "photos/" + imageUrl, 50, 0, true, false);
-        pfp.setImage(img);
-        pfp.setStyle("-fx-border-radius: 50%;");
+        Image img = new Image("file:" + App.path + "photos/" + imageUrl, 1000, 0, true, false);
+        pfp.setFill(new ImagePattern(img));
     }
     
-    public void loadDefaultPhone(List<Phone> phones){
-        phones = new ArrayList<>();
+    public void setName(){
+        lbName.setText(c.getName());
+    }
+    
+    public void loadDefaultPhone(){
+        List<Phone> phones = c.getPhones();
         Phone defaultPhone = phones.get(0);
         headerPhone.setText(defaultPhone.getLabel());
         phone.setText(defaultPhone.getNumber());
     }
     
-    public void loadDefaultMail(List<Email> emails){
-        emails = new ArrayList<>();
+    public void loadDefaultMail(){
+        List<Email> emails = c.getEmails();
         Email defaultEmail = emails.get(0);
         typeMail.setText(defaultEmail.getLabel());
         mail.setText(defaultEmail.getText());
     }
     
-    public void loadDefaultAddress(List<Address> addresses){
-        addresses = new ArrayList<>();
+    public void loadDefaultAddress(){
+        List<Address> addresses = c.getAddresses();
         Address defaultAddress = addresses.get(0);
-        typeMail.setText(defaultAddress.getLabel());
-        mail.setText(writeAddress(defaultAddress));
+        if(defaultAddress != null){
+            typeAddress.setText(defaultAddress.getLabel());
+            address.setText(writeAddress(defaultAddress));
+        }        
     }
     
     public String writeAddress(Address add){
@@ -150,12 +164,13 @@ public class ContactDetailController implements Initializable {
         //loadMatchingContactsNodes();
     }
     
-    private void nodeStyle(Node node) {       
+    private Node nodeStyle(Node node) {       
         node.setStyle("-fx-background-radius: 10;" +
             "-fx-border-radius: 10;+"+
             "-fx-background-color: #F8F1E3;" +
             "-fx-border-color: #FBF8F2;"+
-            "-fx-border-width: 2; ");          
+            "-fx-border-width: 2; ");    
+        return node;
     }
     
     
@@ -164,8 +179,9 @@ public class ContactDetailController implements Initializable {
         lbDates.setPrefHeight(17);
         lbDates.setPrefWidth(462);
         dataRoot.getChildren().add(lbDates);
+        lbDates.setStyle("-fx-text-fill: #77897c");
     }
-    
+    //good
     private HBox loadDatesNodes(List<SpecialDate> spDs) {
         //mini hbox's generator
         HBox rootDates = new HBox();       
@@ -176,18 +192,25 @@ public class ContactDetailController implements Initializable {
             VBox container = styleSpecialDateMini(spD);
             rootDates.getChildren().add(container);
         }
+        rootDates.setAlignment(Pos.CENTER);
         return rootDates;
     }
     
+    //good
     private VBox styleSpecialDateMini(SpecialDate date){
        VBox miniContainer = new VBox();
-       miniContainer.setAlignment(Pos.CENTER);
-       nodeStyle(miniContainer);
+       miniContainer.setAlignment(Pos.CENTER); 
+       miniContainer.setPrefWidth(100);
        Label lbTypeDate = new Label(date.getLabel());
        lbTypeDate.setAlignment(Pos.CENTER);
        Label lbDate = new Label(date.getDate());
        lbDate.setAlignment(Pos.CENTER);
        miniContainer.getChildren().addAll(lbTypeDate, lbDate);
+       miniContainer.setStyle("-fx-background-radius: 10;" +
+               "-fx-border-radius: 10;" +
+               "-fx-background-color: #F8F1E3;"+
+               "-fx-border-color: #FBF8F2;"+
+               "-fx-border-width: 2;");              
        return miniContainer;
     }
     
@@ -197,12 +220,13 @@ public class ContactDetailController implements Initializable {
         ScrollPane scrP = new ScrollPane();
         scrP.prefWidth(451);
         scrP.prefHeight(59);
-        scrP.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrP.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrP.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrP.setStyle("-fx-background: #FBF8F2"
-                + "-fx-background-color: #FBF8F2");
-        //HBox dates = loadDatesNodes(c.getSpecialDates());
-        //scrP.getChildrenUnmodifiable(dates);
+        scrP.setStyle("-fx-background: #FBF8F2;"
+                + "-fx-background-color: #FBF8F2;");
+        HBox dates = loadDatesNodes(c.getSpecialDates());
+        dates.setAlignment(Pos.CENTER);
+        scrP.setContent(dates);
         dataRoot.getChildren().add(scrP);
     }
     
