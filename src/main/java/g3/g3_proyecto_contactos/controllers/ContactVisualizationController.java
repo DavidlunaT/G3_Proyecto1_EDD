@@ -66,6 +66,7 @@ public class ContactVisualizationController implements Initializable {
     public RadioButton rdbtnCompanies;
     public RadioButton rdbtnPersons;
     public ToggleGroup r1;
+    public Button btnFavorites;
     @FXML
     private Stage orderBy;
 
@@ -474,5 +475,8 @@ public class ContactVisualizationController implements Initializable {
                 
                 loadContactsView();
             }
+    }
+
+    public void favorites(ActionEvent actionEvent) {
     }
 }
