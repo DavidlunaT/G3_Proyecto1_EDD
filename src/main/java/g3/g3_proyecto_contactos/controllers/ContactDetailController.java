@@ -117,23 +117,20 @@ public class ContactDetailController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        System.out.println(c);
-        loadImage(c.getPhoto());
+        cImages = c.getImages();
+        
+        if(cImages.isEmpty()){
+            loadImage(c.getPhoto());
+        }else{
+            itImages = new CustomCircularIterator(cImages);
+            loadImage(itImages.next());
+        }
+        
         setName();
         loadDefaultPhone();
         loadDefaultMail();
         loadDefaultAddress();
         loadMoreData();
-
-        //cImages = c.getImages();
-        //if (cImages != null) {
-            //itImages = new CustomCircularIterator(cImages);
-            //loadImages();
-        //}
-
-        //btnNextImage.setOnAction(e -> nextImage());
-
 
     }
     @FXML
@@ -142,8 +139,7 @@ public class ContactDetailController implements Initializable {
     }
     @FXML
     public void switchToContactImages() {
-        try {App.setRoot("ContactImages");
-            System.out.println("paso images");} catch (IOException ex) {}       
+        try {App.setRoot("ContactImages");} catch (IOException ex) {}       
     }
 
     
@@ -298,6 +294,16 @@ public class ContactDetailController implements Initializable {
             General.saveContacts(ContactVisualizationController.contacts);
             switchToContactVisualization();
         }
+    }
+    
+    @FXML
+    public void nextImage(){
+        loadImage(itImages.next());
+    }
+    
+    @FXML
+    public void previousImage(){
+        loadImage(itImages.previous());
     }
     
     
