@@ -29,6 +29,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -352,6 +353,7 @@ public class RegisterPersonController implements Initializable {
 
     public HBox createContainerAddress(VBox mainContainer, Address a) {
         HBox cp = new HBox();
+        cp.setAlignment(Pos.CENTER);
         cp.getChildren().add(deleteContainer(cp, mainContainer));
         cp.getChildren().add(new TextField(a.getLabel()));
         cp.getChildren().add(createContainerDataAddress(a));
@@ -360,6 +362,7 @@ public class RegisterPersonController implements Initializable {
 
     public VBox createContainerDataAddress() {
         VBox vb = new VBox();
+        vb.setAlignment(Pos.CENTER);
         for (int i = 0; i < 5; i++) {
             vb.getChildren().add(new TextField());
         }
@@ -368,6 +371,7 @@ public class RegisterPersonController implements Initializable {
 
     public VBox createContainerDataAddress(Address a) {
         VBox vb = new VBox();
+        vb.setAlignment(Pos.CENTER);
         vb.getChildren().add(new TextField(a.getStreet()));
         vb.getChildren().add(new TextField(a.getSecondaryStreet()));
         vb.getChildren().add(new TextField(a.getPostalCode()));
@@ -377,7 +381,7 @@ public class RegisterPersonController implements Initializable {
     }
 
     public ComboBox createfilledComboBox(VBox mainContainer) {
-        ComboBox cb = new ComboBox();
+        ComboBox cb = new ComboBox();       
         if (mainContainer == vbPhones) {
             cb.getItems().addAll(Type_phone.values());
             cb.setValue(Type_phone.values()[0]);
@@ -423,6 +427,7 @@ public class RegisterPersonController implements Initializable {
 
     public Button deleteContainer(HBox containerData, VBox mainContainer) {
         Button b = new Button("-");
+        b.setStyle("-fx-background-color: #FBF8F2");
         EventHandler<ActionEvent> eventoClick = (ActionEvent event) -> {
             int index = mainContainer.getChildren().indexOf(containerData);
             mainContainer.getChildren().remove(index);

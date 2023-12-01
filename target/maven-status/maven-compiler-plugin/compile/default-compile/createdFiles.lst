@@ -1,16 +1,1 @@
 module-info.class
-<<<<<<< HEAD
-=======
-g3\g3_proyecto_contactos\enums\Type_phone.class
-g3\g3_proyecto_contactos\controllers\ContactDetailController.class
-g3\g3_proyecto_contactos\models\Address.class
-g3\g3_proyecto_contactos\dataStructures\LinkedList.class
-g3\g3_proyecto_contactos\dataStructures\ArrayList.class
-g3\g3_proyecto_contactos\models\Phone.class
-g3\g3_proyecto_contactos\models\Contact.class
-g3\g3_proyecto_contactos\models\Relation.class
-g3\g3_proyecto_contactos\dataStructures\ArrayList$1.class
-g3\g3_proyecto_contactos\models\Person.class
-g3\g3_proyecto_contactos\models\Email.class
-g3\g3_proyecto_contactos\dataStructures\CustomCircularIterator.class
->>>>>>> 5be8ad2932c698e19a73b911b5568a1c9b54ff50

@@ -16,3 +16,7 @@
 .rootContact{
     -fx-background-color: #5A8165;   
 }
+
+.text-field {
+    -fx-prompt-text-fill: #5A8165;
+}

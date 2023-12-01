@@ -12,24 +12,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="740.0" prefWidth="480.0" style="-fx-background-color: #FBF8F2;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.ContactVisualizationController">
+<AnchorPane id="AnchorPane" prefHeight="740.0" prefWidth="480.0" style="-fx-background-color: #FBF8F2;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="g3.g3_proyecto_contactos.controllers.ContactVisualizationController">
    <children>
-      <VBox fx:id="listDisplay" layoutY="150.0" prefHeight="530.0" prefWidth="481.0" />
-      <HBox fx:id="labelNameroot" alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="481.0">
-         <children>
-            <Label alignment="BOTTOM_LEFT" prefHeight="41.0" prefWidth="200.0" text="Contact List" textAlignment="CENTER" textFill="#3a5d44">
-               <padding>
-                  <Insets right="30.0" />
-               </padding>
-               <font>
-                  <Font name="Arial" size="20.0" />
-               </font>
-            </Label>
-         </children>
+      <VBox fx:id="listDisplay" layoutY="150.0" prefHeight="532.0" prefWidth="481.0">
          <opaqueInsets>
-            <Insets right="10.0" />
-         </opaqueInsets>
-      </HBox>
+            <Insets top="20.0" />
+         </opaqueInsets></VBox>
       <HBox fx:id="addContactRoot" layoutX="-3.0" layoutY="682.0" prefHeight="80.0" prefWidth="484.0" style="-fx-background-color: #82BB92;">
          <children>
             <Label alignment="TOP_LEFT" prefHeight="24.0" prefWidth="220.0" text="Contacts" textFill="#fbf8f2">
@@ -47,26 +35,43 @@
             </Button>
          </children>
       </HBox>
-      <Button fx:id="btnPreview" layoutX="16.0" layoutY="78.0" mnemonicParsing="false" onAction="#btnPreview" text="Preview" />
-      <Button fx:id="loadContactsView" layoutX="16.0" layoutY="53.0" mnemonicParsing="false" onAction="#loadContactsView" text="Next" />
-      <ComboBox fx:id="filterBy" layoutX="348.0" layoutY="78.0" onAction="#filterBy" prefHeight="25.0" prefWidth="102.0" promptText="Filtrar Por:" />
-      <RadioButton fx:id="rdbtnPC" layoutX="230.0" layoutY="57.0" mnemonicParsing="false" onAction="#TypeSelected" text="Type" />
-      <RadioButton fx:id="rdbtnName" layoutX="302.0" layoutY="57.0" mnemonicParsing="false" onAction="#nameSelected" text="Name">
+      <ComboBox fx:id="filterBy" layoutX="15.0" layoutY="81.0" onAction="#filterBy" prefHeight="27.0" prefWidth="106.0" promptText="Filtrar por:" style="-fx-background-color: #82BB92;" styleClass="text-field" stylesheets="@../styles/contactvisualization.css" />
+      <RadioButton fx:id="rdbtnPC" layoutX="143.0" layoutY="58.0" mnemonicParsing="false" onAction="#TypeSelected" text="Type" textFill="#77897c" />
+      <RadioButton fx:id="rdbtnName" layoutX="209.0" layoutY="58.0" mnemonicParsing="false" onAction="#nameSelected" text="Name" textFill="#77897c">
          <toggleGroup>
             <ToggleGroup fx:id="np" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="rdbtnPN" layoutX="365.0" layoutY="57.0" mnemonicParsing="false" onAction="#pNSelected" text="Phone Number" toggleGroup="$np" />
-      <Label layoutX="162.0" layoutY="57.0" text="Order By:" />
-      <TextField fx:id="filterInput" layoutX="96.0" layoutY="78.0" onKeyTyped="#filterByInput" prefHeight="25.0" prefWidth="250.0" />
-      <Button layoutX="16.0" layoutY="112.0" mnemonicParsing="false" text="Contactos" />
-      <Button fx:id="btnFavorites" layoutX="110.0" layoutY="112.0" mnemonicParsing="false" onAction="#favorites" text="Favotiros" />
-      <RadioButton fx:id="rdbtnAll" layoutX="234.0" layoutY="116.0" mnemonicParsing="false" onAction="#filterBy" text="Todos">
+      <RadioButton fx:id="rdbtnPN" layoutX="279.0" layoutY="59.0" mnemonicParsing="false" onAction="#pNSelected" text="Phone Number" textFill="#77897c" toggleGroup="$np" />
+      <Label layoutX="68.0" layoutY="59.0" prefHeight="17.0" prefWidth="75.0" text="Order By:" textFill="#77897c" />
+      <TextField fx:id="filterInput" layoutX="128.0" layoutY="81.0" onKeyTyped="#filterByInput" prefHeight="27.0" prefWidth="340.0" style="-fx-background-color: white;" />
+      <RadioButton fx:id="rdbtnAll" layoutX="153.0" layoutY="117.0" mnemonicParsing="false" onAction="#filterBy" text="Todos" textFill="#77897c">
          <toggleGroup>
             <ToggleGroup fx:id="r1" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="rdbtnCompanies" layoutX="302.0" layoutY="116.0" mnemonicParsing="false" onAction="#filterBy" text="Empresas" toggleGroup="$r1" />
-      <RadioButton fx:id="rdbtnPersons" layoutX="382.0" layoutY="116.0" mnemonicParsing="false" onAction="#filterBy" text="Personas" toggleGroup="$r1" />
+      <RadioButton fx:id="rdbtnCompanies" layoutX="222.0" layoutY="117.0" mnemonicParsing="false" onAction="#filterBy" text="Empresas" textFill="#77897c" toggleGroup="$r1" />
+      <RadioButton fx:id="rdbtnPersons" layoutX="304.0" layoutY="117.0" mnemonicParsing="false" onAction="#filterBy" text="Personas" textFill="#77897c" toggleGroup="$r1" />
+      <HBox fx:id="labelNameroot" alignment="CENTER_RIGHT" layoutY="1.0" prefHeight="44.0" prefWidth="484.0">
+         <children>
+            <Label alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" prefHeight="41.0" prefWidth="145.0" text="Contact List" textAlignment="CENTER" textFill="#3a5d44">
+               <padding>
+                  <Insets right="30.0" />
+               </padding>
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+            </Label>
+         </children>
+         <opaqueInsets>
+            <Insets right="10.0" />
+         </opaqueInsets>
+      </HBox>
+      <Button fx:id="btnPreview" alignment="CENTER" layoutX="15.0" layoutY="112.0" mnemonicParsing="false" onAction="#btnPreview" prefHeight="27.0" prefWidth="62.0" style="-fx-background-color: #82BB92;" text="Preview" textFill="#222020" />
+      <Button fx:id="loadContactsView" alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="81.0" layoutY="112.0" mnemonicParsing="false" onAction="#loadContactsView" prefHeight="27.0" prefWidth="62.0" style="-fx-background-color: #82BB92;" text="Next" textAlignment="CENTER" textFill="#111111">
+         <padding>
+            <Insets bottom="5.0" />
+         </padding>
+      </Button>
    </children>
 </AnchorPane>

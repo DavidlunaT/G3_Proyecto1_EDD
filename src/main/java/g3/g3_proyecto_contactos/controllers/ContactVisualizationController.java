@@ -45,6 +45,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
@@ -120,6 +121,8 @@ public class ContactVisualizationController implements Initializable {
         RegisterPersonController ct = new RegisterPersonController();
         fxmlLoader.setController(ct);
         ScrollPane root = fxmlLoader.load();
+        root.setStyle("-fx-background: black;"
+                + "-fx-background-color: black;");
         App.changeRoot(root);
 
     }
@@ -197,12 +200,15 @@ public class ContactVisualizationController implements Initializable {
                 + "-fx-background-color: #5A8165;"
                 + "-fx-border-color: #FBF8F2;"
                 + "-fx-border-width: 2;");
+        Circle crcImage = new Circle(20,20,20);
         
-        ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 50, 0, true, false));
-        imv.setStyle("-fx-background-radius: 100");
+        Image img = new Image("file:" + App.path + "photos/" + c.getPhoto(), 1000, 0, true, false);
+        crcImage.setFill(new ImagePattern(img));
+        
+        
         
         Label lb = new Label(c.getName()+"\n"+c.getPhones().get(0).getNumber());
-        lb.setMinHeight(70);
+        
         
         System.out.println(c.getName() + " "+c.getPhoto());
         
@@ -210,13 +216,13 @@ public class ContactVisualizationController implements Initializable {
 
         lb.setPadding(new Insets(10, 20, 10, 5));
         lb.setAlignment(Pos.TOP_LEFT);
-        lb.setMinHeight(30);
+        lb.setMinHeight(50);
 
-        lb.setFont(new Font("Arial", 12));
+        lb.setFont(new Font("Arial", 13));
 
         lb.setTextFill(Color.web("#FBF8F2"));
 
-        hbx.getChildren().addAll(imv, lb);
+        hbx.getChildren().addAll(crcImage, lb);
         rootA.getChildren().addAll(hbx);
         EventHandler<MouseEvent> eventoClick = new EventHandler<MouseEvent>() {
             @Override

@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="286.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" >
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="420.0" style="-fx-background-color: #FBF8F2;" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox prefHeight="631.0" prefWidth="284.0" spacing="40.0">
+      <VBox prefHeight="739.0" prefWidth="419.0" spacing="40.0" style="-fx-background-color: #FBF8F2;">
          <children>
             <HBox prefHeight="29.0" prefWidth="284.0" spacing="140.0">
                <children>
@@ -33,7 +33,7 @@
             </HBox>
             <HBox alignment="TOP_CENTER" prefHeight="131.0" prefWidth="250.0">
                <children>
-                  <AnchorPane prefHeight="131.0" prefWidth="100.0">
+                  <AnchorPane prefHeight="135.0" prefWidth="172.0">
                      <children>
                         <ImageView fx:id="imgMain" fitHeight="71.0" fitWidth="70.0" layoutX="18.0" layoutY="4.0" onMouseClicked="#addImages" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -60,7 +60,7 @@
                   </AnchorPane>
                </children>
             </HBox>
-            <VBox fx:id="vbPhones" prefHeight="22.0" prefWidth="250.0">
+            <VBox fx:id="vbPhones" alignment="CENTER" prefHeight="22.0" prefWidth="250.0">
                <children>
                   <Button fx:id="btnAddPhoneNumber" mnemonicParsing="false" onAction="#addPhoneNumber" prefHeight="25.0" prefWidth="265.0" text="+ Add Phone Number" />
                </children>
@@ -68,7 +68,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </VBox>
-            <VBox fx:id="vbEmails" prefHeight="24.0" prefWidth="250.0">
+            <VBox fx:id="vbEmails" alignment="CENTER" prefHeight="24.0" prefWidth="250.0">
                <children>
                   <Button fx:id="btnAddEmail" mnemonicParsing="false" onAction="#addEmail" prefHeight="25.0" prefWidth="264.0" text="+ Add Email" />
                </children>
@@ -76,7 +76,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </VBox>
-            <VBox fx:id="vbAddresses" prefHeight="50.0" prefWidth="270.0">
+            <VBox fx:id="vbAddresses" alignment="CENTER" prefHeight="50.0" prefWidth="270.0">
                <children>
                   <Button fx:id="btnAddAddress" mnemonicParsing="false" onAction="#addAddress" prefHeight="25.0" prefWidth="269.0" text="+ Add Address" />
                </children>
@@ -84,7 +84,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </VBox>
-            <VBox fx:id="vbSpecialDates" prefHeight="28.0" prefWidth="270.0">
+            <VBox fx:id="vbSpecialDates" alignment="CENTER" prefHeight="28.0" prefWidth="270.0">
                <children>
                   <Button fx:id="btnAddDate" mnemonicParsing="false" onAction="#addSpecialDate" prefHeight="25.0" prefWidth="265.0" text="+ Add Special Date" />
                </children>
