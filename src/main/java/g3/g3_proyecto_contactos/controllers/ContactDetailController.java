@@ -403,18 +403,31 @@ public void styleContact(Contact c, HBox hbx) {
 
     }
     public void loadRelatedContact(){
-        styleContact(itContacts.next(),RetatedContact);
+        try{
+            styleContact(itContacts.next(),RetatedContact);
+        }catch (Exception e){
+            e.getMessage();
+        }
+        
         
     }
 
     public void previewRelated(ActionEvent actionEvent) {
+        try{
         styleContact(itContacts.previous(),RetatedContact);
+        }catch (Exception e){
+            e.getMessage();
+        }
         
         
     }
 
     public void nextRelated(ActionEvent actionEvent) {
+        try{
         styleContact(itContacts.next(),RetatedContact);
+        }catch (Exception e){
+            e.getMessage();
+        }
     }
 
     
