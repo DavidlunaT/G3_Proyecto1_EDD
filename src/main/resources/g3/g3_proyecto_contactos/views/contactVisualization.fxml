@@ -60,7 +60,7 @@
       <Label layoutX="162.0" layoutY="57.0" text="Order By:" />
       <TextField fx:id="filterInput" layoutX="96.0" layoutY="78.0" onKeyTyped="#filterByInput" prefHeight="25.0" prefWidth="250.0" />
       <Button layoutX="16.0" layoutY="112.0" mnemonicParsing="false" text="Contactos" />
-      <Button layoutX="110.0" layoutY="112.0" mnemonicParsing="false" text="Favotiros" />
+      <Button fx:id="btnFavorites" layoutX="110.0" layoutY="112.0" mnemonicParsing="false" onAction="#favorites" text="Favotiros" />
       <RadioButton fx:id="rdbtnAll" layoutX="234.0" layoutY="116.0" mnemonicParsing="false" onAction="#filterBy" text="Todos">
          <toggleGroup>
             <ToggleGroup fx:id="r1" />
