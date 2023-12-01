@@ -123,6 +123,7 @@ public class ContactDetailController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         System.out.println(c);
+        loadIcons();
         loadImage(c.getPhoto());
         setName();
         loadDefaultPhone();
@@ -145,7 +146,12 @@ public class ContactDetailController implements Initializable {
         try {App.setRoot("contactVisualization");} catch (IOException ex) {}       
     }
 
-    
+    public void loadIcons(){
+        phoneIcon.setImage(new Image("file:" + App.path + "photos/" + "phoneIcon.png", 100, 0, true, false));
+        mailIcon.setImage(new Image("file:" + App.path + "photos/" + "mailIcon.png", 100, 0, true, false)); 
+        locationIcon.setImage(new Image("file:" + App.path + "photos/" + "locationIcon.png", 100, 0, true, false)); 
+        
+    }
     
     public void loadImage(String imageUrl){
         Image img = new Image("file:" + App.path + "photos/" + imageUrl, 1000, 0, true, false);

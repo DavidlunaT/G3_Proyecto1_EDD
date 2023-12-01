@@ -182,7 +182,7 @@ public class ContactVisualizationController implements Initializable {
         HBox rootA = new HBox();
         rootA.setAlignment(Pos.CENTER);
         rootA.setPadding(new Insets(1, 3, 1, 3));
-        rootA.setPrefHeight(10);
+        rootA.setPrefHeight(5);
         hbx.setPadding(new Insets(10, 5, 10, 5));
         hbx.setPrefWidth(450);
 
@@ -192,13 +192,11 @@ public class ContactVisualizationController implements Initializable {
                 + "-fx-border-color: #FBF8F2;"
                 + "-fx-border-width: 2;");
 
-
-        
-        ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 50, 1000, true, false));
+        ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 50, 0, true, false));
         imv.setStyle("-fx-background-radius: 100");
         
         Label lb = new Label(c.getName()+"\n"+c.getPhones().get(0).getNumber());
-
+        lb.setMinHeight(70);
         
         System.out.println(c.getName() + " "+c.getPhoto());
         
@@ -206,9 +204,9 @@ public class ContactVisualizationController implements Initializable {
 
         lb.setPadding(new Insets(10, 20, 10, 5));
         lb.setAlignment(Pos.TOP_LEFT);
-        lb.setMinHeight(54);
+        lb.setMinHeight(30);
 
-        lb.setFont(new Font("Arial", 15));
+        lb.setFont(new Font("Arial", 12));
 
         lb.setTextFill(Color.web("#FBF8F2"));
 
