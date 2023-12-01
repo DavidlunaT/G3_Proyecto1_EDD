@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="286.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" >
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="286.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox prefHeight="631.0" prefWidth="284.0" spacing="40.0">
          <children>
@@ -91,6 +91,11 @@
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
+            </VBox>
+            <VBox fx:id="vbRelations" prefHeight="28.0" prefWidth="270.0">
+               <children>
+                  <Button fx:id="btnAddRelation" mnemonicParsing="false" onAction="#addRelation" prefHeight="25.0" prefWidth="286.0" text="+ Add Relation" />
+               </children>
             </VBox>
          </children>
       </VBox>

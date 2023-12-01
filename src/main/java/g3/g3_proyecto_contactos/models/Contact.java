@@ -95,7 +95,7 @@ public abstract class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return "Contact{" + "name=" + name + ", images=" + images + ", phones=" + phones + ", addresses=" + addresses + ", emails=" + emails + ", specialDates=" + specialDates + ", Photo=" + Photo + '}';
+        return this.getName();
     }
 
     public boolean isFavorite() {
