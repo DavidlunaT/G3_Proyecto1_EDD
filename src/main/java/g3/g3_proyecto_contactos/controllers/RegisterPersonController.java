@@ -146,6 +146,7 @@ public class RegisterPersonController implements Initializable {
             p.setAddresses(addresses);
             p.setEmails(emails);
             p.setSpecialDates(specialDates);
+            p.setRelatedContacts(relations);
             if (images.isEmpty()) {
                 p.setPhoto(Contact.photoDefault);
                 images.addLast(Contact.photoDefault);
