@@ -80,8 +80,7 @@ public class ContactDetailController implements Initializable {
     @FXML
     private Button btnDelete;
     @FXML
-    private Button btnEdit;
-    
+    private Button btnEdit;   
     @FXML
     private VBox rootMap;
     @FXML
@@ -90,31 +89,25 @@ public class ContactDetailController implements Initializable {
     private Label lbMemories;
     @FXML
     private HBox photosList;
-
     @FXML
     private Label lbName;
     @FXML
     private Circle pfp;
-    
-
-    public static Contact c;
-
     @FXML
     private ImageView locationIcon;
     @FXML
     private Label typeAddress;
     @FXML
     private ImageView imvMap;
-    
-    
-
-    public List<String> cImages;
-    CustomCircularIterator<String> itImages;
     @FXML
     private Button btnNextImage;
     @FXML
     private Button btnPreviousImage;
+    
+    public static Contact c;
 
+    public List<String> cImages;
+    CustomCircularIterator<String> itImages;
 
     /**
      * Initializes the controller class.
@@ -145,8 +138,6 @@ public class ContactDetailController implements Initializable {
         try {App.setRoot("contactVisualization");} catch (IOException ex) {}       
     }
 
-    
-    
     public void loadImage(String imageUrl){
         Image img = new Image("file:" + App.path + "photos/" + imageUrl, 1000, 0, true, false);
         pfp.setFill(new ImagePattern(img));
@@ -159,13 +150,11 @@ public class ContactDetailController implements Initializable {
     public void loadDefaultPhone() {
         List<Phone> phones = c.getPhones();
         Phone defaultPhone = phones.get(0);
-        if(defaultPhone != null){
-            headerPhone.setText(defaultPhone.getLabel());
-            phone.setText(defaultPhone.getNumber());
-        }
+        headerPhone.setText(defaultPhone.getLabel());
+        phone.setText(defaultPhone.getNumber());
+        
     }
 
-    
     public void loadDefaultMail() {
         List<Email> emails = c.getEmails();
         Email defaultEmail = emails.get(0);
@@ -174,7 +163,6 @@ public class ContactDetailController implements Initializable {
             mail.setText(defaultEmail.getText());
         }
     }
-
 
     public void loadDefaultAddress() {
         List<Address> addresses = c.getAddresses();
@@ -204,7 +192,6 @@ public class ContactDetailController implements Initializable {
         return node;
     }
     
-    
     public void setSpecialDatesHeader(){
         Label lbDates = new Label("special dates");
         lbDates.setPrefHeight(17);
@@ -213,7 +200,7 @@ public class ContactDetailController implements Initializable {
         lbDates.setStyle("-fx-text-fill: #77897c");
 
     }
-    //good
+
     private HBox loadDatesNodes(List<SpecialDate> spDs) {
         //mini hbox's generator
         HBox rootDates = new HBox();       
@@ -245,7 +232,6 @@ public class ContactDetailController implements Initializable {
                "-fx-border-width: 2;");              
        return miniContainer;
     }
-    
     
     private void loadSpecialDatesSection() {
         //setting main roots
