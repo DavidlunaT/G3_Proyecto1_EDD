@@ -426,8 +426,9 @@ public class RegisterPersonController implements Initializable {
     }
 
     public Button deleteContainer(HBox containerData, VBox mainContainer) {
-        Button b = new Button("-");
-        b.setStyle("-fx-background-color: #FBF8F2");
+        Button b = new Button("-");       
+        b.setStyle("-fx-background-color: #82BB92"
+                + "");
         EventHandler<ActionEvent> eventoClick = (ActionEvent event) -> {
             int index = mainContainer.getChildren().indexOf(containerData);
             mainContainer.getChildren().remove(index);
