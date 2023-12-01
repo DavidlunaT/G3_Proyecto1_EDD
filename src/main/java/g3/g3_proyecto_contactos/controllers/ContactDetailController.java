@@ -127,23 +127,20 @@ public class ContactDetailController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        System.out.println(c);
-        loadIcons();
-        loadImage(c.getPhoto());
+        cImages = c.getImages();
+        
+        if(cImages.isEmpty()){
+            loadImage(c.getPhoto());
+        }else{
+            itImages = new CustomCircularIterator(cImages);
+            loadImage(itImages.next());
+        }
+
         setName();
         loadDefaultPhone();
         loadDefaultMail();
         loadDefaultAddress();
         loadMoreData();
-
-        //cImages = c.getImages();
-        //if (cImages != null) {
-            //itImages = new CustomCircularIterator(cImages);
-            //loadImages();
-        //}
-
-        //btnNextImage.setOnAction(e -> nextImage());
-
 
     }
     @FXML
@@ -152,8 +149,7 @@ public class ContactDetailController implements Initializable {
     }
     @FXML
     public void switchToContactImages() {
-        try {App.setRoot("ContactImages");
-            System.out.println("paso images");} catch (IOException ex) {}       
+        try {App.setRoot("ContactImages");} catch (IOException ex) {}       
     }
 
     public void loadIcons(){
@@ -315,11 +311,20 @@ public class ContactDetailController implements Initializable {
         }
     }
 
-
-    public void previousImage(ActionEvent actionEvent) {
+    
+    @FXML
+    public void nextImage(){
+        loadImage(itImages.next());
     }
-
-    public void nextImage(ActionEvent actionEvent) {
+    
+    @FXML
+    public void previousImage(){
+        loadImage(itImages.previous());
     }
+    
+    
+
+
+   
 }
 
