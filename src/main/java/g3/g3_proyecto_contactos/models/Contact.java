@@ -132,15 +132,12 @@ public abstract class Contact implements Serializable {
         int i =0;
         for(Phone ts: thisNumbers){
             for(Phone os: otherNumbers){
-                System.out.println("ts Number:"+ts.getNumber());
-                System.out.println("os Number:"+os.getNumber());
                 if(ts.getNumber().equals(os.getNumber())){
                     i++;
                 }
                 
             }
         }
-        System.out.println(i);
         return i;
     }
     
