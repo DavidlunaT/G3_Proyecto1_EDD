@@ -5,6 +5,7 @@
 package g3.g3_proyecto_contactos.controllers;
 
 import g3.g3_proyecto_contactos.App;
+import static g3.g3_proyecto_contactos.controllers.ContactVisualizationController.contacts;
 import g3.g3_proyecto_contactos.dataStructures.ArrayList;
 import g3.g3_proyecto_contactos.dataStructures.CustomCircularIterator;
 import g3.g3_proyecto_contactos.interfaces.List;
@@ -25,6 +26,7 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,11 +38,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 
 /**
  * FXML Controller class
@@ -49,6 +54,11 @@ import javafx.scene.shape.Circle;
  */
 public class ContactDetailController implements Initializable {
 
+    public Button btnPrevious;
+    public Button btnNext;
+    public HBox RetatedContact;
+    public Button btnPreviewRelated;
+    public Button btnNextRelated;
     @FXML
     private HBox rootBtns;
     @FXML
@@ -117,7 +127,9 @@ public class ContactDetailController implements Initializable {
     private Button btnNextImage;
     @FXML
     private Button btnPreviousImage;
-    private CustomCircularIterator<Contact> itContacts;
+    private CustomCircularIterator<Contact> itContacts = new CustomCircularIterator<>(c.getRelatedContacts());
+    
+    
 
 
 
@@ -127,23 +139,20 @@ public class ContactDetailController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        System.out.println(c);
-        loadIcons();
-        loadImage(c.getPhoto());
+        cImages = c.getImages();
+        
+        if(cImages.isEmpty()){
+            loadImage(c.getPhoto());
+        }else{
+            itImages = new CustomCircularIterator(cImages);
+            loadImage(itImages.next());
+        }
+
         setName();
         loadDefaultPhone();
         loadDefaultMail();
         loadDefaultAddress();
         loadMoreData();
-
-        //cImages = c.getImages();
-        //if (cImages != null) {
-            //itImages = new CustomCircularIterator(cImages);
-            //loadImages();
-        //}
-
-        //btnNextImage.setOnAction(e -> nextImage());
-
 
     }
     @FXML
@@ -152,8 +161,7 @@ public class ContactDetailController implements Initializable {
     }
     @FXML
     public void switchToContactImages() {
-        try {App.setRoot("ContactImages");
-            System.out.println("paso images");} catch (IOException ex) {}       
+        try {App.setRoot("ContactImages");} catch (IOException ex) {}       
     }
 
     public void loadIcons(){
@@ -315,11 +323,115 @@ public class ContactDetailController implements Initializable {
         }
     }
 
+    
+    @FXML
+    public void nextImage(){
+        loadImage(itImages.next());
+    }
+    
+    @FXML
+    public void previousImage(){
+        loadImage(itImages.previous());
+    }
+    
+    
+public void styleContact(Contact c, HBox hbx) {
+        HBox rootA = new HBox();
+        rootA.setAlignment(Pos.CENTER);
+        rootA.setPadding(new Insets(1, 3, 1, 3));
+        rootA.setPrefHeight(5);
+        hbx.setPadding(new Insets(10, 5, 10, 5));
+        hbx.setPrefWidth(450);
 
-    public void previousImage(ActionEvent actionEvent) {
+        hbx.setStyle("-fx-background-radius: 10;"
+                + "-fx-border-radius: 10;"
+                + "-fx-background-color: #5A8165;"
+                + "-fx-border-color: #FBF8F2;"
+                + "-fx-border-width: 2;");
+
+        ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 50, 0, true, false));
+        imv.setStyle("-fx-background-radius: 100");
+        
+        Label lb = new Label(c.getName()+"\n"+c.getPhones().get(0).getNumber());
+        lb.setMinHeight(70);
+        
+        System.out.println(c.getName() + " "+c.getPhoto());
+        
+
+
+        lb.setPadding(new Insets(10, 20, 10, 5));
+        lb.setAlignment(Pos.TOP_LEFT);
+        lb.setMinHeight(30);
+
+        lb.setFont(new Font("Arial", 12));
+
+        lb.setTextFill(Color.web("#FBF8F2"));
+
+        hbx.getChildren().addAll(imv, lb);
+        rootA.getChildren().addAll(hbx);
+        EventHandler<MouseEvent> eventoClick = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (c instanceof Person) {
+                    Person p = new Person(c.getName(), new ArrayList<Phone>());
+                    if (contacts.contains(p)) {
+                        int ind = contacts.indexOf(p);
+                        ContactDetailController.c = contacts.get(ind);
+                    }
+                } else if (c instanceof Company) {
+                    Company comp = new Company(c.getName(), new ArrayList<Phone>());
+                    if (contacts.contains(comp)) {
+                        int ind = contacts.indexOf(comp);
+                        ContactDetailController.c = contacts.get(ind);
+                    }
+                }
+                switchToContactDetail();
+            }
+        };
+        rootA.setOnMouseClicked(eventoClick);
+        //listDisplay.getChildren().add(rootA);
     }
 
-    public void nextImage(ActionEvent actionEvent) {
+    public void switchToContactDetail() {
+        try {App.setRoot("contactDetail");} catch (IOException ex) {}
+
+        try {
+            App.setRoot("contactDetail");
+                    
+        } catch (IOException ex) {
+        }
+
     }
+    public void loadRelatedContact(){
+        try{
+            styleContact(itContacts.next(),RetatedContact);
+        }catch (Exception e){
+            e.getMessage();
+        }
+        
+        
+    }
+
+    public void previewRelated(ActionEvent actionEvent) {
+        try{
+        styleContact(itContacts.previous(),RetatedContact);
+        }catch (Exception e){
+            e.getMessage();
+        }
+        
+        
+    }
+
+    public void nextRelated(ActionEvent actionEvent) {
+        try{
+        styleContact(itContacts.next(),RetatedContact);
+        }catch (Exception e){
+            e.getMessage();
+        }
+    }
+
+    
+
+   
 }
 
