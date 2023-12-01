@@ -10,18 +10,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="420.0" style="-fx-background-color: #FBF8F2;" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="420.0" style="-fx-background: #FBF8F2; -fx-background-color: #FBF8F2;" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox prefHeight="739.0" prefWidth="419.0" spacing="40.0" style="-fx-background-color: #FBF8F2;">
          <children>
             <HBox prefHeight="29.0" prefWidth="284.0" spacing="140.0">
                <children>
-                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#switchToContactVisualization" prefHeight="25.0" prefWidth="72.0" text="Cancel">
+                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#switchToContactVisualization" prefHeight="25.0" prefWidth="72.0" style="-fx-background-color: #82BB92;" text="Cancel" textFill="WHITE">
                      <HBox.margin>
-                        <Insets />
+                        <Insets right="120.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#savePerson" prefHeight="25.0" prefWidth="71.0" text="Save">
+                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#savePerson" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: #82BB92;" text="Save" textFill="WHITE">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -31,20 +31,20 @@
                   <Insets left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="TOP_CENTER" prefHeight="131.0" prefWidth="250.0">
+            <HBox alignment="TOP_CENTER" prefHeight="190.0" prefWidth="419.0">
                <children>
-                  <AnchorPane prefHeight="135.0" prefWidth="172.0">
+                  <AnchorPane prefHeight="162.0" prefWidth="172.0">
                      <children>
-                        <ImageView fx:id="imgMain" fitHeight="71.0" fitWidth="70.0" layoutX="18.0" layoutY="4.0" onMouseClicked="#addImages" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgMain" fitHeight="139.0" fitWidth="143.0" layoutX="17.0" onMouseClicked="#addImages" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../photos/default.png" />
                            </image></ImageView>
-                        <Button fx:id="btnChange" layoutX="29.0" layoutY="74.0" mnemonicParsing="false" onAction="#switchToRegisterCompany" text="P or C" />
+                        <Button fx:id="btnChange" layoutX="61.0" layoutY="149.0" mnemonicParsing="false" onAction="#switchToRegisterCompany" style="-fx-background-color: #82BB92;" text="P or C" textFill="WHITE" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefWidth="170.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="77.0" prefWidth="170.0">
+                        <VBox alignment="CENTER" prefHeight="170.0" prefWidth="170.0">
                            <children>
                               <TextField fx:id="txtName" focusTraversable="false" prefHeight="25.0" prefWidth="149.0" promptText="Name" />
                               <TextField fx:id="txtSecondName" promptText="Second Name" />
@@ -62,7 +62,7 @@
             </HBox>
             <VBox fx:id="vbPhones" alignment="CENTER" prefHeight="22.0" prefWidth="250.0">
                <children>
-                  <Button fx:id="btnAddPhoneNumber" mnemonicParsing="false" onAction="#addPhoneNumber" prefHeight="25.0" prefWidth="265.0" text="+ Add Phone Number" />
+                  <Button fx:id="btnAddPhoneNumber" mnemonicParsing="false" onAction="#addPhoneNumber" prefHeight="25.0" prefWidth="265.0" style="-fx-background-color: #82BB92;" text="+ Add Phone Number" textFill="WHITE" />
                </children>
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
@@ -70,7 +70,7 @@
             </VBox>
             <VBox fx:id="vbEmails" alignment="CENTER" prefHeight="24.0" prefWidth="250.0">
                <children>
-                  <Button fx:id="btnAddEmail" mnemonicParsing="false" onAction="#addEmail" prefHeight="25.0" prefWidth="264.0" text="+ Add Email" />
+                  <Button fx:id="btnAddEmail" mnemonicParsing="false" onAction="#addEmail" prefHeight="25.0" prefWidth="264.0" style="-fx-background-color: #82BB92;" text="+ Add Email" textFill="WHITE" />
                </children>
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
@@ -78,7 +78,7 @@
             </VBox>
             <VBox fx:id="vbAddresses" alignment="CENTER" prefHeight="50.0" prefWidth="270.0">
                <children>
-                  <Button fx:id="btnAddAddress" mnemonicParsing="false" onAction="#addAddress" prefHeight="25.0" prefWidth="269.0" text="+ Add Address" />
+                  <Button fx:id="btnAddAddress" mnemonicParsing="false" onAction="#addAddress" prefHeight="25.0" prefWidth="269.0" style="-fx-background-color: #82BB92;" text="+ Add Address" textFill="WHITE" />
                </children>
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
@@ -86,7 +86,7 @@
             </VBox>
             <VBox fx:id="vbSpecialDates" alignment="CENTER" prefHeight="28.0" prefWidth="270.0">
                <children>
-                  <Button fx:id="btnAddDate" mnemonicParsing="false" onAction="#addSpecialDate" prefHeight="25.0" prefWidth="265.0" text="+ Add Special Date" />
+                  <Button fx:id="btnAddDate" mnemonicParsing="false" onAction="#addSpecialDate" prefHeight="25.0" prefWidth="265.0" style="-fx-background-color: #82BB92;" text="+ Add Special Date" textFill="WHITE" />
                </children>
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
