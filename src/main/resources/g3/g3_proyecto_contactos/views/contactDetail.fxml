@@ -38,13 +38,7 @@
             </Button>
          </children>
       </HBox>
-<<<<<<< HEAD
-      <HBox fx:id="rootImg" alignment="CENTER" prefHeight="171.0" prefWidth="480.0" spacing="15.0">
-         <children>
-            <Button fx:id="btnPreviousImage" mnemonicParsing="false" onAction="#previousImage" text="&lt;" />
-            <ImageView fx:id="pfp" fitHeight="181.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="btnNextImage" mnemonicParsing="false" onAction="#nextImage" text="&gt;" />
-=======
+
       <VBox fx:id="rootImg" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
             <Circle fx:id="pfp" fill="WHITE" radius="84.0" stroke="#5a8165" strokeType="INSIDE" strokeWidth="8.0" />
@@ -53,7 +47,6 @@
                   <Font name="Arial Black" size="15.0" />
                </font>
             </Label>
->>>>>>> 193a8943abdc01d9ebe642dfe221ace51e684e84
          </children>
       </VBox>
       <ScrollPane hbarPolicy="NEVER" prefHeight="499.0" prefWidth="480.0" style="-fx-background-color: #FBF8F2;" vbarPolicy="NEVER">
