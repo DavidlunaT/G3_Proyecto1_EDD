@@ -39,7 +39,7 @@
          </children>
       </HBox>
 
-      <HBox fx:id="rootImg" alignment="CENTER" prefHeight="171.0" prefWidth="480.0" spacing="15.0">
+      <HBox fx:id="rootImg" alignment="CENTER" prefHeight="171.0" prefWidth="480.0" spacing="15.0"/>
          <children>
             <Button fx:id="btnPreviousImage" mnemonicParsing="false" onAction="#previousImage" text="&lt;" />
             <ImageView fx:id="pfp" fitHeight="181.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
