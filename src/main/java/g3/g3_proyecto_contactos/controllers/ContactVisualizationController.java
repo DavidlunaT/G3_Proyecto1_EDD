@@ -94,7 +94,6 @@ public class ContactVisualizationController implements Initializable {
         contModNext = 0;
         contModPreview = 0;
         loadContactsList();
-        System.out.println(contacts.size());
         if (!contacts.isEmpty()) {
             loadContactsView();
 

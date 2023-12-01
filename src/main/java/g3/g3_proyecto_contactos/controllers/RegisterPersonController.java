@@ -152,7 +152,6 @@ public class RegisterPersonController implements Initializable {
                 for(Contact c: ContactVisualizationController.contacts){
                     if(c.similarNumber(p)>0){
                         validNumber++;
-                        //System.out.println(validNumber);
                     }
                 }
                 

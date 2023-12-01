@@ -110,10 +110,6 @@ public class ContactDetailController implements Initializable {
 
     public List<String> cImages;
     CustomCircularIterator<String> itImages;
-    @FXML
-    private Button btnNextImage;
-    @FXML
-    private Button btnPreviousImage;
 
 
     /**
@@ -140,9 +136,14 @@ public class ContactDetailController implements Initializable {
 
 
     }
-
+    @FXML
     public void switchToContactVisualization() {
         try {App.setRoot("contactVisualization");} catch (IOException ex) {}       
+    }
+    @FXML
+    public void switchToContactImages() {
+        try {App.setRoot("ContactImages");
+            System.out.println("paso images");} catch (IOException ex) {}       
     }
 
     
@@ -298,5 +299,7 @@ public class ContactDetailController implements Initializable {
             switchToContactVisualization();
         }
     }
+    
+    
 
 }
