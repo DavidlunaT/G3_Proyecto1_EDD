@@ -138,6 +138,7 @@ public class ContactDetailController implements Initializable {
 
         //btnNextImage.setOnAction(e -> nextImage());
 
+
     }
 
     public void switchToContactVisualization() {
