@@ -126,16 +126,20 @@ public class ContactDetailController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         cImages = c.getImages();
-        relations = c.getRelatedContacts();
+        if (c.getRelatedContacts() != null) {
+            relations = c.getRelatedContacts();
+            if (relations.isEmpty()) {
+                loadRelatedContact(c);
+            } else {
+                itRelations = new CustomCircularIterator(relations);
+            }
+        }
 
         if (cImages.isEmpty()) {
             loadImage(c.getPhoto());
         } else {
             itImages = new CustomCircularIterator(cImages);
             loadImage(itImages.next());
-        }
-        if (!relations.isEmpty()) {
-            itRelations = new CustomCircularIterator(relations);
         }
 
         setName();
@@ -407,6 +411,16 @@ public class ContactDetailController implements Initializable {
 
     }
 
+    public void loadRelatedContact(Contact c) {
+        try {
+            HBox hb = new HBox();
+            styleContact(c, hb);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+
+    }
+
     @FXML
     public void previewRelated(ActionEvent actionEvent) {
         try {
@@ -423,8 +437,8 @@ public class ContactDetailController implements Initializable {
     public void nextRelated(ActionEvent actionEvent) {
         try {
             RetatedContact.getChildren().clear();
-           HBox hb = new HBox();
-           styleContact(itRelations.next(), hb);
+            HBox hb = new HBox();
+            styleContact(itRelations.next(), hb);
         } catch (Exception e) {
             e.getMessage();
         }
