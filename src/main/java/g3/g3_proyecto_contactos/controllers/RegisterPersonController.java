@@ -94,11 +94,11 @@ public class RegisterPersonController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("antes de incializar guardado"+vbPhones.getChildren().size());
+        System.out.println("antes de incializar guardado" + vbPhones.getChildren().size());
         if (!isEdition) {
-            System.out.println("antes de incializar guardado"+vbPhones.getChildren().size());
+            System.out.println("antes de incializar guardado" + vbPhones.getChildren().size());
             inicializarguardado();
-            System.out.println("despues de incializar guardado"+vbPhones.getChildren().size());
+            System.out.println("despues de incializar guardado" + vbPhones.getChildren().size());
         }
 
         phones = new ArrayList<>();
@@ -147,21 +147,32 @@ public class RegisterPersonController implements Initializable {
                 p.setPhoto(this.images.get(0));
             }
             if (!isEdition) {
-                //validar que no se agregue un contacto con un nombre que ya existe
-                ContactVisualizationController.contacts.addLast(p);
-                General.saveContacts(ContactVisualizationController.contacts);
-            } else {
-                //busco elimino antiguo y agrego nuevoGeneral.saveContacts(ContactVisualizationController.contacts);
+                int validNumber = 0;
+                for(Contact c: ContactVisualizationController.contacts){
+                    if(c.similarNumber(p)>0){
+                        validNumber++;
+                        //System.out.println(validNumber);
+                    }
+                }
+                
+                if (ContactVisualizationController.contacts.contains(p) || validNumber!=0) {
+                    System.out.println("validNumber"+validNumber);
+                    General.errorUser("El contacto que tratas de registrar ya se encuentra en la lista");
+                } else {
+                    ContactVisualizationController.contacts.addLast(p);
+                    General.saveContacts(ContactVisualizationController.contacts);
+                }
 
-                Person tmpPerson = new Person(p.getName(), new ArrayList<Phone>());
-                if (ContactVisualizationController.contacts.contains(tmpPerson)) {
+            } else {
+                
+                Person tmpPerson = new Person(p.getName(), phones);
+                if (ContactVisualizationController.contacts.contains(ContactDetailController.c)) {
                     //int ind = ContactVisualizationController.contacts.indexOf(tmpPerson);
                     ContactVisualizationController.contacts.remove(ContactDetailController.c);
                     ContactVisualizationController.contacts.addLast(p);
                     General.saveContacts(ContactVisualizationController.contacts);
                 }
             }
-            
 
             try {
                 switchToContactVisualization();
@@ -213,9 +224,9 @@ public class RegisterPersonController implements Initializable {
     @FXML
     public void addPhoneNumber() {
         int currentSize = vbPhones.getChildren().size();
-        System.out.println("addPhoneNumber:"+currentSize);
+        System.out.println("addPhoneNumber:" + currentSize);
         vbPhones.getChildren().add(currentSize - 1, createContainer(vbPhones));
-        System.out.println("despues de addPhoneNumber:"+currentSize);
+        System.out.println("despues de addPhoneNumber:" + currentSize);
     }
 
     public void addPhoneNumber(Phone p) {
@@ -261,7 +272,7 @@ public class RegisterPersonController implements Initializable {
     }
 
     public void extractPhones() {
-        System.out.println("extractPhones: "+vbPhones.getChildren().size());
+        System.out.println("extractPhones: " + vbPhones.getChildren().size());
         for (int i = 0; i < vbPhones.getChildren().size() - 1; i++) {
             HBox hb = (HBox) vbPhones.getChildren().get(i);
             System.out.println(hb.getChildren().size());
@@ -448,7 +459,7 @@ public class RegisterPersonController implements Initializable {
 
     public void inicializarguardado() {
         //if(vbPhones.getChildren().size()!=){
-            
+
         //}
         addPhoneNumber();
         addEmail();

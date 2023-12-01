@@ -79,9 +79,11 @@ public class ContactVisualizationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         contModNext = 0;
         contModPreview = 0;
         loadContactsList();
+        System.out.println(contacts.size());
         if (!contacts.isEmpty()) {
             loadContactsView();
 
@@ -97,6 +99,7 @@ public class ContactVisualizationController implements Initializable {
         for(Contact c: contacts){
             System.out.println(c.getName());
         }
+        System.out.println(contacts.size());
     }
 
     @FXML
@@ -117,6 +120,9 @@ public class ContactVisualizationController implements Initializable {
         for (int i = 0; i < 7; i++) {
             HBox hb= new HBox();
             styleContact(contacts.get(i),hb);
+        }
+        for (Contact a : contacts) {
+            System.out.println(a.getName());
         }
     }
 
@@ -157,11 +163,17 @@ public class ContactVisualizationController implements Initializable {
                 + "-fx-border-color: #FBF8F2;"
                 + "-fx-border-width: 2;");
 
+
         
         ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 50, 1000, true, false));
         imv.setStyle("-fx-background-radius: 100");
         
         Label lb = new Label(c.getName()+"\n"+c.getPhones().get(0).getNumber());
+
+        
+        System.out.println(c.getName() + " "+c.getPhoto());
+        
+
 
         lb.setPadding(new Insets(10, 20, 10, 5));
         lb.setAlignment(Pos.TOP_LEFT);

@@ -6,6 +6,7 @@ package g3.g3_proyecto_contactos.controllers;
 
 import g3.g3_proyecto_contactos.App;
 import g3.g3_proyecto_contactos.dataStructures.ArrayList;
+import g3.g3_proyecto_contactos.dataStructures.CustomCircularIterator;
 import g3.g3_proyecto_contactos.interfaces.List;
 import g3.g3_proyecto_contactos.models.Address;
 import g3.g3_proyecto_contactos.models.Company;
@@ -20,6 +21,7 @@ import g3.g3_proyecto_contactos.utilties.General;
 import java.io.IOException;
 
 import java.net.URL;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -88,12 +90,15 @@ public class ContactDetailController implements Initializable {
     private Label lbMemories;
     @FXML
     private HBox photosList;
+
     @FXML
     private Label lbName;
     @FXML
     private Circle pfp;
     
+
     public static Contact c;
+
     @FXML
     private ImageView locationIcon;
     @FXML
@@ -102,11 +107,21 @@ public class ContactDetailController implements Initializable {
     private ImageView imvMap;
     
     
+
+    public List<String> cImages;
+    CustomCircularIterator<String> itImages;
+    @FXML
+    private Button btnNextImage;
+    @FXML
+    private Button btnPreviousImage;
+
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         System.out.println(c);
         loadImage(c.getPhoto());
         setName();
@@ -114,10 +129,21 @@ public class ContactDetailController implements Initializable {
         loadDefaultMail();
         loadDefaultAddress();
         loadMoreData();
+
+        //cImages = c.getImages();
+        //if (cImages != null) {
+            //itImages = new CustomCircularIterator(cImages);
+            //loadImages();
+        //}
+
+        //btnNextImage.setOnAction(e -> nextImage());
+
     }
+
     public void switchToContactVisualization() {
         try {App.setRoot("contactVisualization");} catch (IOException ex) {}       
     }
+
     
     
     public void loadImage(String imageUrl){
@@ -128,22 +154,28 @@ public class ContactDetailController implements Initializable {
     public void setName(){
         lbName.setText(c.getName());
     }
-    
-    public void loadDefaultPhone(){
+
+    public void loadDefaultPhone() {
         List<Phone> phones = c.getPhones();
         Phone defaultPhone = phones.get(0);
-        headerPhone.setText(defaultPhone.getLabel());
-        phone.setText(defaultPhone.getNumber());
+        if(defaultPhone != null){
+            headerPhone.setText(defaultPhone.getLabel());
+            phone.setText(defaultPhone.getNumber());
+        }
     }
+
     
-    public void loadDefaultMail(){
+    public void loadDefaultMail() {
         List<Email> emails = c.getEmails();
         Email defaultEmail = emails.get(0);
-        typeMail.setText(defaultEmail.getLabel());
-        mail.setText(defaultEmail.getText());
+        if(defaultEmail != null){
+            typeMail.setText(defaultEmail.getLabel());
+            mail.setText(defaultEmail.getText());
+        }
     }
-    
-    public void loadDefaultAddress(){
+
+
+    public void loadDefaultAddress() {
         List<Address> addresses = c.getAddresses();
         Address defaultAddress = addresses.get(0);
         if(defaultAddress != null){
@@ -151,17 +183,15 @@ public class ContactDetailController implements Initializable {
             address.setText(writeAddress(defaultAddress));
         }        
     }
-    
-    public String writeAddress(Address add){
-        return add.getStreet()+", "+add.getSecondaryStreet()+"-"
-                +add.getPostalCode()+", "+add.getCity()+", "+add.getCountry();
+
+    public String writeAddress(Address add) {
+        return add.getStreet() + ", " + add.getSecondaryStreet() + "-"
+                + add.getPostalCode() + ", " + add.getCity() + ", " + add.getCountry();
     }
-    
+
     public void loadMoreData(){        
         setSpecialDatesHeader();
         loadSpecialDatesSection();
-        //loadDatesNodes();
-        //loadMatchingContactsNodes();
     }
     
     private Node nodeStyle(Node node) {       
@@ -180,6 +210,7 @@ public class ContactDetailController implements Initializable {
         lbDates.setPrefWidth(462);
         dataRoot.getChildren().add(lbDates);
         lbDates.setStyle("-fx-text-fill: #77897c");
+
     }
     //good
     private HBox loadDatesNodes(List<SpecialDate> spDs) {
@@ -234,40 +265,51 @@ public class ContactDetailController implements Initializable {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    
-    
     @FXML
-    public void editContact() throws IOException{
+    public void editContact() throws IOException {
         RegisterPersonController.isEdition = true;
-        if(c instanceof Person){
+        if (c instanceof Person) {
             Person p = (Person) c;
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/registerPerson.fxml"));//no tiene el controlador especificado
             RegisterPersonController ct = new RegisterPersonController();
             fxmlLoader.setController(ct);
-            
-           ScrollPane root = fxmlLoader.load();
+
+            ScrollPane root = fxmlLoader.load();
             ct.fillFields(p);
             App.changeRoot(root);
-        }else{
+        } else {
             Company comp = (Company) c;
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/registerCompany.fxml"));//no tiene el controlador especificado
             RegisterCompanyController ct = new RegisterCompanyController();
             fxmlLoader.setController(ct);
-            
-           ScrollPane root = fxmlLoader.load();
+
+            ScrollPane root = fxmlLoader.load();
             ct.fillFields(comp);
             App.changeRoot(root);
         }
     }
-    
+
     @FXML
-    public void deleteContact(){
-        if(ContactVisualizationController.contacts.contains(c)){
+    public void deleteContact() {
+        if (ContactVisualizationController.contacts.contains(c)) {
             ContactVisualizationController.contacts.remove(c);
             General.saveContacts(ContactVisualizationController.contacts);
-             switchToContactVisualization();
-            
+            switchToContactVisualization();
         }
     }
-    
+
+    @FXML
+    public void nextImage() {
+        System.out.println("next");
+        loadImages();
+    }
+
+    @FXML
+    public void previousImage() {
+        System.out.println("previous");
+        Image img = new Image("file:" + App.path + "photos/" + itImages.previous(), 50, 0, true, false);
+        pfp.setImage(img);
+        pfp.setStyle("-fx-border-radius: 50%;");
+    }
+
 }

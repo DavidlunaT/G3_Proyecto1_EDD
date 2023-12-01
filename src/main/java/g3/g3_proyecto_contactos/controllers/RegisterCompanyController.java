@@ -94,6 +94,7 @@ public class RegisterCompanyController implements Initializable {
         addresses = new ArrayList<>();
         specialDates = new ArrayList<>();
         images = new ArrayList<>();
+        
 
     }
 
@@ -136,19 +137,31 @@ public class RegisterCompanyController implements Initializable {
             }
 
             if (!isEdition) {
+                int validNumber = 0;
+                for(Contact comp: ContactVisualizationController.contacts){
+                    if(comp.similarNumber(c)>0){
+                        validNumber++;
+                        //System.out.println(validNumber);
+                    }
+                }
                 
-                ContactVisualizationController.contacts.addLast(c);
+                if (ContactVisualizationController.contacts.contains(c) || validNumber!=0) {
+                    General.errorUser("El contacto que tratas de registrar ya se encuentra en la lista");
+                } else {
+                    ContactVisualizationController.contacts.addLast(c);
+                    General.saveContacts(ContactVisualizationController.contacts);
+                }
+
             } else {
-                //busco elimino antiguo y agrego nuevo
-                Company tmpCompany = new Company(c.getName(), new ArrayList<Phone>());
-                if (ContactVisualizationController.contacts.contains(tmpCompany)) {
+                
+                Company tmpCompany = new Company(c.getName(), phones);
+                if (ContactVisualizationController.contacts.contains(ContactDetailController.c)) {
                     //int ind = ContactVisualizationController.contacts.indexOf(tmpPerson);
                     ContactVisualizationController.contacts.remove(ContactDetailController.c);
                     ContactVisualizationController.contacts.addLast(c);
+                    General.saveContacts(ContactVisualizationController.contacts);
                 }
             }
-            General.saveContacts(ContactVisualizationController.contacts);
-
             try {
                 switchToContactVisualization();
             } catch (IOException ex) {
