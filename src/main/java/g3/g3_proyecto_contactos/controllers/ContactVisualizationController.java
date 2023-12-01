@@ -27,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.Set;
@@ -58,6 +59,11 @@ public class ContactVisualizationController implements Initializable {
     public RadioButton rdbtnPC;
     public RadioButton rdbtnName;
     public RadioButton rdbtnPN;
+    public TextField filterInput;
+    public RadioButton rdbtnAll;
+    public RadioButton rdbtnCompanies;
+    public RadioButton rdbtnPersons;
+    public ToggleGroup r1;
     @FXML
     private Stage orderBy;
 
@@ -66,6 +72,9 @@ public class ContactVisualizationController implements Initializable {
     public ComboBox<String> filterBy;
 
     public static List<Contact> contacts;
+    public static List<Contact> contactsBackup;
+    public static List<Contact> contactsPersons = new ArrayList<>();
+    public static List<Contact> contactsCompanies  = new ArrayList<>();
 
     private CustomCircularIterator<Contact> itContacts;
     private int contModNext;
@@ -90,11 +99,23 @@ public class ContactVisualizationController implements Initializable {
         loadContactsView();
         ObservableList<String> opciones = FXCollections.observableArrayList(
                 "Nombre",
-                "Ciudad",
                 "Telefono"
         );
 
         filterBy.setItems(opciones);
+        for(Contact aContact: contactsBackup){
+            
+            if (aContact instanceof Person) {
+                
+                contactsPersons.addLast(aContact);
+                
+            }
+            else {
+                contactsCompanies.addLast(aContact);
+                
+            }
+        }
+        
         
     }
 
@@ -113,6 +134,7 @@ public class ContactVisualizationController implements Initializable {
         listDisplay.getChildren().clear();
         Contact last = contacts.remove(contacts.size() - 1);
         contacts.addFirst(last);
+        
         for (int i = 0; i < 7; i++) {
             if(contacts.get(i)==null){
                 
@@ -130,6 +152,8 @@ public class ContactVisualizationController implements Initializable {
         if (!contacts.isEmpty()) {
             itContacts = new CustomCircularIterator<>(this.contacts);
         }
+        contactsBackup = General.loadContacts();
+        
 
     }
 
@@ -214,12 +238,13 @@ public class ContactVisualizationController implements Initializable {
                 nContacts.addLast(aContact);
                 
             }
-        }
-        for (Contact aContact : contacts) {
-            if (aContact instanceof Company) {
+            else if (aContact instanceof Company) {
                 nContacts.addLast(aContact);
                 
             }
+        }
+        for (Contact aContact : contacts) {
+            
         } 
 
         contacts = nContacts;
@@ -255,9 +280,7 @@ public class ContactVisualizationController implements Initializable {
     }
     
 
-    public void filterBy() {
-
-    }
+    
 
     public void handle(ActionEvent t) {
 
@@ -383,5 +406,54 @@ public class ContactVisualizationController implements Initializable {
             btnPreview();
                 
         }
+    }
+
+    public void filterByInput(KeyEvent keyEvent) {
+        String condition = filterBy.getValue();
+        
+        if (condition == null || condition.equals("Nombre") ){
+            //limpiamos la lista
+            contacts.clear();
+            //recorremos la listaBackup
+            for (Contact contact : contactsBackup) {
+                
+                if (contact.getName().toLowerCase().startsWith(filterInput.getText().toLowerCase())) {
+                    contacts.addLast(contact);
+                }
+            
+            }
+            loadContactsView();
+        }
+       
+        if (condition.equals("Telefono") ){
+            //limpiamos la lista
+            contacts.clear();
+            //recorremos la listaBackup
+            for (Contact contact : contactsBackup) {
+                
+                if (contact.getPhones().getFirst().getNumber().startsWith(filterInput.getText())) {
+                    contacts.addLast(contact);
+                }
+            
+            }
+            loadContactsView();
+        }
+
+        
+    }
+    public void filterBy() {
+        String condition = filterBy.getValue();
+            if(rdbtnAll.isSelected()){
+                contacts = contactsBackup;
+                loadContactsView();
+            }
+        if (rdbtnPersons.isSelected() ){
+                contacts = contactsPersons;
+                loadContactsView();
+            }
+            if ( rdbtnCompanies.isSelected()){
+                contacts = contactsCompanies;
+                loadContactsView();
+            }
     }
 }
