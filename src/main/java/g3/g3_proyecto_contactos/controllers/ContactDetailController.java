@@ -114,6 +114,7 @@ public class ContactDetailController implements Initializable {
     private Button btnNextImage;
     @FXML
     private Button btnPreviousImage;
+    private CustomCircularIterator<Contact> itContacts;
 
 
     /**
@@ -198,7 +199,7 @@ public class ContactDetailController implements Initializable {
 
     public void loadMoreData(){        
         setSpecialDatesHeader();
-        loadSpecialDatesSection();
+        loadSpecialDatesSection();        
     }
     
     private Node nodeStyle(Node node) {       
@@ -305,4 +306,7 @@ public class ContactDetailController implements Initializable {
         }
     }
 
+    
+    
 }
+

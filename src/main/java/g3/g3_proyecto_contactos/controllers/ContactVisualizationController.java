@@ -45,6 +45,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
 /**
@@ -81,9 +82,8 @@ public class ContactVisualizationController implements Initializable {
     private int contModNext;
     private int contModPreview;
 
-    //needed to create a scene
-    //CD: Contact Detail
-    private Scene sceneCD;
+    
+    
 
     /**
      * Initializes the controller class.
