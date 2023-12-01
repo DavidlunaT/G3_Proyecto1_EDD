@@ -196,7 +196,7 @@ public class ContactVisualizationController implements Initializable {
                 + "-fx-background-color: #5A8165;"
                 + "-fx-border-color: #FBF8F2;"
                 + "-fx-border-width: 2;");
-
+        
         ImageView imv = new ImageView(new Image("file:" + App.path + "photos/" + c.getPhoto(), 50, 0, true, false));
         imv.setStyle("-fx-background-radius: 100");
         
