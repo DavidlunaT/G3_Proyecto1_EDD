@@ -6,6 +6,7 @@ package g3.g3_proyecto_contactos.dataStructures;
 
 import g3.g3_proyecto_contactos.interfaces.List;
 import java.util.Iterator;
+import java.util.ListIterator;
 
 /**
  *
@@ -254,23 +255,9 @@ public class ArrayList<E> implements List<E> {
         //tamaño xd
         return effectiveSize;
     }
-//Implementar el iterador en una nueva clase -------------------------------------------------------------
-    public Iterator<E> iterator() {
-        Iterator<E> it = new Iterator<E>() {
-            int cursor = 0;
-            @Override
-            public boolean hasNext() {
-                return cursor < effectiveSize;
-            }
-
-            @Override
-            public E next() {
-                E element = elements[cursor];
-                cursor++;
-                return element;
-            }
-        };
-        return it;
+//Corrección-------------------------------------------------------------
+    public ListIterator<E> iterator() {
+        return new CustomCircularIterator(this);
     }
 //---------------------------------------------------------------------------------------------------------
 
