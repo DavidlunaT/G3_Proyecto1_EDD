@@ -18,7 +18,7 @@ public class Email {
     }
 
     public String getText() {
-        return emailAddress;
+        return new String(emailAddress);
     }
 
     public void setText(String emailAddress) {
@@ -26,7 +26,7 @@ public class Email {
     }
 
     public String getLabel() {
-        return label;
+        return new String(label);
     }
 
     public void setLabel(String label) {
